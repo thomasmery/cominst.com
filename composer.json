@@ -30,6 +30,30 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "wpml/wpml-core",
+        "version": "3.8.1",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://wpml.org/?download=6088&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1505396441&version=3.8.1"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "wpml/wpml-string-translation",
+        "version": "2.6.1",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://wpml.org/?download=6092&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1505396441&version=2.6.1"
+        }
+      }
     }
   ],
   "require": {
@@ -39,7 +63,18 @@
     "johnpbloch/wordpress": "4.8.1",
     "oscarotero/env": "^1.0",
     "roots/wp-password-bcrypt": "1.0.0",
-    "wpackagist-plugin/tailor": "*",
+
+    "wpackagist-plugin/admin-menu-editor": "*",
+    "wpackagist-plugin/ambrosite-nextprevious-page-link-plus": "*",
+    "wpackagist-plugin/taxonomy-terms-order": "*",
+    "wpackagist-plugin/cms-tree-page-view": "*",
+    "wpackagist-plugin/enable-media-replace": "*",
+    "wpackagist-plugin/members": "*",
+    "wpackagist-plugin/regenerate-thumbnails": "*",
+    "wpackagist-plugin/tinymce-advanced": "*",
+
+    "wpml/wpml-core": "*",
+    "wpml/wpml-string-translation": "*",
     "wpackagist-plugin/advanced-custom-fields": "*",
     "wpackagist-plugin/acf-to-rest-api": "*"
   },
