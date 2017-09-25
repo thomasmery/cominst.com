@@ -1,4 +1,6 @@
 // import external dependencies
+import React from 'react';
+import ReactDOM from 'react-dom';
 import 'jquery';
 
 // Import everything from autoload
@@ -22,3 +24,11 @@ const routes = new Router({
 
 // Load Events
 jQuery(document).ready(() => routes.loadEvents());
+
+ReactDOM.render(
+  <h1>this is my first React rendered node</h1>,
+  document.getElementById('app')
+);
+
+
+
