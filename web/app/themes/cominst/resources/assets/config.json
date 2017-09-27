@@ -1,6 +1,7 @@
 {
   "entry": {
     "main": [
+      "babel-polyfill",
       "./scripts/main.js",
       "./styles/main.scss"
     ],

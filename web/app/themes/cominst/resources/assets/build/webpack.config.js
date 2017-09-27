@@ -53,8 +53,21 @@ let webpackConfig = {
         test: /\.js$/,
         exclude: [/(node_modules|bower_components)(?![/|\\](bootstrap|foundation-sites))/],
         use: [
-          { loader: 'cache' },
-          { loader: 'buble', options: { objectAssign: 'Object.assign' } },
+          // { loader: 'cache' },
+          {
+            loader: 'babel',
+            options: {
+              presets: [
+                ['env', {
+                  targets: {
+                    browsers: ['last 4 versions'],
+                  },
+                  debug: true,
+                }],
+              ],
+              plugins: ['transform-react-jsx'],
+            },
+          },
         ],
       },
       {
