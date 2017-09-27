@@ -115,11 +115,12 @@ class App extends Component {
   render() {
 
     return <div>
+
       <Header title="Communication & Institutions">
         { this._renderNav() }
       </Header>
 
-      <Route path="/(en|fr)/" render={ () => <ScrollToRouteHelper targetComponent={this.sections['intro']} />} />
+      <Route path="/(en|fr)/" exact render={ () => <ScrollToRouteHelper targetComponent={this.sections['intro']} />} />
       <Route path="/(en|fr)/nos-services" render={ () => <ScrollToRouteHelper targetComponent={this.sections['nos-services']} />} />
       <Route path="/(en|fr)/nos-valeurs" render={ () => <ScrollToRouteHelper targetComponent={this.sections['nos-valeurs']} />} />
       <Route path="/(en|fr)/blog" render={ () => <ScrollToRouteHelper targetComponent={this.sections['blog']} />} />

@@ -13,7 +13,7 @@ class ScrollToRouteHelper extends Component {
     const header = document.querySelector('#app header');
     const headerHeight = header.offsetHeight;
     const offset = -headerHeight;
-    console.log(offset);// eslint-disable-line
+
     scrollToComponent(
       this.props.targetComponent,
       {
