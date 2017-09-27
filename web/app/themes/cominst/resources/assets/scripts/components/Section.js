@@ -18,8 +18,8 @@ class Section extends PureComponent {
       <Waypoint
         onEnter={ this._onEnter }
         onLeave={ this._onLeave }
-        topOffset={300}
-        bottomOffset={300}
+        topOffset={100}
+        bottomOffset="80%"
       >
         <section id={this.props.id} style={ { minHeight: 400, border: 'solid 2px green' } }>
           <div className="container">

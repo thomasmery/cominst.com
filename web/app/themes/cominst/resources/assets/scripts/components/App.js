@@ -15,6 +15,7 @@ import classNames from 'classnames';
  */
 import Header from './Header';
 import Section from './Section';
+import ScrollToRouteHelper from './ScrollToRouteHelper';
 
 /** Data */
 WPAPI.discover( appData.home_url )
@@ -35,6 +36,9 @@ class App extends Component {
 
   constructor () {
     super();
+
+    this.sections = {};
+
     this.state = {
       lang: {
         code: appData.lang || 'fr',
@@ -47,6 +51,8 @@ class App extends Component {
 
     this._onEnterSection = this._onEnterSection.bind(this);
     this._onLeaveSection = this._onLeaveSection.bind(this);
+
+    this._storeSectionRef = this._storeSectionRef.bind(this);
 
   }
 
@@ -69,7 +75,6 @@ class App extends Component {
   }
 
   _renderNav () {
-
     return (
       <nav>
         { this._renderNavLink( { text: 'Nos Services', slug: 'nos-services' } ) }
@@ -100,24 +105,54 @@ class App extends Component {
     console.log('onLeave', section.props.title);
   }
 
+  _storeSectionRef (element) {
+    if(!element) {
+      return;
+    }
+    this.sections[element.props.id] = element;
+  }
+
   render() {
 
     return <div>
       <Header title="Communication & Institutions">
         { this._renderNav() }
       </Header>
-      <Route path="/" render={
-          () => <Section title="Nos Services" id="nos-services" onEnter={ this._onEnterSection } onLeave={ this._onLeaveSection }></Section>
-        }
-      />
-      <Route path="/" render={
-          () => <Section title="Nos valeurs" id="nos-valeurs" onEnter={ this._onEnterSection } onLeave={ this._onLeaveSection }></Section>
-        }
-      />
-      <Route path="/" render={
-          () => <Section title="Blog" id="blog" onEnter={ this._onEnterSection } onLeave={ this._onLeaveSection }>{ this._renderPosts() }</Section>
-        }
-      />
+
+      <Route path="/(en|fr)/" render={ () => <ScrollToRouteHelper targetComponent={this.sections['intro']} />} />
+      <Route path="/(en|fr)/nos-services" render={ () => <ScrollToRouteHelper targetComponent={this.sections['nos-services']} />} />
+      <Route path="/(en|fr)/nos-valeurs" render={ () => <ScrollToRouteHelper targetComponent={this.sections['nos-valeurs']} />} />
+      <Route path="/(en|fr)/blog" render={ () => <ScrollToRouteHelper targetComponent={this.sections['blog']} />} />
+
+      <Section
+        title="Intro"
+        id="intro"
+        ref={this._storeSectionRef}
+        onEnter={ this._onEnterSection }
+        onLeave={ this._onLeaveSection }>
+      </Section>
+      <Section
+        title="Nos Services"
+        id="nos-services"
+        ref={this._storeSectionRef}
+        onEnter={ this._onEnterSection }
+        onLeave={ this._onLeaveSection }>
+      </Section>
+      <Section
+        title="Nos valeurs"
+        id="nos-valeurs"
+        ref={this._storeSectionRef}
+        onEnter={ this._onEnterSection }
+        onLeave={ this._onLeaveSection }>
+      </Section>
+      <Section
+        title="Blog"
+        id="blog"
+        ref={this._storeSectionRef}
+        onEnter={ this._onEnterSection }
+        onLeave={ this._onLeaveSection }>
+          { this._renderPosts() }
+        </Section>
     </div>
 
   }
