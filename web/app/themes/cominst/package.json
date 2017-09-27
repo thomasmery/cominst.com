@@ -24,7 +24,7 @@
   ],
   "eslintConfig": {
     "root": true,
-    "extends":[
+    "extends": [
       "eslint:recommended",
       "plugin:react/recommended"
     ],
@@ -75,7 +75,8 @@
   "stylelint": {
     "extends": "stylelint-config-standard",
     "rules": {
-      "no-empty-source": null
+      "no-empty-source": null,
+      "color-hex-case": "lower"
     }
   },
   "scripts": {
@@ -140,9 +141,14 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
+    "classnames": "^2.2.5",
     "jquery": "1.12.4 - 3",
     "popper.js": "^1.11.0",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
+    "react-waypoint": "^7.1.0",
+    "wpapi": "^1.1.2"
   }
 }

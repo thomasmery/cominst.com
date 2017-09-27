@@ -1,32 +1,14 @@
-// import external dependencies
+/** REACT */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'jquery';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-// Import everything from autoload
-import "./autoload/**/*"
-
-// import local dependencies
-import Router from './util/Router';
-import common from './routes/common';
-import home from './routes/home';
-import aboutUs from './routes/about';
-
-/** Populate Router instance with DOM routes */
-const routes = new Router({
-  // All pages
-  common,
-  // Home page
-  home,
-  // About Us page, note the change from about-us to aboutUs.
-  aboutUs,
-});
-
-// Load Events
-jQuery(document).ready(() => routes.loadEvents());
+import App from './components/App';
 
 ReactDOM.render(
-  <h1>this is my first React rendered node</h1>,
+  <Router>
+    <App />
+  </Router>,
   document.getElementById('app')
 );
 
