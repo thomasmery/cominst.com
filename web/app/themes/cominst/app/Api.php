@@ -13,4 +13,10 @@ class Api {
         $response = rest_do_request( $request );
         return $response->data;
     }
+
+    public static function get_primary_navigation() {
+        $request = new \WP_REST_Request( 'GET', '/wp-api-menus/v2/menu-locations/primary_navigation' );
+        $response = rest_do_request( $request );
+        return $response->data;
+    }
 }

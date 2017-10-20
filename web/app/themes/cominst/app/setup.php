@@ -25,12 +25,46 @@ add_action('wp_enqueue_scripts', function () {
         'appData',
         [
             'posts' => Api::get_posts(),
+            'primary_navigation' => Api::get_primary_navigation(),
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
             'home_url' => get_home_url(),
             'template_directory_uri' => get_stylesheet_directory_uri()
         ]
     );
 }, 100);
+
+// we need to get a translated menu for the REST API:
+// as we are requesting the menu per theme location
+// and that the wp-api-menus plugin directly request a menu
+// with the ID that is returned by get_theme_mod( 'nav_menu_locations' );
+// (this ID is the ID of the menu in the source language)
+// and then calls wp_get_nav_menu_object with this ID
+// and that WPML filters the requested menu in wp_nav_menu
+// before wp_get_nav_menu_object
+// we need to do our own filtering ...
+add_action(
+    'wp_get_nav_menu_object',
+    function($menu_obj, $menu) {
+        // get menu id
+        $menu_id = $menu;
+        if(is_object($menu)) {
+            $menu_id = $menu->term_id;
+        }
+        if(function_exists('icl_object_id')) {
+            $translated_menu_id = icl_object_id($menu_id, 'nav_menu');
+            if($menu_id !== $translated_menu_id) {
+                $menu_obj = wp_get_nav_menu_object($translated_menu_id);
+            }
+        }
+        return $menu_obj;
+    },
+    10,
+    2
+);
+
+/* add_action( 'init', function () {
+    wp_deregister_script('heartbeat');
+}); */
 
 /**
  * Theme setup

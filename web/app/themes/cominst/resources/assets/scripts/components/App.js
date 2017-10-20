@@ -5,15 +5,14 @@
  * External dependencies
  */
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import WPAPI from 'wpapi';
-
-import classNames from 'classnames';
 
 /**
  * Internal dependencies
  */
 import Header from './Header';
+import Nav from './Nav';
 import Section from './Section';
 import ScrollToRouteHelper from './ScrollToRouteHelper';
 
@@ -45,6 +44,7 @@ class App extends Component {
       },
       activeSectionId: null,
       data: {
+        primary_navigation: this._transformNavigationData(appData.primary_navigation),
         posts: appData.posts,
       },
     }
@@ -53,7 +53,24 @@ class App extends Component {
     this._onLeaveSection = this._onLeaveSection.bind(this);
 
     this._storeSectionRef = this._storeSectionRef.bind(this);
+    this._transformNavigationData = this._transformNavigationData.bind(this);
 
+  }
+
+  _transformNavigationData (data) {
+    return data.map(
+      (item) => {
+        const matchSlugAgainstUrl = item.url.match(/([a-zA-Z0-9-]*)\/?$/);
+        item.slug = matchSlugAgainstUrl[1] || '';
+
+        const path = item.url
+          .replace(appData.home_url, '')
+          .replace(/^[/]+|[/]+$/g, '');
+        item.path = `/${appData.lang}/${path}`;
+
+        return item;
+      }
+    );
   }
 
   componentDidMount () {
@@ -61,8 +78,8 @@ class App extends Component {
       (client) => {
         client.posts().then(
           (posts) =>
-            this.setState( () => {
-              return { data: { posts } }
+            this.setState( (state) => {
+              return { data: { ...state.data, posts } }
             }
           )
         )
@@ -72,28 +89,6 @@ class App extends Component {
 
   _renderPosts () {
     return this.state.data.posts.map((post) => <h3 key={ post.id }>{ post.title.rendered } </h3>)
-  }
-
-  _renderNav () {
-    return (
-      <nav>
-        { this._renderNavLink( { text: 'Nos Services', slug: 'nos-services' } ) }
-        { this._renderNavLink( { text: 'Nos valeurs', slug: 'nos-valeurs' } ) }
-        { this._renderNavLink( { text: 'Blog', slug: 'blog' } ) }
-      </nav>
-    );
-
-  }
-
-  _renderNavLink ({ text, slug }) {
-    return (
-      <Link
-        to={ `/${this.state.lang.code}/${slug}` }
-        className={ classNames( { active: slug === this.state.activeSectionId } ) }
-      >
-          { text }
-      </Link>
-    );
   }
 
   _onEnterSection (section) {
@@ -117,7 +112,7 @@ class App extends Component {
     return <div>
 
       <Header title="Communication & Institutions">
-        { this._renderNav() }
+        <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
       </Header>
 
       <Route path="/(en|fr)/" exact render={ () => <ScrollToRouteHelper targetComponent={this.sections['intro']} />} />
