@@ -65,7 +65,7 @@ let webpackConfig = {
                   debug: true,
                 }],
               ],
-              plugins: ['transform-react-jsx'],
+              plugins: ['transform-react-jsx', 'transform-object-rest-spread'],
             },
           },
         ],

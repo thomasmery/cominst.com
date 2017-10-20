@@ -73,8 +73,11 @@
     "wpackagist-plugin/regenerate-thumbnails": "*",
     "wpackagist-plugin/tinymce-advanced": "*",
 
+    "wpackagist-plugin/wp-api-menus": "*",
+
     "wpml/wpml-core": "*",
     "wpml/wpml-string-translation": "*",
+    
     "wpackagist-plugin/advanced-custom-fields": "*",
     "wpackagist-plugin/acf-to-rest-api": "*"
   },
