@@ -4,8 +4,19 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8260892da8ac5a30d99453f9b9e86e1b",
+    "content-hash": "88f7dfaad9f6e90025f9e1a6da2dd5f7",
     "packages": [
+        {
+            "name": "advanced-custom-fields/advanced-custom-fields-pro",
+            "version": "5.6.3",
+            "dist": {
+                "type": "zip",
+                "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=b3JkZXJfaWQ9MzcyODl8dHlwZT1wZXJzb25hbHxkYXRlPTIwMTQtMDgtMTMgMTY6MDI6MzY=",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "wordpress-plugin"
+        },
         {
             "name": "composer/installers",
             "version": "v1.2.0",
@@ -428,26 +439,6 @@
             "homepage": "https://wordpress.org/plugins/admin-menu-editor/"
         },
         {
-            "name": "wpackagist-plugin/advanced-custom-fields",
-            "version": "5.6.2",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/advanced-custom-fields/",
-                "reference": "tags/5.6.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.5.6.2.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/advanced-custom-fields/"
-        },
-        {
             "name": "wpackagist-plugin/ambrosite-nextprevious-page-link-plus",
             "version": "1.1",
             "source": {
@@ -469,15 +460,15 @@
         },
         {
             "name": "wpackagist-plugin/cms-tree-page-view",
-            "version": "1.3.4",
+            "version": "1.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cms-tree-page-view/",
-                "reference": "tags/1.3.4"
+                "reference": "tags/1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cms-tree-page-view.1.3.4.zip",
+                "url": "https://downloads.wordpress.org/plugin/cms-tree-page-view.1.4.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -509,15 +500,15 @@
         },
         {
             "name": "wpackagist-plugin/members",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/members/",
-                "reference": "tags/2.0.0"
+                "reference": "tags/2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/members.2.0.0.zip",
+                "url": "https://downloads.wordpress.org/plugin/members.2.0.1.zip",
                 "reference": null,
                 "shasum": null
             },

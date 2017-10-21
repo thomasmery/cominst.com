@@ -34,6 +34,18 @@
     {
       "type": "package",
       "package": {
+        "name": "advanced-custom-fields/advanced-custom-fields-pro",
+        "version": "5.6.3",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=b3JkZXJfaWQ9MzcyODl8dHlwZT1wZXJzb25hbHxkYXRlPTIwMTQtMDgtMTMgMTY6MDI6MzY="
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
         "name": "wpml/wpml-core",
         "version": "3.8.1",
         "type": "wordpress-plugin",
@@ -78,7 +90,7 @@
     "wpml/wpml-core": "*",
     "wpml/wpml-string-translation": "*",
     
-    "wpackagist-plugin/advanced-custom-fields": "*",
+    "advanced-custom-fields/advanced-custom-fields-pro": "*",
     "wpackagist-plugin/acf-to-rest-api": "*"
   },
   "require-dev": {
