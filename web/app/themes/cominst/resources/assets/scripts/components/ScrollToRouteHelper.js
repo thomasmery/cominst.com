@@ -8,7 +8,7 @@ import scrollToComponent from 'react-scroll-to-component';
 
 class ScrollToRouteHelper extends Component {
 
-  componentDidMount() {
+  _scrollToComponent () {
 
     const header = document.querySelector('#app header');
     const headerHeight = header.offsetHeight;
@@ -24,6 +24,11 @@ class ScrollToRouteHelper extends Component {
       }
     );
   }
+
+  componentDidMount() {
+    this._scrollToComponent();
+  }
+
   render () { return null; }
 
 }
@@ -33,6 +38,7 @@ ScrollToRouteHelper.propTypes = {
   duration: PropTypes.number,
   ease: PropTypes.string,
   offset: PropTypes.number,
+  location: PropTypes.object,
 }
 
 ScrollToRouteHelper.defaultProps = {

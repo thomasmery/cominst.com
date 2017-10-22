@@ -69,6 +69,11 @@ class App extends Component {
           .replace(/^[/]+|[/]+$/g, '');
         item.path = `/${appData.lang}/${path}`;
 
+        // level up with other api responses for other objects
+        // where id is lowercase
+        item.id = item.ID;
+        delete item.ID;
+
         return item;
       }
     );
@@ -92,13 +97,84 @@ class App extends Component {
     return this.state.data.posts.map((post) => <h3 key={ post.id }>{ post.title.rendered } </h3>)
   }
 
+  _renderSections () {
+    const objects = [
+      ...this.state.data.pages,
+    ];
+    const sections = this.state.data.primary_navigation.map(
+        (item) => {
+          let object;
+          switch(item.type) {
+            case 'post_type':
+              object = objects.filter(
+                (object) => object.id === item.object_id
+              )[0];
+              break;
+            case 'taxonomy':
+              object = item;
+              break;
+          }
+          return object ? (
+            <Section
+              key={item.id}
+              title={item.title}
+              id={item.slug}
+              ref={this._storeSectionRef}
+              onEnter={ this._onEnterSection }
+              onLeave={ this._onLeaveSection }>
+            </Section>
+          ) : '';
+        }
+    );
+    // add Home
+    sections.unshift(<Section
+      key="0"
+      title="Home"
+      id="home"
+      ref={this._storeSectionRef}
+      onEnter={ this._onEnterSection }
+      onLeave={ this._onLeaveSection }>
+    </Section>)
+    return sections;
+  }
+
+  _renderRoutes () {
+    const routes = this.state.data.primary_navigation.map(
+      (item) => (
+        <Route
+          key={item.id}
+          path={ item.path }
+          render={ (route_props) => {
+              return  this.sections[item.slug] ?
+                <ScrollToRouteHelper targetComponent={this.sections[item.slug]} { ...route_props } />
+                : null;
+            }
+          }
+        />
+      )
+    );
+    // add Home
+    routes.unshift(<Route
+      key="0"
+      path={ `/${this.state.lang.code}` }
+      exact
+      render={ (route_props) => {
+          return  this.sections.home ?
+            <ScrollToRouteHelper targetComponent={this.sections.home} { ...route_props } />
+            : null;
+        }
+      }
+    />)
+    return routes;
+  }
+
   _onEnterSection (section) {
     this.setState( { activeSectionId: section.props.id });
     console.log('onEnter', this.state.activeSectionId);
   }
 
-  _onLeaveSection (section) {
-    console.log('onLeave', section.props.title);
+  _onLeaveSection () {
+    // console.log('onLeave', section.props.title);
   }
 
   _storeSectionRef (element) {
@@ -112,44 +188,25 @@ class App extends Component {
 
     return <div>
 
-      <Header title="Communication & Institutions">
+      <Header
+        title="Communication & Institutions"
+        homeUrl={`/${this.state.lang.code}`}
+        ref={
+          (element) => {
+            if(!element) {
+              return;
+            }
+            this.headerRef = element;
+          }
+        }
+      >
         <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
       </Header>
 
-      <Route path="/(en|fr)/" exact render={ () => <ScrollToRouteHelper targetComponent={this.sections['intro']} />} />
-      <Route path="/(en|fr)/nos-services" render={ () => <ScrollToRouteHelper targetComponent={this.sections['nos-services']} />} />
-      <Route path="/(en|fr)/nos-valeurs" render={ () => <ScrollToRouteHelper targetComponent={this.sections['nos-valeurs']} />} />
-      <Route path="/(en|fr)/blog" render={ () => <ScrollToRouteHelper targetComponent={this.sections['blog']} />} />
+      { this._renderSections() }
 
-      <Section
-        title="Intro"
-        id="intro"
-        ref={this._storeSectionRef}
-        onEnter={ this._onEnterSection }
-        onLeave={ this._onLeaveSection }>
-      </Section>
-      <Section
-        title="Nos Services"
-        id="nos-services"
-        ref={this._storeSectionRef}
-        onEnter={ this._onEnterSection }
-        onLeave={ this._onLeaveSection }>
-      </Section>
-      <Section
-        title="Nos valeurs"
-        id="nos-valeurs"
-        ref={this._storeSectionRef}
-        onEnter={ this._onEnterSection }
-        onLeave={ this._onLeaveSection }>
-      </Section>
-      <Section
-        title="Blog"
-        id="blog"
-        ref={this._storeSectionRef}
-        onEnter={ this._onEnterSection }
-        onLeave={ this._onLeaveSection }>
-          { this._renderPosts() }
-        </Section>
+      { this._renderRoutes() }
+
     </div>
 
   }
