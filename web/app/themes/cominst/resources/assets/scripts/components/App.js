@@ -46,6 +46,7 @@ class App extends Component {
       data: {
         primary_navigation: this._transformNavigationData(appData.primary_navigation),
         posts: appData.posts,
+        pages: appData.pages,
       },
     }
 
