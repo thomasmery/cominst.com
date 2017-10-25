@@ -34,10 +34,11 @@ async function getClient(site_url) {
   }
 }
 
+
 class App extends Component {
 
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
 
     this.sections = {};
     this.targetSectionPath = null;
@@ -84,6 +85,38 @@ class App extends Component {
     );
   }
 
+  /**
+   * an array of objects that we use to build the content
+   */
+  _getDataStore () {
+    return [
+      ...this.state.data.pages,
+    ];
+  }
+
+  _buildSectionData (item) {
+    const objects = this._getDataStore();
+    let object = {};
+    object.type = item.type;
+    object.children = item.children.map(
+      (child) => this._buildSectionData(child)
+    );
+    switch (item.type) {
+      case 'post_type':
+        object = {
+          ...object,
+          ...objects.filter(
+            (object) => object.id === item.object_id
+          )[0],
+        }
+      break;
+      case 'taxonomy':
+      break;
+
+    }
+    return object;
+  }
+
   componentDidMount () {
     getClient(appData.home_url).then(
       (client) => {
@@ -103,26 +136,20 @@ class App extends Component {
   }
 
   _renderSections () {
-    const objects = [
-      ...this.state.data.pages,
-    ];
+    // build sections out of main menu
     const sections = this.state.data.primary_navigation.map(
         (item) => {
-          let object;
-          switch(item.type) {
-            case 'post_type':
-              object = objects.filter(
-                (object) => object.id === item.object_id
-              )[0];
-              break;
-            case 'taxonomy':
-              object = item;
-              break;
-          }
-          return object ? (
+          // we're extracting the object from the data store
+          // meaning that we need to have the object in store
+          // we'll add lazy fetching later if needed
+          // but we also populate the object with its children in case the menu_item states we need them
+          const data = this._buildSectionData(item);
+
+          return data ? (
             <Section
               key={item.id}
               title={item.title}
+              data={data}
               id={item.slug}
               path={item.path}
               ref={this._storeSectionRef}
@@ -138,6 +165,7 @@ class App extends Component {
       <Section
         key="0"
         title="Home"
+        data={ { ...appData.pages.filter((page)=>page.id == 103)[0], children: [] } }
         id="home"
         path={ `/${this.state.lang.code}` }
         ref={this._storeSectionRef}
@@ -179,7 +207,7 @@ class App extends Component {
             exact
             render={ (route_props) => {
                 //  here we need to check if the ref to the section has been stored so it can be used
-                // this helps as we're first rendering the page and the refs to the Sections are not accessible n fort render
+                // this helps as we're first rendering the page and the refs to the Sections are not accessible for render
                 //  we are also checking if we are not manually scrolling into a section
                 // if we are we will unmount the ScrollToRouteHelper component as soon as we enter another section
                 //  i.e. setState is called in _onEnterSection and thus the route is re-rendered but this time ... enteringSection is true

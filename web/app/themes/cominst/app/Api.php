@@ -32,8 +32,8 @@ class Api {
 
     public static function get_top_pages() {
         $params = [
-            'per_page' => 99, // max allowed is 99
-            'parent' => 0
+            'per_page' => 99, // max allowed is 99 - if more is needed > make anothe call and combine
+            // 'parent' => 0
         ];
         return self::get_pages($params);
     }
