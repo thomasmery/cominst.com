@@ -28,6 +28,7 @@ add_action('wp_enqueue_scripts', function () {
             'pages' => Api::get_top_pages(),
             'primary_navigation' => Api::get_primary_navigation(),
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
+            'languages' => icl_get_languages('skip_missing=0&orderby=code'),
             'home_url' => get_home_url(),
             'template_directory_uri' => get_stylesheet_directory_uri()
         ]

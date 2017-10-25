@@ -15,6 +15,7 @@ import WPAPI from 'wpapi';
  */
 import Header from './Header';
 import Nav from './Nav';
+import LangSwitcher from './LangSwitcher';
 import Section from './Section';
 import ScrollToRouteHelper from './ScrollToRouteHelper';
 
@@ -47,6 +48,7 @@ class App extends Component {
       },
       activeSectionId: null,
       data: {
+        languages: Object.keys(appData.languages).map((lang) => appData.languages[lang]),
         primary_navigation: this._transformNavigationData(appData.primary_navigation),
         posts: appData.posts,
         pages: appData.pages,
@@ -152,7 +154,7 @@ class App extends Component {
     const routes = [];
 
     // a route for Home
-    routes.unshift(<Route
+    routes.push(<Route
       key="0"
       path={ `/${this.state.lang.code}` }
       exact
@@ -243,6 +245,7 @@ class App extends Component {
         }
       >
         <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
+        <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
       </Header>
 
       { this._renderSections() }
