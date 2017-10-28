@@ -1,13 +1,43 @@
 {
     "key": "group_59ea3352940ad",
-    "title": "Champs supplémentaires pour éléments de menu",
-    "fields": false,
+    "title": "Champs supplémentaires pour éléments de contenu",
+    "fields": [
+        {
+            "key": "field_59f2f609e08ac",
+            "label": "Gabarit de contenu",
+            "name": "content_template",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "ContentContainer01": "Gabarit 1",
+                "ContentContainer02": "Gabarit 2",
+                "ContentContainer03": "Gabarit 3",
+                "ContentContainer04": "Gabarit 4"
+            },
+            "default_value": [
+                "ContentContainer01"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        }
+    ],
     "location": [
         [
             {
-                "param": "nav_menu_item",
+                "param": "post_type",
                 "operator": "==",
-                "value": "all"
+                "value": "page"
             }
         ]
     ],
@@ -19,5 +49,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1508612097
+    "modified": 1509101276
 }
