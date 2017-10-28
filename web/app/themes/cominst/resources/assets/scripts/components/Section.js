@@ -14,27 +14,13 @@ class Section extends PureComponent {
   }
 
   _renderContent () {
-    switch (this.props.data.type) {
-      case 'page':
-      case 'post':
-        return (
-          <div>
-            <p dangerouslySetInnerHTML={ { __html: this.props.data.content.rendered } } />
-            {
-              this.props.data.children.map(
-                (child) => (
-                  <div key={ child.id }>
-                    <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-                    <p dangerouslySetInnerHTML={ {__html: child.content.rendered } } />
-                  </div>
-                )
-              )
-            }
-          </div>
-        );
-      case 'taxonomy':
-        return 'THIS IS A TAXONOMY';
-    }
+    const {
+      ContentContainer,
+      data,
+    } = this.props;
+
+    return <ContentContainer data={data} />;
+
   }
 
   render () {
@@ -63,6 +49,7 @@ Section.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   data: PropTypes.object,
+  ContentContainer: PropTypes.func.isRequired,
   children: PropTypes.node,
   onEnter: PropTypes.func,
   onLeave: PropTypes.func,

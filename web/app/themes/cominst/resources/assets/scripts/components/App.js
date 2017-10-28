@@ -101,6 +101,7 @@ class App extends Component {
     object.children = item.children.map(
       (child) => this._buildSectionData(child)
     );
+    let contentContainer;
     switch (item.type) {
       case 'post_type':
         object = {
@@ -109,8 +110,14 @@ class App extends Component {
             (object) => object.id === item.object_id
           )[0],
         }
+        // convenient access to the template type
+        // also safe guard against non-existing ContentContainer Component by checking the component can be accessed
+        contentContainer = ContentContainers[object.acf.content_template];
+        object.content_template = contentContainer ? object.acf.content_template : 'ContentContainer01';
       break;
       case 'taxonomy':
+        object.content_template = 'ContentContainerTaxonomy';
+        object.posts = this.state.data.posts
       break;
 
     }
@@ -150,6 +157,7 @@ class App extends Component {
               key={item.id}
               title={item.title}
               data={data}
+              ContentContainer={ContentContainers[data.content_template]}
               id={item.slug}
               path={item.path}
               ref={this._storeSectionRef}
@@ -166,6 +174,7 @@ class App extends Component {
         key="0"
         title="Home"
         data={ { ...appData.pages.filter((page)=>page.id == 103)[0], children: [] } }
+        ContentContainer={ContentContainers['ContentContainerHome']}
         id="home"
         path={ `/${this.state.lang.code}` }
         ref={this._storeSectionRef}
