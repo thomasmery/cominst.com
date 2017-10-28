@@ -173,7 +173,7 @@ class App extends Component {
       <Section
         key="0"
         title="Home"
-        data={ { ...appData.pages.filter((page)=>page.id == 103)[0], children: [] } }
+        data={ { ...appData.pages.filter((page)=> page.id == 103 || page.id == 106)[0], children: [] } }
         ContentContainer={ContentContainers['ContentContainerHome']}
         id="home"
         path={ `/${this.state.lang.code}` }
