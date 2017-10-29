@@ -17,6 +17,7 @@ import Header from './Header';
 import Nav from './Nav';
 import LangSwitcher from './LangSwitcher';
 import Section from './Section';
+import * as ContentContainers from './content-containers';
 import ScrollToRouteHelper from './ScrollToRouteHelper';
 
 /** Data */
@@ -51,7 +52,9 @@ class App extends Component {
       data: {
         languages: Object.keys(appData.languages).map((lang) => appData.languages[lang]),
         primary_navigation: this._transformNavigationData(appData.primary_navigation),
-        posts: appData.posts,
+        posts: {
+          'post': appData.posts,
+        },
         pages: appData.pages,
       },
     }
@@ -115,9 +118,9 @@ class App extends Component {
         contentContainer = ContentContainers[object.acf.content_template];
         object.content_template = contentContainer ? object.acf.content_template : 'ContentContainer01';
       break;
-      case 'taxonomy':
-        object.content_template = 'ContentContainerTaxonomy';
-        object.posts = this.state.data.posts
+      case 'post_type_archive':
+        object.content_template = 'ContentContainerArchive';
+        object.posts = this.state.data.posts[item.object] || []
       break;
 
     }
@@ -130,7 +133,15 @@ class App extends Component {
         client.posts().then(
           (posts) =>
             this.setState( (state) => {
-              return { data: { ...state.data, posts } }
+              return {
+                data: {
+                  ...state.data,
+                  posts: {
+                    ...state.data.posts,
+                    'post': posts,
+                  },
+                },
+              }
             }
           )
         )
@@ -138,8 +149,8 @@ class App extends Component {
     );
   }
 
-  _renderPosts () {
-    return this.state.data.posts.map((post) => <h3 key={ post.id }>{ post.title.rendered } </h3>)
+  _renderPosts ( post_type = 'post' ) {
+    return this.state.data.posts[post_type].map( (post) => <h3 key={ post.id }>{ post.title.rendered } </h3> )
   }
 
   _renderSections () {

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ContentContainerTaxonomy = function({ data }) {
+const ContentContainerArchive = function({ data }) {
   return (
     <div>
-      <h3>Content Container Taxonomy</h3>
+      <h3>Content Container Archive</h3>
       {
         data.posts.map(
           (post) => (
@@ -18,8 +18,8 @@ const ContentContainerTaxonomy = function({ data }) {
     );
 }
 
-ContentContainerTaxonomy.propTypes = {
+ContentContainerArchive.propTypes = {
   data: PropTypes.object,
 }
 
-export default ContentContainerTaxonomy;
+export default ContentContainerArchive;

@@ -11,6 +11,7 @@ class Nav extends Component {
         { this.props.data.map(
             (item) => {
               return this._renderNavLink({
+                id: item.id,
                 path: item.path,
                 title: item.title,
                 slug: item.slug,
@@ -22,10 +23,10 @@ class Nav extends Component {
     );
   }
 
-  _renderNavLink ({ path, title, slug }) {
+  _renderNavLink ({ id, path, title, slug }) {
     return (
       <Link
-        key={ slug }
+        key={ id }
         to={ path }
         className={ classNames( { active: slug === this.props.activeSectionId } ) }
       >
