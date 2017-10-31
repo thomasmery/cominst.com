@@ -19,6 +19,16 @@ class Api {
     }
 
     /**
+    * post categories
+    */
+    public static function get_categories( $per_page = 99 ) {
+        $request = new \WP_REST_Request( 'GET', '/wp/v2/categories' );
+        $request->set_param( 'per_page', $per_page );
+        $response = rest_do_request( $request );
+        return $response->data;
+    }
+
+    /**
     * pages
     */
     public static function get_pages( $params ) {
