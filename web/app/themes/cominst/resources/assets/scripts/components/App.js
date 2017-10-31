@@ -67,8 +67,31 @@ class App extends Component {
 
   }
 
+  /**
+   * takes a js object of the site tree structure
+   * and apply some necessaty cleanups and transforms
+   * @param {object} data
+   */
   _transformNavigationData (data) {
-    return data.map(
+
+    const supported_item_types = [
+      'post_type',
+      'post_type_archive',
+    ];
+
+    // remove unwanted elements
+    const sanitized_data = data.filter( (item ) => {
+      // we do not support every WP menu item type at this time
+      // only 'post_type' and 'post_type_archive' are supported
+      return supported_item_types.reduce(
+        (value, currentValue) => {
+          return item.type === currentValue || value
+        },
+        false
+      );
+    });
+
+    return sanitized_data.map(
       (item) => {
         const matchSlugAgainstUrl = item.url.match(/([a-zA-Z0-9-]*)\/?$/);
         item.slug = matchSlugAgainstUrl[1] || '';
