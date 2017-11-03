@@ -29,6 +29,16 @@ class Api {
     }
 
     /**
+    * taxonomies
+    */
+    public static function get_taxonomies( $per_page = 99 ) {
+        $request = new \WP_REST_Request( 'GET', '/wp/v2/taxonomies' );
+        $request->set_param( 'per_page', $per_page );
+        $response = rest_do_request( $request );
+        return $response->data;
+    }
+
+    /**
     * pages
     */
     public static function get_pages( $params ) {

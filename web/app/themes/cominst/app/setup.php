@@ -26,6 +26,7 @@ add_action('wp_enqueue_scripts', function () {
         [
             'posts' => Api::get_posts(),
             'categories' => Api::get_categories(),
+            'taxonomies' => Api::get_taxonomies(),
             'pages' => Api::get_top_pages(),
             'primary_navigation' => Api::get_primary_navigation(),
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
