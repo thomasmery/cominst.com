@@ -21,3 +21,4 @@ web/.htaccess
 vendor/*
 !vendor/.gitkeep
 /web/app/themes/foxhound
+/cominst_local.sql
