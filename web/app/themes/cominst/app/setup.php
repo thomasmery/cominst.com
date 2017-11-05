@@ -27,6 +27,7 @@ add_action('wp_enqueue_scripts', function () {
             'posts' => Api::get_posts(),
             'categories' => Api::get_categories(),
             'taxonomies' => Api::get_taxonomies(),
+            'post_types' => Api::get_post_types(),
             'pages' => Api::get_top_pages(),
             'primary_navigation' => Api::get_primary_navigation(),
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
@@ -181,3 +182,11 @@ add_action('after_setup_theme', function () {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
     });
 });
+
+add_action( 'send_headers', function() {
+	if ( ! did_action('rest_api_init') && $_SERVER['REQUEST_METHOD'] == 'HEAD' ) {
+		header( 'Access-Control-Allow-Origin: *' );
+		header( 'Access-Control-Expose-Headers: Link' );
+		header( 'Access-Control-Allow-Methods: HEAD' );
+	}
+} );

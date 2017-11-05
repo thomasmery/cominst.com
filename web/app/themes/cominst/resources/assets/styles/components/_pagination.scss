@@ -1,0 +1,17 @@
+.pagination {
+  li {
+    margin-left: 10px;
+
+    &.disabled {
+      display: none;
+    }
+
+    &.active {
+      color: red;
+
+      a {
+        color: inherit;
+      }
+    }
+  }
+}

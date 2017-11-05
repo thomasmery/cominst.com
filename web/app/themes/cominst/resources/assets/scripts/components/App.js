@@ -54,7 +54,9 @@ class App extends Component {
         primary_navigation: this._transformNavigationData(appData.primary_navigation),
         post_types: {
           'post': {
-            posts: appData.posts,
+            ...appData.post_types.post,
+            posts: appData.posts.data,
+            paging: appData.posts.paging,
           },
         },
         taxonomies: this._transformTaxonomyData(appData.taxonomies),
@@ -76,8 +78,6 @@ class App extends Component {
     this._getClient = this._getClient.bind(this);
     this._getPosts = this._getPosts.bind(this);
     this._updatePosts = this._updatePosts.bind(this);
-
-
 
   }
 
@@ -122,12 +122,26 @@ class App extends Component {
       return;
     }
 
+    const categories = [];
+    if(params.filter( (param) => param.name === 'categories' ).length) {
+      const category_id = params.filter( (param) => param.name === 'categories' )[0].value;
+      const category = this.state.data.taxonomies.category.terms.filter( (term) => term.id === category_id)[0];
+      categories.push(category)
+    }
+
     this.setState(
       (state) => ({ data: {
           ...state.data,
           isFetching: {
             ...state.data.isFetching,
             post: true,
+          },
+          post_types: {
+            ...state.data.post_types,
+            'post': {
+              ...state.data.post_types.post,
+              categories,
+            },
           },
         },
       })
@@ -136,11 +150,18 @@ class App extends Component {
     this._getClient().then(
       (client) => {
         const posts_request = client.posts();
+        posts_request.param( 'per_page', 3 );
         params.forEach(
           (param) => posts_request.param( param.name, param.value )
         );
         posts_request.then(
           (posts) => {
+            const paging = {
+              ...posts._paging,
+              currentPage: params.filter( (param) => param.name === 'page' ).length ?
+                params.filter( (param) => param.name === 'page' )[0].value : 1,
+            };
+
             this.setState(
               (state) => ({ data: {
                   ...state.data,
@@ -151,6 +172,8 @@ class App extends Component {
                   post_types: {
                     ...state.data.post_types,
                     'post': {
+                      ...state.data.post_types.post,
+                      paging,
                       posts,
                     },
                   },
@@ -177,14 +200,43 @@ class App extends Component {
    * as each 'term' has a 'path' property (added by us) we can detect for which path we need the data
   */
   _updatePosts (path) {
+
+    const params = [];
+
+    // extract pagination parameters
+    const pagination_params_matches = path.match(/(page)\/([0-9]+)/);
+    if(pagination_params_matches && pagination_params_matches.length === 3) {
+      params.push( {
+        name: pagination_params_matches[1],
+        value: pagination_params_matches[2],
+      } );
+    }
+
+    // will trigger a fetch for all posts when path is (or contains) the post post_type_archive path
+    this.state.data.primary_navigation.map(
+      (item) => {
+        if(
+          item.type === 'post_type_archive' &&
+          item.object === 'post' &&
+          path.replace(/\/?$/, '').match(item.path.replace(/\/?$/, '/all'))
+        ) {
+
+            this._getPosts( params );
+          }
+      }
+    );
+
+    //
     Object.keys(this.state.data.taxonomies).forEach(
       (taxonomy) => {
         this.state.data.taxonomies[taxonomy].terms.forEach(
           (term) => {
-            // only fetch if we have changed route
-            if( term.path.replace(/\/?$/, '') === path.replace(/\/?$/, '')) {
+            // only fetch if route is term archive path
+            if( path.replace(/\/?$/, '').match(term.path.replace(/\/?$/, ''))) {
               // get posts for the taxonomy term
-              this._getPosts( [ { name: this.state.data.taxonomies[taxonomy].rest_base, value: term.id } ] );
+              params.push( { name: this.state.data.taxonomies[taxonomy].rest_base, value: term.id } );
+              this._getPosts( params );
+              return;
             }
           }
         )
@@ -360,6 +412,8 @@ class App extends Component {
             // hard coded taxonomies terms for posts - extracted from our data store
             // at this time we only need to display a categories menu and do not deal with other taxonomies (like 'post_tag' for instance)
             object.taxonomies = { categories: this.state.data.post_types_taxonomies.post.category || { terms: [] } }
+            object.post_type = this.state.data.post_types[item.object];
+            object.post_type_archive_path = `${item.path}/all`;
             break;
           default:
             object.taxonomies = {}

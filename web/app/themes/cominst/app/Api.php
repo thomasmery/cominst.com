@@ -15,7 +15,14 @@ class Api {
         $request = new \WP_REST_Request( 'GET', '/wp/v2/posts' );
         $request->set_param( 'per_page', $per_page );
         $response = rest_do_request( $request );
-        return $response->data;
+        return [
+            'data' => $response->data,
+            'paging' => [
+                'currentPage' => 1,
+                'total' => $response->headers['X-WP-Total'],
+                'totalPages' => $response->headers['X-WP-TotalPages'],
+            ]
+        ];
     }
 
     /**
@@ -33,6 +40,16 @@ class Api {
     */
     public static function get_taxonomies( $per_page = 99 ) {
         $request = new \WP_REST_Request( 'GET', '/wp/v2/taxonomies' );
+        $request->set_param( 'per_page', $per_page );
+        $response = rest_do_request( $request );
+        return $response->data;
+    }
+
+    /**
+    * post types
+    */
+    public static function get_post_types( $per_page = 99 ) {
+        $request = new \WP_REST_Request( 'GET', '/wp/v2/types' );
         $request->set_param( 'per_page', $per_page );
         $response = rest_do_request( $request );
         return $response->data;
