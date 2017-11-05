@@ -84,6 +84,8 @@
     "wpackagist-plugin/members": "*",
     "wpackagist-plugin/regenerate-thumbnails": "*",
     "wpackagist-plugin/tinymce-advanced": "*",
+    
+    "wpackagist-plugin/disable-url-autocorrect-guessing": "*",
 
     "wpackagist-plugin/wp-api-menus": "*",
 
