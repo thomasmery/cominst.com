@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ContentContainer02 = function({ data }) {
   const links = data.acf.links || [];
   return (
-    <div>
+    <div className="content-container content-container-02">
       <div className="row">
         <div className="col-sm-4">
           <ul>

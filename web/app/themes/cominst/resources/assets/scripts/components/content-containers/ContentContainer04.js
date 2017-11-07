@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ContentContainer04 = function({ data }) {
   return (
-    <div>
+    <div className="content-container content-container-04">
       <h3>Gabarit 4</h3>
       <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
       {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ContentContainerHome = function({ data }) {
   return (
-    <div>
+    <div className="content-container content-container-home">
       <h3>Home Content Container</h3>
       <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
       <p>{data.acf.content_template}</p>

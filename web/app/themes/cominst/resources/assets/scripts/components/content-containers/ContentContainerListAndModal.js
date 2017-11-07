@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ContentContainerReferences = function({ data }) {
   return (
-    <div>
+    <div className="content-container list-and-modal">
       <h3>References</h3>
       <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
       {
