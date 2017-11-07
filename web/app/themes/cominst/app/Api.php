@@ -83,4 +83,14 @@ class Api {
         $response = rest_do_request( $request );
         return $response->data;
     }
+
+    /**
+     * Theme options
+     * used for Client infos like contact details, social networks ...
+     */
+    public static function get_theme_options() {
+        $request = new \WP_REST_Request( 'GET', '/acf/v3/options/theme-general-settings' );
+        $response = rest_do_request( $request );
+        return $response->data;
+    }
 }

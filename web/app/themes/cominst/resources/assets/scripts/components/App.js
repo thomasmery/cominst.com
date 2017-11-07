@@ -50,6 +50,8 @@ class App extends Component {
       },
       activeSectionId: null,
       data: {
+        site_name: appData.site_name,
+        site_description: appData.site_description,
         languages: Object.keys(appData.languages).map((lang) => appData.languages[lang]),
         primary_navigation: this._transformNavigationData(appData.primary_navigation),
         post_types: {
@@ -61,6 +63,7 @@ class App extends Component {
         },
         taxonomies: this._transformTaxonomyData(appData.taxonomies),
         pages: appData.pages,
+        theme_options: appData.theme_options.acf,
         isFetching: {},
       },
     }
@@ -581,6 +584,18 @@ class App extends Component {
       </Header>
 
       { this._renderSections() }
+
+      <Section
+        key="footer"
+        title="Footer"
+        data={ { site_name: this.state.data.site_name, site_description: this.state.data.site_description, ...this.state.data.theme_options} }
+        ContentContainer={ContentContainers['ContentContainerFooter']}
+        id="footer"
+        path={ null }
+        ref={this._storeSectionRef}
+        onEnter={ this._onEnterSection }
+        onLeave={ this._onLeaveSection }>
+      </Section>
 
       { this._renderRoutes() }
 
