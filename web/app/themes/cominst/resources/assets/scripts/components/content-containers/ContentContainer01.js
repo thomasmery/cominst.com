@@ -4,18 +4,24 @@ import PropTypes from 'prop-types';
 const ContentContainer01 = function({ data }) {
   return (
     <div>
-      <h3>Gabarit 1</h3>
-      <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
-      <p>{data.acf.content_template}</p>
-      {
-        data.children.map(
-          (child) => (
-            <div key={ child.id }>
-              <h5 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-            </div>
-          )
-        )
-      }
+      <div className="row">
+        <div className="col-sm-4">
+          <ul>
+            {
+              data.children.map(
+                (child) => (
+                  <li key={ child.id }>
+                    <a dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
+                  </li>
+                )
+              )
+            }
+          </ul>
+        </div>
+        <div className="col-sm-8">
+          <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
+        </div>
+      </div>
     </div>
     );
 }

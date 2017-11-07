@@ -451,6 +451,7 @@ class App extends Component {
             <Section
               key={item.id}
               title={item.title}
+              className={item.slug}
               data={data}
               ContentContainer={ContentContainers[data.content_template]}
               isFetching={data.isFetching}
