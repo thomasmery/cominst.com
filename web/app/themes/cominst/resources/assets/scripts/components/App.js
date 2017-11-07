@@ -63,6 +63,7 @@ class App extends Component {
         },
         taxonomies: this._transformTaxonomyData(appData.taxonomies),
         pages: appData.pages,
+        references_by_sectors: appData.references_by_sectors,
         theme_options: appData.theme_options.acf,
         isFetching: {},
       },
@@ -297,7 +298,7 @@ class App extends Component {
   /**
    * takes a js object of taxonomy objects
    * and add & transform for the site's need
-   * for instance: add server fetched taxonomy terms to a 'terms' property
+   * for instance: add server side obtained taxonomy terms to a 'terms' property
    * @param {object} data
    */
   _transformTaxonomyData (data) {
@@ -360,6 +361,32 @@ class App extends Component {
   }
 
   /**
+   * we're receiving a list of 'sectors' with a 'references' key
+   * the sectors are taxonomy terms and the references are custom post types
+   * we get hold of them via regular WP queries
+   * we need to format the items so that they can feed the ListAndModal Content Container
+   * which is a generic content container for lists that expect 'items' and 'sub_items'
+   * @param {array} items
+   */
+  _prepareReferencesBySectors (items) {
+    return items.map(
+      (item) => {
+        item.id = item.term_id;
+        item.title = item.name;
+        item.sub_items = item.references.map(
+          (sub_item) => {
+            sub_item.id = sub_item.ID;
+            sub_item.title = sub_item.post_title;
+            return sub_item;
+          }
+        )
+        return item;
+      }
+
+    );
+  }
+
+  /**
    * an array of objects that we use to build the content
    */
   _getDataStore () {
@@ -403,6 +430,11 @@ class App extends Component {
         contentContainer = ContentContainers[object.acf.content_template];
         object.content_template = contentContainer ? object.acf.content_template : 'ContentContainer01';
 
+        switch(object.content_template) {
+          case 'ContentContainerListAndModal':
+            object.items = this._prepareReferencesBySectors(this.state.data.references_by_sectors);
+            break;
+        }
         object.isFetching = this.state.data.isFetching[object.slug] || false;
       break;
       // posts archive

@@ -93,4 +93,20 @@ class Api {
         $response = rest_do_request( $request );
         return $response->data;
     }
+
+    /**
+     * Sectors & References for 'Nos références'
+     * we get a list of sectors and associate the 'references'
+     */
+    public static function get_references_by_sectors() {
+        $sectors = get_terms(['taxonomy' => 'sector', 'orderby' => 'name']);
+        foreach($sectors as $key => $sector) {
+            $sectors[$key]->references = get_posts([
+                'post_type' => 'reference',
+                'tax_query' => [ ['taxonomy' => 'sector', 'field' => 'term_id', 'terms' => [$sector->term_id] ] ]
+            ]);
+        }
+        return $sectors;
+    }
+
 }
