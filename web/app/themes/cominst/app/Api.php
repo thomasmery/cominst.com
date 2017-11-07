@@ -97,10 +97,16 @@ class Api {
     /**
      * Sectors & References for 'Nos références'
      * we get a list of sectors and associate the 'references'
+     * we are not using the REST API because it would require custom endpoints
+     * and we won't need to fetch the date from the client
      */
     public static function get_references_by_sectors() {
         $sectors = get_terms(['taxonomy' => 'sector', 'orderby' => 'name']);
         foreach($sectors as $key => $sector) {
+            $sectors[$key]->image = get_field('image', $sector);
+            if(isset($sectors[$key]->image) && $sectors[$key]->image) {
+                $sectors[$key]->image_tag = wp_get_attachment_image( $sectors[$key]->image['ID'], 'medium');
+            }
             $sectors[$key]->references = get_posts([
                 'post_type' => 'reference',
                 'tax_query' => [ ['taxonomy' => 'sector', 'field' => 'term_id', 'terms' => [$sector->term_id] ] ]
