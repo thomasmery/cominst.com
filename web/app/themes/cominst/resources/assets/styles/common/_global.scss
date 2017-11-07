@@ -1,0 +1,7 @@
+// hide server side generated content
+#ssr {
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  position: absolute;
+}
