@@ -105,7 +105,7 @@ class Api {
         foreach($sectors as $key => $sector) {
             $sectors[$key]->image = get_field('image', $sector);
             if(isset($sectors[$key]->image) && $sectors[$key]->image) {
-                $sectors[$key]->image_tag = wp_get_attachment_image( $sectors[$key]->image['ID'], 'medium');
+                $sectors[$key]->image_html = wp_get_attachment_image( $sectors[$key]->image['ID'], 'medium');
             }
             $sectors[$key]->references = get_posts([
                 'post_type' => 'reference',

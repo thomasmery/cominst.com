@@ -53,7 +53,7 @@ class App extends Component {
         site_name: appData.site_name,
         site_description: appData.site_description,
         languages: Object.keys(appData.languages).map((lang) => appData.languages[lang]),
-        primary_navigation: this._transformNavigationData(appData.primary_navigation),
+        primary_navigation: this._prepareNavigationData(appData.primary_navigation),
         post_types: {
           'post': {
             ...appData.post_types.post,
@@ -61,8 +61,8 @@ class App extends Component {
             paging: appData.posts.paging,
           },
         },
-        taxonomies: this._transformTaxonomyData(appData.taxonomies),
-        pages: appData.pages,
+        taxonomies: this._prepareTaxonomyData(appData.taxonomies),
+        pages: this._preparePagesData(appData.pages),
         references_by_sectors: appData.references_by_sectors,
         theme_options: appData.theme_options.acf,
         isFetching: {},
@@ -76,7 +76,7 @@ class App extends Component {
     this._onLeaveSection = this._onLeaveSection.bind(this);
 
     this._storeSectionRef = this._storeSectionRef.bind(this);
-    this._transformNavigationData = this._transformNavigationData.bind(this);
+    this._prepareNavigationData = this._prepareNavigationData.bind(this);
     this._buildPostTypesTaxonomies = this._buildPostTypesTaxonomies.bind(this);
 
     this._getClient = this._getClient.bind(this);
@@ -256,7 +256,7 @@ class App extends Component {
    * and apply some necessary cleanups and transforms
    * @param {object} data
    */
-  _transformNavigationData (data) {
+  _prepareNavigationData (data) {
 
     const supported_item_types = [
       'post_type',
@@ -301,14 +301,14 @@ class App extends Component {
    * for instance: add server side obtained taxonomy terms to a 'terms' property
    * @param {object} data
    */
-  _transformTaxonomyData (data) {
+  _prepareTaxonomyData (data) {
     return Object.keys(data)
       .reduce(
         (object, slug) => {
           object[slug] = {};
           switch(slug) {
             case 'category':
-              object[slug].terms = this._transformTaxonomyTermsData(appData.categories);
+              object[slug].terms = this._prepareTaxonomyTermsData(appData.categories);
               break;
             default:
             object[slug].terms = []
@@ -325,7 +325,7 @@ class App extends Component {
    * and add & transform for the site's need
    * @param {object} data
    */
-  _transformTaxonomyTermsData (data) {
+  _prepareTaxonomyTermsData (data) {
     return data.map(
       (term) => {
         // we need to add a 'path' property to the term

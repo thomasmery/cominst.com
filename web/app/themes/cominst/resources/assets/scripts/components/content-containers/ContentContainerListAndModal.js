@@ -14,12 +14,12 @@ class ContentContainerReferences extends Component {
     }
 
     this._itemOnClickHandler = this._itemOnClickHandler.bind(this);
-    this._resetItemActive = this._resetItemActive.bind(this);
+    this._resetActiveItem = this._resetActiveItem.bind(this);
     this._itemCloseButtonOnClickHandler = this._itemCloseButtonOnClickHandler.bind(this);
 
   }
 
-  _setItemActive (index) {
+  _setActiveItem (index) {
 
     const itemsContainerHeight = index !== null ? this.sub_items_containers_refs[index].clientHeight : 'auto';
 
@@ -30,18 +30,18 @@ class ContentContainerReferences extends Component {
     );
   }
 
-  _resetItemActive () {
-    this._setItemActive(null);
+  _resetActiveItem () {
+    this._setActiveItem(null);
   }
 
   _itemOnClickHandler (index, event) {
     event.preventDefault();
-    this._setItemActive(index);
+    this._setActiveItem(index);
   }
 
   _itemCloseButtonOnClickHandler (event) {
       event.preventDefault();
-      this._resetItemActive ();
+      this._resetActiveItem ();
   }
 
   render () {
@@ -63,7 +63,7 @@ class ContentContainerReferences extends Component {
                   <span onClick={this._itemCloseButtonOnClickHandler } className="button-close">X</span>
                   <div className="row">
                     <div className="col-sm-6 image">
-                      <div dangerouslySetInnerHTML= { { __html: item.image_tag } } />
+                      <div dangerouslySetInnerHTML= { { __html: item.image_html } } />
                     </div>
                     <div className="col-sm-6">
                       <h4>{ item.title }</h4>
