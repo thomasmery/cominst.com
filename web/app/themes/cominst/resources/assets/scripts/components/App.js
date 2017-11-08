@@ -296,6 +296,23 @@ class App extends Component {
   }
 
   /**
+   * prepare pages data by adding or transforming data so that we can use it in the client app
+   * for instance: split page content to make an 'intro' available
+   * @param {array} pages
+   */
+  _preparePagesData (pages) {
+    return pages.map( (page) => {
+
+      // split content using the <!--more--> html comment that a WP user can insert into a post content
+      page.content_parts = page.content.rendered.split('<!--more-->');
+      page.introduction = page.content_parts[0];
+      page.body = page.content.rendered;
+
+      return page;
+    });
+  }
+
+  /**
    * takes a js object of taxonomy objects
    * and add & transform for the site's need
    * for instance: add server side obtained taxonomy terms to a 'terms' property

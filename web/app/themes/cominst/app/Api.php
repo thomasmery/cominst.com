@@ -2,6 +2,35 @@
 
 namespace App;
 
+/**
+ * we need to add some custom data to some WP REST API responses
+ */
+add_action('rest_api_init', function() {
+    register_rest_field(
+        'page',
+        'featured_media_html',
+        [
+            'get_callback' => '\App\get_featured_media_html'
+        ]
+    );
+});
+
+function get_featured_media_html($object) {
+    $html = '';
+    if(isset($object['featured_media']) && $object['featured_media']) {
+        $html = wp_get_attachment_image( $object['featured_media'], 'medium');
+    }
+    return $html;
+}
+
+
+/**
+ * a simple Class to access WP data
+ * either via the REST API
+ * or in some cases
+ * (when we don't need to fetch data fro the client - and don't want to create custom endpoints)
+ * with regular WP methods
+ */
 class Api {
     /**
     * get data from REST API

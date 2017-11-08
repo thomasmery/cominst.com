@@ -1,6 +1,21 @@
 .content-container {
   background-color: #9bf3ff;
   padding: 1rem;
+
+  .nav {
+    .item {
+      padding: 10px;
+      background-image: linear-gradient(to right, #49b9fa, #49b9fa);
+      background-repeat: no-repeat;
+      background-size: 0% 100%;
+      transition: background-size 0.5s ease-out;
+
+      &.active {
+        background-size: 100% 100%;
+        transition: background-size 0.3s ease-in;
+      }
+    }
+  }
 }
 
 /* List & Modal */

@@ -19,7 +19,7 @@ class Section extends PureComponent {
       data,
     } = this.props;
 
-    return <ContentContainer data={data} />;
+    return <ContentContainer data={data} parent={this} />;
 
   }
 
@@ -33,7 +33,7 @@ class Section extends PureComponent {
       >
         <section id={this.props.id} className={ this.props.className } style={ { minHeight: 400, border: 'solid 2px green' } }>
           <div className="container">
-            <h2>{ this.props.title }</h2>
+            {/* <h2>{ this.props.title }</h2> */}
             <div className="section-content">
               { this.props.children }
               { this._renderContent() }
