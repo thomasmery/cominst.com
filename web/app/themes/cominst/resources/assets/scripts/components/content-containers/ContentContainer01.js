@@ -13,7 +13,7 @@ class ContentContainer01 extends Component {
       activeChildIndex: 0,
       activeChildContent: this.props.data.children[0].introduction,
       childContentExpanded: false,
-      navStyles: {
+      leftSidebarStyles: {
         position: 'sticky',
         top: 0,
       },
@@ -61,8 +61,8 @@ class ContentContainer01 extends Component {
     const headerHeight = header.offsetHeight;
     const offset = headerHeight + 40;
     this.setState( (state) => ( {
-        navStyles: {
-          ...state.navStyles,
+        leftSidebarStyles: {
+          ...state.leftSidebarStyles,
           top: offset,
         },
       } )
@@ -85,7 +85,7 @@ class ContentContainer01 extends Component {
             {/* <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } /> */}
           </div>
           <div className="col-sm-4">
-            <div style={this.state.navStyles}>
+            <div style={this.state.leftSidebarStyles}>
               <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
               <ul className="nav">
               {
