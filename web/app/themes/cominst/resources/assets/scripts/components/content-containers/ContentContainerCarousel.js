@@ -72,7 +72,7 @@ class ContentContainerCarousel extends Component {
             onClick={this._onPreviousButtonClickHandler}
           />
       </div>
-      <div className="container" style={{ margin: 0 }}>
+      <div className="container" style={{ flex: '1 0 auto', margin: 0 }}>
         <ReactSwipe
           key={data.children.length}
           ref={ (element) => this.carousel = element }
