@@ -19,7 +19,7 @@
                 "ContentContainer01": "Gabarit 1",
                 "ContentContainer02": "Gabarit 2",
                 "ContentContainer03": "Gabarit 3",
-                "ContentContainer04": "Gabarit 4",
+                "ContentContainerCarousel": "Carousel",
                 "ContentContainerListAndModal": "Liste et Popup"
             },
             "default_value": [
@@ -192,5 +192,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1510049190
+    "modified": 1510227290
 }

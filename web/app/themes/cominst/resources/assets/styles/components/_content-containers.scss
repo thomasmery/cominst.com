@@ -1,6 +1,14 @@
 .content-container {
+  overflow: hidden;
   background-color: #9bf3ff;
   padding: 1rem;
+
+  .image {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
 
   .nav {
     flex-direction: column;
@@ -40,11 +48,6 @@
     }
   }
 
-  .image img {
-    max-width: 100%;
-    height: auto;
-  }
-
   .sub-items-container {
     position: absolute;
     top: 0;
@@ -70,6 +73,19 @@
     .sub-items-container {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+}
+
+/** Carousel **/
+.content-container-carousel {
+  .image {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+
+    &.hidden {
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
     }
   }
 }

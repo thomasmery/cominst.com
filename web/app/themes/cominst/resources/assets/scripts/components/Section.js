@@ -32,7 +32,7 @@ class Section extends PureComponent {
         bottomOffset={400}
       >
         <section id={this.props.id} className={ this.props.className } style={ { minHeight: 400, border: 'solid 2px green' } }>
-          <div className="container">
+          <div className={ this.props.containerClassName }>
             {/* <h2>{ this.props.title }</h2> */}
             <div className="section-content">
               { this.props.children }
@@ -48,6 +48,7 @@ class Section extends PureComponent {
 Section.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
+  containerClassName: PropTypes.string,
   title: PropTypes.string,
   data: PropTypes.object,
   ContentContainer: PropTypes.func.isRequired,

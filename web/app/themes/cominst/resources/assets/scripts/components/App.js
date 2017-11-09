@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
 import WPAPI from 'wpapi';
+import classNames from 'classnames';
 
 /**
  * Internal dependencies
@@ -500,7 +501,12 @@ class App extends Component {
             <Section
               key={item.id}
               title={item.title}
-              className={item.slug}
+              containerClassName={
+                classNames(
+                  data.content_template !== 'ContentContainerCarousel' ? 'container' : '',
+                  data.content_template
+                )
+              }
               data={data}
               ContentContainer={ContentContainers[data.content_template]}
               isFetching={data.isFetching}
@@ -519,6 +525,12 @@ class App extends Component {
       <Section
         key="0"
         title="Home"
+        containerClassName={
+          classNames(
+            'ContentContainerHome',
+            'container'
+          )
+        }
         data={ { ...appData.pages.filter((page)=> page.id == 103 || page.id == 106)[0], children: [] } }
         ContentContainer={ContentContainers['ContentContainerHome']}
         id="home"
