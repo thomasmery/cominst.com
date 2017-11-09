@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import ScrollToRouteHelper from '../ScrollToRouteHelper';
+import scrollToComponent from 'react-scroll-to-component';
 
 class ContentContainer01 extends Component {
 
@@ -10,16 +10,20 @@ class ContentContainer01 extends Component {
     super(props);
 
     this.state = {
-      activeChildIndex: 0,
-      activeChildContent: this.props.data.children[0].introduction,
+      activeChildIndex: this.props.data.children.length ? 0 : null,
+      activeChildContent: this.props.data.children.length ? this.props.data.children[0].introduction : '',
       childContentExpanded: false,
+      activeChildContentStyles: {
+        height: 'auto',
+      },
       leftSidebarStyles: {
         position: 'sticky',
         top: 0,
       },
     }
 
-    this.allowScrollToTopOfSection = false;
+    this._childContentContainerRef = null;
+    this.scrollOffset = 0;
 
     this._childTitleClickHandler = this._childTitleClickHandler.bind(this);
     this._onContentToggleHandler = this._onContentToggleHandler.bind(this);
@@ -28,10 +32,28 @@ class ContentContainer01 extends Component {
 
   _setActiveChild (index) {
     this.setState( () => ( {
-      activeChildIndex: index,
-      activeChildContent: this.props.data.children[index].introduction,
-      childContentExpanded: false,
-    } ) )
+        activeChildIndex: index,
+        activeChildContent: this.props.data.children[index].introduction,
+        childContentExpanded: false,
+      } ),
+      () => {
+          this.setState( () => ( {
+            activeChildContentStyles: {
+              height: this._childContentContainerRef.children[0].clientHeight,
+            },
+          } )
+        );
+      }
+    )
+
+    scrollToComponent(
+      this._childContentContainerRef,
+      {
+        offset: - this.scrollOffset,
+        align: 'top',
+        duration: 300,
+      }
+    );
   }
 
   _toggleChildContent () {
@@ -40,10 +62,27 @@ class ContentContainer01 extends Component {
             this.props.data.children[state.activeChildIndex].body :
             this.props.data.children[state.activeChildIndex].introduction,
           childContentExpanded: ! state.childContentExpanded,
-      } )
+      } ),
+      () => {
+        this.setState( (state) => ( {
+          activeChildContentStyles: {
+            height: state.childContentExpanded ?
+              this._childContentContainerRef.scrollHeight :
+              this._childContentContainerRef.children[0].clientHeight,
+          },
+        } )
+      );
+      }
     )
 
-    this.allowScrollToTopOfSection = true;
+    scrollToComponent(
+      this._childContentContainerRef,
+      {
+        offset: - this.scrollOffset,
+        align: 'top',
+        duration: 300,
+      }
+    );
 
   }
 
@@ -59,11 +98,14 @@ class ContentContainer01 extends Component {
   componentDidMount () {
     const header = document.querySelector('#app header');
     const headerHeight = header.offsetHeight;
-    const offset = headerHeight + 40;
+    this.scrollOffset = headerHeight + 40;
     this.setState( (state) => ( {
+        activeChildContentStyles: {
+          height: this._childContentContainerRef.clientHeight,
+        },
         leftSidebarStyles: {
           ...state.leftSidebarStyles,
-          top: offset,
+          top: this.scrollOffset,
         },
       } )
     );
@@ -77,9 +119,6 @@ class ContentContainer01 extends Component {
 
 
       <div className="content-container content-container-01">
-        { this.state.childContentExpanded === false && this.allowScrollToTopOfSection ?
-            <ScrollToRouteHelper ease="in-out-quad" duration={500} targetComponent={this} /> : ''
-        }
         <div className="row">
           <div className="col-sm-12">
             {/* <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } /> */}
@@ -100,18 +139,28 @@ class ContentContainer01 extends Component {
               </ul>
             </div>
           </div>
-          <div className="col-sm-8 sub-page-content-container">
-            <h3 className="sub-page-title" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].title.rendered } } />
-            <div className="sub-page-content" dangerouslySetInnerHTML={ { __html: this.state.activeChildContent } } />
-            <div>
-              {
-                data.children[this.state.activeChildIndex].content_parts.length > 1 ?
-                  <a onClick={this._onContentToggleHandler}>
-                    { this.state.childContentExpanded ? 'Collapse' : 'Expand' }
-                  </a> : ''
-              }
-            </div>
-            <div className="sub-page-image image" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].featured_media_html || data.featured_media_html } } />
+          <div className="col-sm-8">
+            {
+              data.children.length ?
+                <div>
+                  <div className="child-content-container" style={this.state.activeChildContentStyles} ref={ (element) => this._childContentContainerRef = element }>
+                    <div>
+                      <h3 className="child-title" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].title.rendered } } />
+                      <div className="child-content" dangerouslySetInnerHTML={ { __html: this.state.activeChildContent } } />
+                      <div>
+                        {
+                          data.children[this.state.activeChildIndex].content_parts.length > 1 ?
+                            <a onClick={this._onContentToggleHandler}>
+                              { this.state.childContentExpanded ? 'Collapse' : 'Expand' }
+                            </a> : ''
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  <div className="child-image image" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].featured_media_html || data.featured_media_html } } />
+                </div> :
+                'NO CHILDREN PAGES'
+            }
           </div>
         </div>
       </div>
