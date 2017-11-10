@@ -63,49 +63,50 @@ class ContentContainerCarousel extends Component {
         }))
       },
     }
-    return (
-    <div  className="content-container content-container-carousel" style={{ display: 'flex', justifyContent: 'center' }}>
-      <div style={{ flex: '1 0 200px', maxWidth: 200 }}>
-          <div
-            className={ classNames( this.state.sideImagesAnimationClass, 'image')}
-            dangerouslySetInnerHTML={ {__html: data.children[this.state.carouselPreviousIndex].featured_media_html } }
-            onClick={this._onPreviousButtonClickHandler}
-          />
-      </div>
-      <div className="container" style={{ flex: '1 0 auto', margin: 0 }}>
-        <ReactSwipe
-          key={data.children.length}
-          ref={ (element) => this.carousel = element }
-          swipeOptions={swipeOptions}
-        >
-          {
-            data.children.map(
-              (child) => (
-                <div key={ child.id }>
-                  <div className="row">
-                    <div className="col-sm-3">
-                      <div className="image" dangerouslySetInnerHTML={ {__html: child.featured_media_html } } />
-                    </div>
-                    <div className="col-sm-9">
-                      <h2 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-                      <p dangerouslySetInnerHTML={ {__html: child.content.rendered } } />
+
+    return data.children.length ? (
+      <div  className="content-container content-container-carousel" style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ flex: '1 0 200px', maxWidth: 200 }}>
+            <div
+              className={ classNames( this.state.sideImagesAnimationClass, 'image')}
+              dangerouslySetInnerHTML={ {__html: data.children[this.state.carouselPreviousIndex].featured_media_html } }
+              onClick={this._onPreviousButtonClickHandler}
+            />
+        </div>
+        <div className="container" style={{ flex: '1 0 auto', margin: 0 }}>
+          <ReactSwipe
+            key={data.children.length}
+            ref={ (element) => this.carousel = element }
+            swipeOptions={swipeOptions}
+          >
+            {
+              data.children.map(
+                (child) => (
+                  <div key={ child.id }>
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <div className="image" dangerouslySetInnerHTML={ {__html: child.featured_media_html } } />
+                      </div>
+                      <div className="col-sm-9">
+                        <h2 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
+                        <p dangerouslySetInnerHTML={ {__html: child.content.rendered } } />
+                      </div>
                     </div>
                   </div>
-                </div>
+                )
               )
-            )
-          }
-        </ReactSwipe>
+            }
+          </ReactSwipe>
+        </div>
+        <div style={{ flex: '1 0 200px', maxWidth: 200 }}>
+          <div
+            className={ classNames( this.state.sideImagesAnimationClass, 'image')}
+            dangerouslySetInnerHTML={ {__html: data.children[this.state.carouselNextIndex].featured_media_html } }
+            onClick={this._onNextButtonClickHandler}
+          />
+        </div>
       </div>
-      <div style={{ flex: '1 0 200px', maxWidth: 200 }}>
-        <div
-          className={ classNames( this.state.sideImagesAnimationClass, 'image')}
-          dangerouslySetInnerHTML={ {__html: data.children[this.state.carouselNextIndex].featured_media_html } }
-          onClick={this._onNextButtonClickHandler}
-        />
-      </div>
-    </div>
-    );
+    ) : <div>NOTHING TO SHOW HERE</div>;
   }
 }
 

@@ -1,5 +1,4 @@
 .content-container {
-  overflow: hidden;
   background-color: #9bf3ff;
   padding: 1rem;
 
@@ -79,6 +78,8 @@
 
 /** Carousel **/
 .content-container-carousel {
+  overflow: hidden;
+
   .image {
     opacity: 1;
     transition: opacity 1s ease-out;
