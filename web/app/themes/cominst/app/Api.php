@@ -6,13 +6,51 @@ namespace App;
  * we need to add some custom data to some WP REST API responses
  */
 add_action('rest_api_init', function() {
+    // an image tag for featured images
     register_rest_field(
-        'page',
+        ['post', 'page'],
         'featured_media_html',
         [
             'get_callback' => '\App\get_featured_media_html'
         ]
     );
+
+    // categories names
+    register_rest_field(
+        'post',
+        'categories_names',
+        [
+            'get_callback' => '\App\get_categories_names'
+        ]
+    );
+
+    // Media taxonomy terms - names
+    register_rest_field(
+        'post',
+        'medias_names',
+        [
+            'get_callback' => '\App\get_medias_names'
+        ]
+    );
+
+    // formatted published date
+    register_rest_field(
+        'post',
+        'formatted_published_date',
+        [
+            'get_callback' => '\App\get_formatted_published_date'
+        ]
+    );
+
+    // path to post - used by the client Router
+    register_rest_field(
+        'post',
+        'path',
+        [
+            'get_callback' => '\App\get_path'
+        ]
+    );
+
 });
 
 function get_featured_media_html($object) {
@@ -21,6 +59,22 @@ function get_featured_media_html($object) {
         $html = wp_get_attachment_image( $object['featured_media'], 'medium');
     }
     return $html;
+}
+
+function get_categories_names($object) {
+    return wp_get_object_terms($object['id'], 'category', ['fields' => 'names']);
+}
+
+function get_medias_names($object) {
+    return wp_get_object_terms($object['id'], 'media', ['fields' => 'names']);
+}
+
+function get_formatted_published_date($object) {
+    return get_the_date(null, $object['id']);
+}
+
+function get_path($object) {
+    return str_replace(get_option('home'), '', get_the_permalink($object['id']));
 }
 
 
