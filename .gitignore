@@ -23,3 +23,4 @@ vendor/*
 /web/app/themes/foxhound
 /cominst_local.sql
 /web/app/debug.log
+*.sql
