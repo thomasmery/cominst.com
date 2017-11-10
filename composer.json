@@ -86,6 +86,7 @@
     "wpackagist-plugin/tinymce-advanced": "*",
     
     "wpackagist-plugin/disable-url-autocorrect-guessing": "*",
+    "wpackagist-plugin/no-category-base-wpml": "*",
 
     "wpackagist-plugin/wp-api-menus": "*",
 
