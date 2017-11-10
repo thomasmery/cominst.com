@@ -50,6 +50,8 @@ class App extends Component {
         code: appData.lang || 'fr',
       },
       activeSectionId: null,
+      activePostSlug: null,
+      postsListPath: '',
       data: {
         site_name: appData.site_name,
         site_description: appData.site_description,
@@ -127,6 +129,7 @@ class App extends Component {
       return;
     }
 
+
     const categories = [];
     if(params.filter( (param) => param.name === 'categories' ).length) {
       const category_id = params.filter( (param) => param.name === 'categories' )[0].value;
@@ -168,7 +171,10 @@ class App extends Component {
             };
 
             this.setState(
-              (state) => ({ data: {
+              (state) => ({
+                ...state,
+                activePostSlug: null,
+                data: {
                   ...state.data,
                   isFetching: {
                     ...state.data.isFetching,
@@ -225,30 +231,83 @@ class App extends Component {
           item.object === 'post' &&
           path.replace(/\/?$/, '').match(item.path.replace(/\/?$/, '/all'))
         ) {
-
-            this._getPosts( params );
+            if(this.state.postsListPath !== path ) {
+              this._getPosts( params );
+              // set last posts list url visited
+              this.setState( (state) => ({
+                ...state,
+                postsListPath: path,
+              }));
+            }
+            else {
+              this.setState( (state) => ({
+                ...state,
+                activePostSlug: null,
+              }));
+            }
           }
       }
     );
 
-    //
+    // try to match a taxonomy term path
+    // or a single post - a post's path contains the category as we set the permalink structure to /%category%/%postname%/
     Object.keys(this.state.data.taxonomies).forEach(
       (taxonomy) => {
         this.state.data.taxonomies[taxonomy].terms.forEach(
           (term) => {
-            // only fetch if route is term archive path
-            if( path.replace(/\/?$/, '').match(term.path.replace(/\/?$/, ''))) {
-              // get posts for the taxonomy term
-              params.push( { name: this.state.data.taxonomies[taxonomy].rest_base, value: term.id } );
-              this._getPosts( params );
+            // only fetch if route is term archive path - an exact match between term path and requested route
+            // must also check for /page/n paths
+            const regExpPaginated = new RegExp(term.path.replace(/\/?$/, '(/page/[0-9]+)'));
+            if(
+              ( path.replace(/\/?$/, '') === term.path.replace(/\/?$/, '') ||
+                path.replace(/\/?$/, '').match(regExpPaginated) ) )  {
+                  // do not reload if we're getting the same page
+                  // note: we use those posts list path as what they are but also to 'clear' a single post path
+                  // to be able to re-trigger the mechanism that makes a post active - since it is triggered by a route
+                  // and won't be re-triggered if the route does not change
+                  if(this.state.postsListPath !== path ) {
+                    // get posts for the taxonomy term
+                    params.push( { name: this.state.data.taxonomies[taxonomy].rest_base, value: term.id } );
+                    this._getPosts( params );
+                    // set last posts list url visited
+                    this.setState( (state) => ({
+                      ...state,
+                      postsListPath: path,
+                    }));
+                  }
+                  // we need to reset the active post so that we can make it active again
+                  // as the 'set active mechanism' in the Post component checks whether its active state has changed before triggering the mechanism
+                  else {
+                    this.setState( (state) => ({
+                      ...state,
+                      activePostSlug: null,
+                    }));
+                  }
+                  return;
+            }
+
+            // should match a single post permalink (path)
+            // the regexp try to take some special characters like accents and punctuation by using unicode ranges
+            const characters_range = 'a-zA-Z0-9\u00C0-\u017F\u2000-\u206F\u00A0-\u00FF-';
+            const regExpSinglePost = new RegExp(term.path.replace(/\/?$/, `/([${characters_range}]+)`));
+            const isSingle = path.replace(/\/?$/, '').match(regExpSinglePost);
+            if( isSingle )  {
+              // set active Post
+              this.setState( (state) => ({
+                ...state,
+                postsListPath: term.path,
+                // WP REST API associates a URI encoded slug to posts - we need to match that
+                // thus the trnasformations on the original matched string
+                activePostSlug: encodeURI(isSingle[1]).toLocaleLowerCase(),
+              }));
               return;
             }
+
           }
         )
       }
     )
   }
-
 
   /** Data manipulation */
 
@@ -298,7 +357,7 @@ class App extends Component {
 
   /**
    * prepare pages data by adding or transforming data so that we can use it in the client app
-   * for instance: split page content to make an 'intro' available
+   * for instance: split page content to make an 'introduction' available
    * @param {array} pages
    */
   _preparePagesData (pages) {
@@ -400,7 +459,6 @@ class App extends Component {
         )
         return item;
       }
-
     );
   }
 
@@ -467,6 +525,8 @@ class App extends Component {
             object.taxonomies = { categories: this.state.data.post_types_taxonomies.post.category || { terms: [] } }
             object.post_type = this.state.data.post_types[item.object];
             object.post_type_archive_path = `${item.path}/all`;
+            object.active_post_slug = this.state.activePostSlug;
+            object.posts_list_path = this.state.postsListPath;
             break;
           default:
             object.taxonomies = {}
@@ -650,6 +710,12 @@ class App extends Component {
       <Section
         key="footer"
         title="Footer"
+        containerClassName={
+          classNames(
+            'ContentContainerFooter',
+            'container'
+          )
+        }
         data={ { site_name: this.state.data.site_name, site_description: this.state.data.site_description, ...this.state.data.theme_options} }
         ContentContainer={ContentContainers['ContentContainerFooter']}
         id="footer"

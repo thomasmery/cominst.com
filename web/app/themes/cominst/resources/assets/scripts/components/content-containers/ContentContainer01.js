@@ -116,8 +116,6 @@ class ContentContainer01 extends Component {
       data,
     } = this.props;
     return (
-
-
       <div className="content-container content-container-01">
         <div className="row">
           <div className="col-sm-12">
