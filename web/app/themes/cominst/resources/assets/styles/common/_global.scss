@@ -1,7 +1,34 @@
-// hide server side generated content
-#ssr {
+@import url('https://fonts.googleapis.com/css?family=Amiko:400,600,700|Merriweather:400,400i,700');
+
+@mixin hide-from-user {
   height: 1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
   position: absolute;
+}
+
+// hide server side generated content
+#ssr {
+  @include hide-from-user;
+}
+
+body {
+  background-color: $color-white-01;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: MerriWeather, 'Times New Roman', Times, serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Amiko, Arial, Helvetica, sans-serif;
+}
+
+nav,
+.nav {
+  font-family: Amiko, Arial, Helvetica, sans-serif;
 }

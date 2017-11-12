@@ -3,6 +3,10 @@ header {
   top: 0;
   background-color: #fff;
   z-index: 1;
+
+  .title {
+    @include hide-from-user;
+  }
 }
 
 nav {

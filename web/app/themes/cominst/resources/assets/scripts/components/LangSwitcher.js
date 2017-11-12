@@ -6,7 +6,7 @@ class LangSwitcher extends Component {
 
   render () {
     return (
-      <ul>
+      <ul className="nav lang-switcher">
         {
           this.props.languages.map(
             (lang) => (

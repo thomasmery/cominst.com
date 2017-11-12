@@ -1,0 +1,14 @@
+ul.lang-switcher {
+  li {
+    display: inline-block;
+    list-style: none;
+
+    &::after {
+      content: " | ";
+    }
+
+    &:last-child::after {
+      content: "";
+    }
+  }
+}

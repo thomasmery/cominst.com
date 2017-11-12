@@ -19,7 +19,6 @@ add_action('wp_enqueue_scripts', function () {
 * Make data availabe to JS
 **/
 add_action('wp_enqueue_scripts', function () {
-
     wp_localize_script(
         'cominst/main.js',
         'appData',
@@ -37,7 +36,8 @@ add_action('wp_enqueue_scripts', function () {
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
             'languages' => function_exists('icl_get_languages') ? icl_get_languages('skip_missing=0&orderby=code') : 'fr',
             'home_url' => get_home_url(),
-            'template_directory_uri' => get_stylesheet_directory_uri()
+            'template_directory_uri' => get_stylesheet_directory_uri(),
+            'assets_path' => asset_path(''),
         ]
     );
 }, 100);

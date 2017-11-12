@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import WPAPI from 'wpapi';
 import classNames from 'classnames';
 
@@ -724,8 +724,24 @@ class App extends Component {
           }
         }
       >
-        <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
-        <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
+        <div className="row">
+          <div className="col-sm-4">
+            {appData.site_description}
+          </div>
+          <div className="col-sm-4">
+            <Link to={`/${this.state.lang.code}`}>
+              <img src={`${appData.assets_path}images/logo-cominst.svg`} />
+            </Link>
+          </div>
+          <div className="col-sm-4">
+          <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
+          </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+              <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
+            </div>
+        </div>
       </Header>
 
       { this._renderSections() }

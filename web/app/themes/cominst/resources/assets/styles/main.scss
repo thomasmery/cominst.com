@@ -13,15 +13,14 @@
 
 /** Import theme styles */
 @import "common/global";
+@import "components/lang-switcher";
 @import "components/buttons";
-@import "components/comments";
 @import "components/forms";
 @import "components/wp-classes";
 @import "components/pagination";
 @import "components/content-containers";
 @import "layouts/header";
-@import "layouts/sidebar";
 @import "layouts/footer";
-@import "layouts/pages";
+@import "layouts/sections";
 @import "layouts/posts";
 @import "layouts/tinymce";

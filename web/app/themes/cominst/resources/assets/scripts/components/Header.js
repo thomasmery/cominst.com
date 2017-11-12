@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 const Header = (props) => (
   <header>
     <div className="container">
-      <Link to={props.homeUrl}>
-        <h1>{ props.title }</h1>
-      </Link>
+      <h1 className="title">
+        <Link to={props.homeUrl}>
+          { props.title }
+        </Link>
+      </h1>
       { props.children }
     </div>
   </header>
@@ -16,6 +18,7 @@ const Header = (props) => (
 Header.propTypes = {
   title: PropTypes.string,
   homeUrl: PropTypes.string,
+  slogan: PropTypes.string,
   children: PropTypes.node,
 }
 
