@@ -23,7 +23,6 @@ class ContentContainer01 extends Component {
     }
 
     this._childContentContainerRef = null;
-    this.scrollOffset = 0;
 
     this._childTitleClickHandler = this._childTitleClickHandler.bind(this);
     this._onContentToggleHandler = this._onContentToggleHandler.bind(this);
@@ -49,7 +48,7 @@ class ContentContainer01 extends Component {
     scrollToComponent(
       this._childContentContainerRef,
       {
-        offset: - this.scrollOffset,
+        offset: - this.props.siteHeaderHeight - 20,
         align: 'top',
         duration: 300,
       }
@@ -78,7 +77,7 @@ class ContentContainer01 extends Component {
     scrollToComponent(
       this._childContentContainerRef,
       {
-        offset: - this.scrollOffset,
+        offset: - this.props.siteHeaderHeight - 20,
         align: 'top',
         duration: 300,
       }

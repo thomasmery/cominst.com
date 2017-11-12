@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-class ContentContainerReferences extends Component {
+import scrollToComponent from 'react-scroll-to-component';
+
+class ContentContainerListAndModal extends Component {
 
   constructor (props) {
     super(props);
@@ -28,6 +30,16 @@ class ContentContainerReferences extends Component {
         itemsContainerHeight,
       })
     );
+
+    scrollToComponent(
+      this,
+      {
+        offset: - this.props.siteHeaderHeight,
+        align: 'top',
+        duration: 300,
+      }
+    );
+
   }
 
   _resetActiveItem () {
@@ -51,46 +63,62 @@ class ContentContainerReferences extends Component {
 
     return (
       <div className="content-container content-container-list-and-modal">
-        <h3>References</h3>
-        <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
-        <ul className="items" style={ { height: this.state.itemsContainerHeight || 'auto' } }>
-        {
-          data.items.map(
-            (item, index) => (
-              <li key={ item.id } className={classNames({ active: this.state.activeItemIndex === index }, 'item')}>
-                <a href="#" onClick={this._itemOnClickHandler.bind(null, index) } dangerouslySetInnerHTML={ {__html: item.title } } />
-                <div className="sub-items-container" ref={ (element) => this.sub_items_containers_refs[index] = element }>
-                  <span onClick={this._itemCloseButtonOnClickHandler } className="button-close">X</span>
-                  <div className="row">
-                    <div className="col-sm-6 image">
-                      <div dangerouslySetInnerHTML= { { __html: item.image_html } } />
-                    </div>
-                    <div className="col-sm-6">
-                      <h4>{ item.title }</h4>
-                      <ul className="sub-items">
-                        { item.sub_items.map( (sub_item) => (
-                              <li key={sub_item.id} className="sub-item">
-                                { sub_item.title }
-                              </li>
-                            )
-                          )
-                        }
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            )
-          )
-        }
-        </ul>
+        <div className="row">
+          <div className="col-sm-4">
+            <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
+          </div>
+          <div className="col-sm-8">
+            <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <ul className="items" style={ { height: this.state.itemsContainerHeight || 'auto' } }>
+              {
+                data.items.map(
+                  (item, index) => (
+                    <li key={ item.id } className={classNames({ active: this.state.activeItemIndex === index }, 'item')}>
+                      <a href="#" onClick={this._itemOnClickHandler.bind(null, index) } dangerouslySetInnerHTML={ {__html: item.title } } />
+                      <div className="sub-items-container" ref={ (element) => this.sub_items_containers_refs[index] = element }>
+                        <span onClick={this._itemCloseButtonOnClickHandler } className="button-close">X</span>
+                        <div className="row">
+                          <div className="col-sm-6 image">
+                            <div dangerouslySetInnerHTML= { { __html: item.image_html } } />
+                          </div>
+                          <div className="col-sm-6">
+                            <h4>{ item.title }</h4>
+                            <ul className="sub-items">
+                              { item.sub_items.map( (sub_item) => (
+                                    <li key={sub_item.id} className="sub-item">
+                                      { sub_item.title }
+                                    </li>
+                                  )
+                                )
+                              }
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  )
+                )
+              }
+            </ul>
+          </div>
+        </div>
+
       </div>
       );
     }
 }
 
-ContentContainerReferences.propTypes = {
+ContentContainerListAndModal.propTypes = {
   data: PropTypes.object,
+  siteHeaderHeight: PropTypes.number,
 }
 
-export default ContentContainerReferences;
+ContentContainerListAndModal.defaultProps = {
+  siteHeaderHeight: 0,
+}
+
+export default ContentContainerListAndModal;
