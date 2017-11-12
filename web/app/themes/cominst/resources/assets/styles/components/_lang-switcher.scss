@@ -1,4 +1,13 @@
 ul.lang-switcher {
+  display: inline-flex;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: $color-gray-dark-02;
+
+  a {
+    color: inherit;
+  }
+
   li {
     display: inline-block;
     list-style: none;

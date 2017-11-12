@@ -15,7 +15,7 @@ class LangSwitcher extends Component {
                   href={`/${lang.code}`}
                   className={ classNames( { active: lang.code === this.props.activeLanguage } ) }
                 >
-                    {lang.native_name}
+                    {lang.code}
                 </a>
               </li>
             )

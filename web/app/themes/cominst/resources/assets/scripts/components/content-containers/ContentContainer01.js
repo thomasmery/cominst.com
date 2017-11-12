@@ -112,7 +112,7 @@ class ContentContainer01 extends Component {
   componentDidMount () {
     this.setState( () => ( {
         activeChildContentStyles: {
-          height: this._childContentContainerRef.clientHeight,
+          height: this._childContentContainerRef && this._childContentContainerRef.clientHeight,
         },
       } )
     );

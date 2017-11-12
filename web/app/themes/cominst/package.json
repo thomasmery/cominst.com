@@ -76,7 +76,8 @@
     "extends": "stylelint-config-standard",
     "rules": {
       "no-empty-source": null,
-      "color-hex-case": "lower"
+      "color-hex-case": "lower",
+      "declaration-empty-line-before": null
     }
   },
   "scripts": {

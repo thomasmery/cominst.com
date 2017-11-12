@@ -35,7 +35,7 @@ class Section extends PureComponent {
         topOffset={400}
         bottomOffset={400}
       >
-        <section id={this.props.id} className={ this.props.className } style={ { minHeight: 400, border: 'solid 2px green' } }>
+        <section id={this.props.id} className={ this.props.className }>
           <div className={ this.props.containerClassName }>
             {/* <h2>{ this.props.title }</h2> */}
             <div className="section-content">

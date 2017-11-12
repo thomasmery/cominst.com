@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const Header = (props) => (
-  <header>
+  <header className={props.className}>
     <div className="container">
       <h1 className="title">
         <Link to={props.homeUrl}>
@@ -19,6 +19,7 @@ Header.propTypes = {
   title: PropTypes.string,
   homeUrl: PropTypes.string,
   slogan: PropTypes.string,
+  className:PropTypes.string,
   children: PropTypes.node,
 }
 

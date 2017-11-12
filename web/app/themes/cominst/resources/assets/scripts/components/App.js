@@ -46,6 +46,7 @@ class App extends Component {
     this.targetSectionPath = null;
 
     this.state = {
+      headerIsCollapsed: false,
       lang: {
         code: appData.lang || 'fr',
       },
@@ -690,7 +691,11 @@ class App extends Component {
 
     // we also want to track which section is active - for Nav items highlighting mainly
     this.setState(
-      { activeSectionId: section.props.id },
+      {
+        activeSectionId: section.props.id,
+        headerIsCollapsed: section.props.id !== 'home' && true,
+        headerHeight: this._getHeaderHeight(),
+      },
       () => {
         // we're done entering - we need to 're-activate' the routing mechanism for nav links
         this.enteringSection = false;
@@ -723,22 +728,28 @@ class App extends Component {
             this.headerRef = element;
           }
         }
+        className={this.state.headerIsCollapsed ? 'collapsed' : ''}
       >
         <div className="row">
-          <div className="col-sm-4">
-            {appData.site_description}
+          <div className="col-sm-4 text-left">
+            <Link to={`/${this.state.lang.code}`} className="brand-logo">
+              <img src={`${appData.brand_logo}`} />
+            </Link>
+            <h3 className="site-description">
+              {appData.site_description}
+            </h3>
           </div>
-          <div className="col-sm-4">
-            <Link to={`/${this.state.lang.code}`}>
-              <img src={`${appData.assets_path}images/logo-cominst.svg`} />
+          <div className="col-sm-4 text-center">
+            <Link to={`/${this.state.lang.code}`} className="brand-logo">
+              <img src={`${appData.brand_logo}`} />
             </Link>
           </div>
-          <div className="col-sm-4">
-          <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
+          <div className="col-sm-4 text-right">
+            <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
           </div>
           </div>
-          <div className="row">
-            <div className="col-sm-12">
+          <div className="row nav-container">
+            <div className="col-sm-12 text-center">
               <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
             </div>
         </div>
