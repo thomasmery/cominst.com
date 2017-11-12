@@ -604,7 +604,7 @@ class App extends Component {
             'container'
           )
         }
-        data={ { ...appData.pages.filter((page)=> page.id == 103 || page.id == 106)[0], children: [] } }
+        data={ { ...appData.pages.filter((page)=> page.id == appData.home_page_id)[0], children: [] } }
         ContentContainer={ContentContainers['ContentContainerHome']}
         id="home"
         path={ `/${this.state.lang.code}` }
