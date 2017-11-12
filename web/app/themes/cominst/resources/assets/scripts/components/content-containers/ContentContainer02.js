@@ -38,7 +38,7 @@ class ContentContainer02 extends Component {
     }),
     () => {
         const _expanded = this.state.childContentExpanded[index];
-        const _scrollOffset = - this.scrollOffset;
+        const _scrollOffset = - this.props.siteHeaderHeight - 20;
         const _element = this._childrenRefs[index];
         const _scrollToElement = () => {
           if( ! _expanded ) {
