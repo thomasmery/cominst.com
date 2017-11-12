@@ -10,16 +10,12 @@ class ScrollToRouteHelper extends Component {
 
   _scrollToComponent () {
 
-    const header = document.querySelector('#app header');
-    const headerHeight = header.offsetHeight;
-    const offset = -headerHeight;
-
     scrollToComponent(
       this.props.targetComponent,
       {
         ease: this.props.ease,
         duration: this.props.duration,
-        offset: this.props.offset || offset,
+        offset: - this.props.offset || 0,
         align: 'top',
       }
     );

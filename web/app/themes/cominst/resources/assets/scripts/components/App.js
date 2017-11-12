@@ -89,10 +89,20 @@ class App extends Component {
   }
 
   /**
+   * compute header height
+   * will be passed to scroll helper & sections
+   */
+  _getHeaderHeight () {
+    const header = document.querySelector('#app header');
+    return header.offsetHeight;
+  }
+
+  /**
    * Lifecycle
    */
 
   componentDidMount () {
+    this.setState( { headerHeight: this._getHeaderHeight() } );
     this._updatePosts(this.props.location.pathname);
   }
 
@@ -101,6 +111,8 @@ class App extends Component {
     if(nextProps.location.pathname === this.props.location.pathname) {
       return;
     }
+
+    this.setState( { headerHeight: this._getHeaderHeight() } )
 
     // update posts - reacting to route change to a taxonomy archive route
     this._updatePosts(nextProps.location.pathname);
@@ -569,6 +581,7 @@ class App extends Component {
               }
               data={data}
               ContentContainer={ContentContainers[data.content_template]}
+              siteHeaderHeight={this.state.headerHeight}
               isFetching={data.isFetching}
               id={item.slug}
               path={item.path}
@@ -617,7 +630,11 @@ class App extends Component {
       exact
       render={ (route_props) => {
           if (this.sections.home && ! this.enteringSection) {
-            return <ScrollToRouteHelper targetComponent={this.sections.home} { ...route_props } />
+            return <ScrollToRouteHelper
+              targetComponent={this.sections.home}
+              offset={this.state.headerHeight}
+              { ...route_props }
+            />
           }
           else {
             return null;
@@ -645,7 +662,13 @@ class App extends Component {
                 // this is necessary because the scroll is triggered on ScrollToRouteHelper componentDidMount
                 // note: scroll could be triggered on componentDidUpdate ... this has to be explored
                 if (this.sections[item.slug] && ! this.enteringSection) {
-                  return <ScrollToRouteHelper ease="in-out-quad" duration={500} targetComponent={this.sections[item.slug]} { ...route_props } />
+                  return <ScrollToRouteHelper
+                    ease="in-out-quad"
+                    duration={500}
+                    targetComponent={this.sections[item.slug]}
+                    offset={this.state.headerHeight}
+                    { ...route_props }
+                  />
                 }
                 else {
                   return null;

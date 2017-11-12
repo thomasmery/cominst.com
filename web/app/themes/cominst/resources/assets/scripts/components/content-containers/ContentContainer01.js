@@ -95,17 +95,25 @@ class ContentContainer01 extends Component {
     this._toggleChildContent();
   }
 
+  /** Lifecycle */
+
+  componentWillReceiveProps (nextProps) {
+    if(this.props.siteHeaderHeight !== nextProps.siteHeaderHeight) {
+      this.setState( (state) => (
+        {
+          leftSidebarStyles: {
+            ...state.leftSidebarStyles,
+            top: nextProps.siteHeaderHeight + 20,
+          },
+        } )
+      );
+    }
+  }
+
   componentDidMount () {
-    const header = document.querySelector('#app header');
-    const headerHeight = header.offsetHeight;
-    this.scrollOffset = headerHeight + 40;
-    this.setState( (state) => ( {
+    this.setState( () => ( {
         activeChildContentStyles: {
           height: this._childContentContainerRef.clientHeight,
-        },
-        leftSidebarStyles: {
-          ...state.leftSidebarStyles,
-          top: this.scrollOffset,
         },
       } )
     );
@@ -169,6 +177,11 @@ class ContentContainer01 extends Component {
 ContentContainer01.propTypes = {
   data: PropTypes.object,
   parent: PropTypes.object,
+  siteHeaderHeight: PropTypes.number,
+}
+
+ContentContainer01.defaultProps = {
+  siteHeaderHeight: 0,
 }
 
 export default ContentContainer01;

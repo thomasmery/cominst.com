@@ -24,29 +24,26 @@ class ContentContainerArchive extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    if(this.props.siteHeaderHeight !== nextProps.siteHeaderHeight) {
+      this.setState( (state) => (
+        {
+          leftSidebarStyles: {
+            ...state.leftSidebarStyles,
+            top: nextProps.siteHeaderHeight + 20,
+          },
+        } )
+      );
+    }
     if(this.props.data.posts !== nextProps.data.posts) {
       scrollToComponent(
         this,
         {
-          offset: - this.scrollOffset,
+          offset: - nextProps.siteHeaderHeight,
           align: 'top',
           duration: 300,
         }
       );
     }
-  }
-
-  componentDidMount () {
-    const header = document.querySelector('#app header');
-    const headerHeight = header.offsetHeight;
-    this.scrollOffset = headerHeight + 40;
-    this.setState( (state) => ( {
-        leftSidebarStyles: {
-          ...state.leftSidebarStyles,
-          top: this.scrollOffset,
-        },
-      } )
-    );
   }
 
   render () {
@@ -133,9 +130,14 @@ class ContentContainerArchive extends Component {
 
 ContentContainerArchive.propTypes = {
   data: PropTypes.object,
+  siteHeaderHeight: PropTypes.number,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+}
+
+ContentContainerArchive.defaultProps = {
+  siteHeaderHeight: 0,
 }
 
 export default withRouter(ContentContainerArchive);
