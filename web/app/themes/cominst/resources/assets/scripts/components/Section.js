@@ -19,11 +19,15 @@ class Section extends PureComponent {
       data,
     } = this.props;
 
-    return <ContentContainer
-      data={data}
-      parent={this}
-      siteHeaderHeight={this.props.siteHeaderHeight}
-    />;
+    return typeof ContentContainer === 'function'
+      ? (
+        <ContentContainer
+          data={data}
+          parent={this}
+          siteHeaderHeight={this.props.siteHeaderHeight}
+        />
+       )
+      : ContentContainer;
 
   }
 
@@ -55,7 +59,7 @@ Section.propTypes = {
   containerClassName: PropTypes.string,
   title: PropTypes.string,
   data: PropTypes.object,
-  ContentContainer: PropTypes.func.isRequired,
+  ContentContainer: PropTypes.oneOfType([PropTypes.element,PropTypes.func]).isRequired,
   siteHeaderHeight: PropTypes.number,
   children: PropTypes.node,
   onEnter: PropTypes.func,
