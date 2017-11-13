@@ -95,7 +95,7 @@ class App extends Component {
    */
   _getHeaderHeight () {
     const header = document.querySelector('#app header');
-    return header.offsetHeight;
+    return header && header.offsetHeight;
   }
 
   /**
@@ -105,6 +105,10 @@ class App extends Component {
   componentDidMount () {
     this.setState( { headerHeight: this._getHeaderHeight() } );
     this._updatePosts(this.props.location.pathname);
+
+    this.windowHeight = window.innerHeight;
+    this.expandedHeaderHeight = this._getHeaderHeight();
+
   }
 
   componentWillReceiveProps (nextProps) {
@@ -114,6 +118,7 @@ class App extends Component {
     }
 
     this.setState( { headerHeight: this._getHeaderHeight() } )
+    this.windowHeight = window.innerHeight;
 
     // update posts - reacting to route change to a taxonomy archive route
     this._updatePosts(nextProps.location.pathname);
@@ -623,7 +628,7 @@ class App extends Component {
               }
               data={data}
               ContentContainer={ContentContainers[data.content_template]}
-              siteHeaderHeight={this.state.headerHeight}
+              siteHeaderHeight={87}
               isFetching={data.isFetching}
               id={item.slug}
               path={item.path}
@@ -690,7 +695,7 @@ class App extends Component {
                     ease="in-out-quad"
                     duration={500}
                     targetComponent={this.sections[item.slug]}
-                    offset={this.state.headerHeight}
+                    offset={87}
                     { ...route_props }
                   />
                 }
@@ -706,6 +711,12 @@ class App extends Component {
 
     return routes;
   }
+
+  /* componentDidUpdate(prevProps, prevState) {
+    if(prevState.headerIsCollapsed !== this.state.headerIsCollapsed) {
+      this.setState( { headerHeight: this._getHeaderHeight() });
+    }
+  } */
 
   _onEnterSection (section) {
     // we need to flag the fact that we're 'scrolling' into the section

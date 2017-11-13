@@ -46,6 +46,19 @@ class ContentContainerArchive extends Component {
     }
   }
 
+  componentDidMount () {
+    this.setState( (state) => (
+        {
+          leftSidebarStyles: {
+            ...state.leftSidebarStyles,
+            top: this.props.siteHeaderHeight + 20,
+          },
+        }
+      )
+    )
+  }
+
+
   render () {
     const {
       data,

@@ -97,7 +97,11 @@ class ContentContainer02 extends Component {
   }
 
   componentDidMount () {
-    this.setState( () => ( {
+    this.setState( (state) => ( {
+        leftSidebarStyles: {
+          ...state.leftSidebarStyles,
+          top: this.props.siteHeaderHeight + 20,
+        },
         childrenStyles:
           this.props.data.children.map(
             (child, index) => ({
