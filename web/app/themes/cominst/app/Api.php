@@ -15,6 +15,15 @@ add_action('rest_api_init', function() {
         ]
     );
 
+    // all featured_image sizes for a post or page
+    register_rest_field(
+        ['post', 'page'],
+        'featured_media_metadata',
+        [
+            'get_callback' => '\App\get_featured_media_metadata'
+        ]
+    );
+
     // categories names
     register_rest_field(
         'post',
@@ -59,6 +68,14 @@ function get_featured_media_html($object) {
         $html = wp_get_attachment_image( $object['featured_media'], 'medium');
     }
     return $html;
+}
+
+function get_featured_media_metadata($object) {
+    $sizes = '';
+    if(isset($object['featured_media']) && $object['featured_media']) {
+        $sizes = wp_get_attachment_metadata( $object['featured_media']);
+    }
+    return $sizes;
 }
 
 function get_categories_names($object) {

@@ -37,6 +37,7 @@ add_action('wp_enqueue_scripts', function () {
             'languages' => function_exists('icl_get_languages') ? icl_get_languages('skip_missing=0&orderby=code') : 'fr',
             'home_url' => get_home_url(),
             'template_directory_uri' => get_stylesheet_directory_uri(),
+            'uploads_path' => wp_upload_dir(),
             'assets_path' => asset_path(''),
             'brand_logo' => asset_path('images/logo-cominst.svg'),
             'home_page_id' => get_option( 'page_on_front' ),
