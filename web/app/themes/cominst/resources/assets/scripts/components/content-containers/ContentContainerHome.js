@@ -1,27 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ContentContainerHome = function({ data }) {
+const ContentContainerHome = function({ data, scrollHintElement }) {
   return (
-    <div className="content-container content-container-home">
-      <h3>Home Content Container</h3>
+    <div className="container content-container content-container-home">
       <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
-      <p>{data.acf.content_template}</p>
-      {
-        data.children.map(
-          (child) => (
-            <div key={ child.id }>
-              <h5 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-            </div>
-          )
-        )
-      }
+      <div className="scoll-hint">{scrollHintElement}</div>
     </div>
     );
 }
 
 ContentContainerHome.propTypes = {
   data: PropTypes.object,
+  scrollHintElement: PropTypes.element,
 }
 
 export default ContentContainerHome;

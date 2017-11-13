@@ -39,7 +39,10 @@ add_action('wp_enqueue_scripts', function () {
             'template_directory_uri' => get_stylesheet_directory_uri(),
             'uploads_path' => wp_upload_dir(),
             'assets_path' => asset_path(''),
-            'brand_logo' => asset_path('images/logo-cominst.svg'),
+            'ui' => [
+                'brand_logo' => asset_path('images/logo-cominst.svg'),
+                'scroll_hint' => asset_path('images/chevron-down.svg'),
+            ],
             'home_page_id' => get_option( 'page_on_front' ),
         ]
     );

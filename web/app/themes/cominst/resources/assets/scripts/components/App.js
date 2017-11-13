@@ -556,6 +556,47 @@ class App extends Component {
    * Rendering
    */
 
+  _renderHomePage() {
+
+    const home_page_data = {
+      ...appData.pages.filter((page)=> page.id == appData.home_page_id)[0],
+      children: [],
+    }
+
+    const contentContainerHome = React.createElement(
+      ContentContainers['ContentContainerHome'],
+      {
+        data: home_page_data,
+        scrollHintElement: <Link to={this.state.data.primary_navigation[0].path}><img src={appData.ui.scroll_hint} /></Link>,
+      }
+    );
+
+    return  (
+      <Section
+        key="0"
+        title="Home"
+        containerClassName={
+          classNames(
+            'ContentContainerHome',
+            'container'
+          )
+        }
+        data={home_page_data}
+        ContentContainer={contentContainerHome}
+        sectionStyles={{
+          backgroundImage: `url(${appData.uploads_path.baseurl}/${home_page_data.featured_media_metadata.file})`,
+          height: this.windowHeight || 'auto',
+        }}
+        id="home"
+        path={ `/${this.state.lang.code}` }
+        ref={this._storeSectionRef}
+        onEnter={ this._onEnterSection }
+        onLeave={ this._onLeaveSection }>
+      </Section>
+    );
+
+  }
+
   _renderPosts ( post_type = 'post' ) {
     return this.state.data.posts[post_type].map(
       (post) => <h3 key={ post.id }>{ post.title.rendered }</h3>
@@ -595,25 +636,7 @@ class App extends Component {
         );
 
     // add Home
-    sections.unshift(
-      <Section
-        key="0"
-        title="Home"
-        containerClassName={
-          classNames(
-            'ContentContainerHome',
-            'container'
-          )
-        }
-        data={ { ...appData.pages.filter((page)=> page.id == appData.home_page_id)[0], children: [] } }
-        ContentContainer={ContentContainers['ContentContainerHome']}
-        id="home"
-        path={ `/${this.state.lang.code}` }
-        ref={this._storeSectionRef}
-        onEnter={ this._onEnterSection }
-        onLeave={ this._onLeaveSection }>
-      </Section>
-    );
+    sections.unshift(this._renderHomePage());
 
     return sections;
   }
@@ -693,7 +716,7 @@ class App extends Component {
     this.setState(
       {
         activeSectionId: section.props.id,
-        headerIsCollapsed: section.props.id !== 'home' && true,
+        headerIsCollapsed: section.props.id !== 'home',
         headerHeight: this._getHeaderHeight(),
       },
       () => {
@@ -733,7 +756,7 @@ class App extends Component {
         <div className="row">
           <div className="col-sm-4 text-left">
             <Link to={`/${this.state.lang.code}`} className="brand-logo">
-              <img src={`${appData.brand_logo}`} />
+              <img src={`${appData.ui.brand_logo}`} />
             </Link>
             <h3 className="site-description">
               {appData.site_description}
@@ -741,7 +764,7 @@ class App extends Component {
           </div>
           <div className="col-sm-4 text-center">
             <Link to={`/${this.state.lang.code}`} className="brand-logo">
-              <img src={`${appData.brand_logo}`} />
+              <img src={`${appData.ui.brand_logo}`} />
             </Link>
           </div>
           <div className="col-sm-4 text-right">
