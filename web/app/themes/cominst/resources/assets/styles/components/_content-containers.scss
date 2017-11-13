@@ -1,6 +1,6 @@
 .content-container {
-  background-color: #9bf3ff;
-  padding: 1rem;
+
+  padding: 2rem 1rem;
 
   .image {
     img {
@@ -29,6 +29,46 @@
   .child-content-container {
     overflow: hidden;
     transition: height 0.4s ease-out;
+  }
+}
+
+/** Home **/
+
+.content-container-home {
+  position: absolute;
+  // on larger screens we don't want the content box to be too low
+  @include media-breakpoint-up(lg) {
+    top: 57%;
+  }
+  bottom: 0;
+  background-color: $color-white-01;
+
+  text-align: center;
+
+  padding: 45px 7%;
+  // as the container becomes wider we need larger margins
+  @include media-breakpoint-up(lg) {
+    padding: 70px 15% 45px;
+  }
+
+  h1 {
+    font-size: 1.6875rem;
+    font-weight: normal;
+    color: $color-brand-primary;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    line-height: 1.6875rem;
+    font-weight: 600;
+    color: $color-gray-dark-01;
+  }
+
+  h3 {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    font-weight: normal;
+    color: $color-gray-dark-01;
   }
 }
 
