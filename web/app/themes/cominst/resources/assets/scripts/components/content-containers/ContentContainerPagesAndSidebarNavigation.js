@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import scrollToComponent from 'react-scroll-to-component';
 
-class ContentContainer01 extends Component {
+class ContentContainerPagesAndSidebarNavigation extends Component {
 
   constructor (props) {
     super(props);
@@ -127,12 +127,12 @@ class ContentContainer01 extends Component {
       data,
     } = this.props;
     return (
-      <div className="content-container content-container-01">
+      <div className="content-container content-container-pages-and-sidebar-navigation">
         <div className="row">
           <div className="col-sm-12">
             {/* <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } /> */}
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-4 sidebar">
             <div style={this.state.leftSidebarStyles}>
               <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
               <ul className="nav">
@@ -148,19 +148,37 @@ class ContentContainer01 extends Component {
               </ul>
             </div>
           </div>
-          <div className="col-sm-8">
+          <div className="col-sm-8 pages">
             {
               data.children.length ?
                 <div>
                   <div className="child-content-container" style={this.state.activeChildContentStyles} ref={ (element) => this._childContentContainerRef = element }>
                     <div>
-                      <h3 className="child-title" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].title.rendered } } />
-                      <div className="child-content" dangerouslySetInnerHTML={ { __html: this.state.activeChildContent } } />
-                      <div>
+                      <div className="header">
+                        <h3 className="title" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].title.rendered } } />
+                        { data.children[this.state.activeChildIndex].acf.subtitle
+                          && <h4 className="subtitle" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].acf.subtitle } } /> }
+                      </div>
+                      <div className="content" dangerouslySetInnerHTML={ { __html: this.state.activeChildContent } } />
+                      <div className="actions">
                         {
                           data.children[this.state.activeChildIndex].content_parts.length > 1 ?
                             <a onClick={this._onContentToggleHandler}>
-                              { this.state.childContentExpanded ? 'Collapse' : 'Expand' }
+                              {
+                                this.state.childContentExpanded
+                                ?
+                                <span>
+                                  <svg width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                      <defs></defs>
+                                      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
+                                          <g id="add" transform="translate(1.000000, 1.000000)" stroke="#018EC0" strokeWidth="2">
+                                              <path d="M0,13 L27,13" id="Line-2"></path>
+                                              <path d="M14,27 L14,0" id="Line-2-Copy"></path>
+                                          </g>
+                                      </g>
+                                  </svg>
+                                </span>
+                                : 'Expand' }
                             </a> : ''
                         }
                       </div>
@@ -177,14 +195,14 @@ class ContentContainer01 extends Component {
   }
 }
 
-ContentContainer01.propTypes = {
+ContentContainerPagesAndSidebarNavigation.propTypes = {
   data: PropTypes.object,
   parent: PropTypes.object,
   siteHeaderHeight: PropTypes.number,
 }
 
-ContentContainer01.defaultProps = {
+ContentContainerPagesAndSidebarNavigation.defaultProps = {
   siteHeaderHeight: 0,
 }
 
-export default ContentContainer01;
+export default ContentContainerPagesAndSidebarNavigation;

@@ -76,6 +76,8 @@ header.collapsed {
   height: 74px;
   background-color: rgba(255, 255, 255, 1);
 
+  box-shadow: 0 -2px 14px 3px $color-gray-dark-01;
+
   .row:first-of-type {
     div:first-child {
       .brand-logo {

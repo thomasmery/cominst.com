@@ -522,7 +522,8 @@ class App extends Component {
         // convenient access to the template type
         // also safe guard against non-existing ContentContainer Component by checking the component can be accessed
         contentContainer = ContentContainers[object.acf.content_template];
-        object.content_template = contentContainer ? object.acf.content_template : 'ContentContainer01';
+        object.content_template = contentContainer ? object.acf.content_template : 'ContentContainerPagesAndSidebarNavigation';
+        object.color_theme = object.acf.color_theme;
 
         switch(object.content_template) {
           case 'ContentContainerListAndModal':
@@ -617,24 +618,25 @@ class App extends Component {
           // we'll add lazy fetching later if needed
           const data = this._buildSectionData(item);
           return data ? (
-            <Section
-              key={item.id}
-              title={item.title}
-              containerClassName={
-                classNames(
-                  data.content_template !== 'ContentContainerCarousel' ? 'container' : '',
-                  data.content_template
-                )
-              }
-              data={data}
-              ContentContainer={ContentContainers[data.content_template]}
-              siteHeaderHeight={87}
-              isFetching={data.isFetching}
-              id={item.slug}
-              path={item.path}
-              ref={this._storeSectionRef}
-              onEnter={ this._onEnterSection }
-              onLeave={ this._onLeaveSection }>
+              <Section
+                key={item.id}
+                title={item.title}
+                className={ classNames(data.color_theme) }
+                containerClassName={
+                  classNames(
+                    data.content_template !== 'ContentContainerCarousel' ? 'container' : '',
+                    data.content_template
+                  )
+                }
+                data={data}
+                ContentContainer={ContentContainers[data.content_template]}
+                siteHeaderHeight={87}
+                isFetching={data.isFetching}
+                id={item.slug}
+                path={item.path}
+                ref={this._storeSectionRef}
+                onEnter={ this._onEnterSection }
+                onLeave={ this._onLeaveSection }>
               </Section>
             ) : '';
           }

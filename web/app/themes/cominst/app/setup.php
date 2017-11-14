@@ -42,6 +42,7 @@ add_action('wp_enqueue_scripts', function () {
             'ui' => [
                 'brand_logo' => asset_path('images/logo-cominst.svg'),
                 'scroll_hint' => asset_path('images/chevron-down.svg'),
+                'expand_button' => asset_path('images/add.svg'),
             ],
             'home_page_id' => get_option( 'page_on_front' ),
         ]

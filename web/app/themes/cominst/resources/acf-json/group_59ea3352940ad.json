@@ -16,7 +16,7 @@
                 "id": ""
             },
             "choices": {
-                "ContentContainer01": "Gabarit 1",
+                "ContentContainerPagesAndSidebarNavigation": "Pages et navigation latérale",
                 "ContentContainer02": "Gabarit 2",
                 "ContentContainer03": "Gabarit 3",
                 "ContentContainerCarousel": "Carousel",
@@ -173,6 +173,31 @@
                     "mime_types": ""
                 }
             ]
+        },
+        {
+            "key": "field_5a09c42b844a5",
+            "label": "Thème Couleur",
+            "name": "color_theme",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "dark": "Sombre",
+                "light": "Clair"
+            },
+            "default_value": [],
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 0,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
         }
     ],
     "location": [
@@ -192,5 +217,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1510227290
+    "modified": 1510592127
 }
