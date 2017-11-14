@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import scrollToComponent from 'react-scroll-to-component';
 
-class ContentContainer02 extends Component {
+class ContentContainerPagesAndSidebarLinks extends Component {
 
   constructor(props) {
     super(props);
@@ -31,6 +31,7 @@ class ContentContainer02 extends Component {
       childContentExpanded: state.childContentExpanded.map( (value, _index) => {
         return index !== _index ? value : ! value;
       }),
+      // as we toggle we always show the 'body' as content - we will replace by 'introduction' on collapse when needed - see below
       childContent: state.childContent.map( (content, _index) => {
         return index !== _index ?
         content : this.props.data.children[index].body;
@@ -41,20 +42,30 @@ class ContentContainer02 extends Component {
         const _scrollOffset = - this.props.siteHeaderHeight - 20;
         const _element = this._childrenRefs[index];
         const _scrollToElement = () => {
-          if( ! _expanded ) {
-            scrollToComponent(_element,{
-              offset: _scrollOffset,
-              align: 'top',
-              duration: 400,
-            });
-          }
-          // _element.removeEventListener('transitionend', _scrollToElement, true);
+          scrollToComponent(_element,{
+            offset: _scrollOffset,
+            align: 'top',
+            duration: 400,
+          });
         }
-        /* _element.addEventListener(
+
+        // at the end of collapsing we need to restore the 'introduction' as the content
+        const _setContent = () => {
+          this.setState( (state) => ({
+            childContent: state.childContent.map( (content, _index) => {
+              return index !== _index ?
+              content : _expanded ? this.props.data.children[index].body : this.props.data.children[index].introduction;
+            }),
+          }))
+          _element.removeEventListener('transitionend', _setContent, true);
+        }
+
+        _element.addEventListener(
           'transitionend',
-          _scrollToElement,
+          _setContent,
           true
-        ); */
+        );
+
         _scrollToElement();
 
         this.setState( (state) => ({
@@ -119,42 +130,62 @@ class ContentContainer02 extends Component {
     } = this.props;
     const links = data.acf.links || [];
     return (
-      <div className="content-container content-container-02">
+      <div className="content-container content-container-pages-and-sidebar-links">
         <div className="row">
           <div className="col-sm-4">
-            <div style={this.state.leftSidebarStyles}>
+            <div className="sidebar" style={this.state.leftSidebarStyles}>
               <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
-              <ul>
-                { links.map( (link) => (
-                    <li key={link.label}>
-                      <span>{link.title}</span><br />
-                      <a href={ link.type === 'page' ? link.page_url : link.file_url }>{  link.label }</a>
-                    </li>
-                  )
-                ) }
-              </ul>
+              {
+                links.length
+                 ? <ul className="links">
+                    { links.map( (link) => (
+                        <li className="item" key={link.label}>
+                          <span>{link.title}</span><br />
+                          <a href={ link.type === 'page' ? link.page_url : link.file_url }>{  link.label }</a>
+                        </li>
+                      )
+                    ) }
+                  </ul>
+                  : ''
+                }
             </div>
           </div>
 
           <div className="col-sm-8">
 
-            <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
+            <div className="page-content" dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
 
             {
               data.children.map(
                 (child, index) => (
                   <div key={ child.id } >
                     <div className="child-content-container" style={ this.state.childrenStyles[index] } ref={ (element) => this._childrenRefs[index] = element }>
-                      <h2 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-                      <p dangerouslySetInnerHTML={ {__html: this.state.childContent[index] } } />
-                    </div>
-                    <div>
-                      {
-                        child.content_parts.length > 1 ?
-                          <a onClick={this._onContentToggleHandler.bind(null, index)}>
-                            { this.state.childContentExpanded[index] ? 'Collapse' : 'Expand' }
-                          </a> : ''
-                      }
+                      <div className="header">
+                        <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
+                      </div>
+                      <div className="content">
+                        <div dangerouslySetInnerHTML={ {__html: this.state.childContent[index] } } />
+                      </div>
+                      <div className="actions">
+                        {
+                          child.content_parts.length > 1 ?
+                            <a onClick={this._onContentToggleHandler.bind(null, index)}>
+                              {
+                                <span className={ ! this.state.childContentExpanded[index] && 'collapsed'}>
+                                  <svg className="expand-button" width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                      <defs></defs>
+                                      <g id="expand-button-container" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
+                                          <g id="expand-button-group" transform="translate(1.000000, 1.000000)" stroke="#018EC0" strokeWidth="2">
+                                              <path d="M0,13 L27,13" id="horizontal-line"></path>
+                                              <path d="M14,27 L14,0" id="vertical-line"></path>
+                                          </g>
+                                      </g>
+                                  </svg>
+                                </span>
+                              }
+                            </a> : ''
+                        }
+                      </div>
                     </div>
                   </div>
                 )
@@ -168,14 +199,14 @@ class ContentContainer02 extends Component {
   }
 }
 
-ContentContainer02.propTypes = {
+ContentContainerPagesAndSidebarLinks.propTypes = {
   data: PropTypes.object,
   parent: PropTypes.object,
   siteHeaderHeight: PropTypes.number,
 }
 
-ContentContainer02.defaultProps = {
+ContentContainerPagesAndSidebarLinks.defaultProps = {
   siteHeaderHeight: 0,
 }
 
-export default ContentContainer02;
+export default ContentContainerPagesAndSidebarLinks;

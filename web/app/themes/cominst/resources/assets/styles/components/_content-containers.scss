@@ -44,7 +44,8 @@
   .sidebar {
     padding-right: 3.125rem;
 
-    .nav {
+    .nav,
+    .links {
       margin-top: 3.125rem;
     }
   }
@@ -100,6 +101,7 @@
     .actions {
       position: relative;
       text-align: right;
+      min-height: 30px;
 
       &::before {
         content: "";
@@ -176,6 +178,50 @@
       img {
         width: 100%;
       }
+    }
+  }
+}
+
+/** Pages & sidebar links */
+.content-container-pages-and-sidebar-links {
+  .links {
+    font-family: $font-sans-serif;
+
+    .item {
+      margin-bottom: 2rem;
+
+      a {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .page-content {
+    position: relative;
+
+    font-family: $font-sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $color-gray-dark-01;
+
+    padding-bottom: 1rem;
+    margin-bottom: 2.5rem;
+
+    p {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    > p:last-child {
+      padding-bottom: 1rem;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 50%;
+      border-bottom: 1px solid $color-gray-dark-01;
     }
   }
 }

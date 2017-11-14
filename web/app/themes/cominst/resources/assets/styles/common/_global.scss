@@ -16,7 +16,7 @@ body {
   background-color: $color-white-01;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: MerriWeather, 'Times New Roman', Times, serif;
+  font-family: $font-serif;
 }
 
 h1,
@@ -25,13 +25,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Amiko, Arial, Helvetica, sans-serif;
+  font-family: $font-sans-serif;
   font-weight: 600;
 }
 
 nav,
 .nav {
-  font-family: Amiko, Arial, Helvetica, sans-serif;
+  font-family: $font-sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
   text-transform: uppercase;
