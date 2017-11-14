@@ -29,6 +29,14 @@ h6 {
   font-weight: 600;
 }
 
+a {
+  color: $color-blue-dark-01;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 nav,
 .nav {
   font-family: $font-sans-serif;

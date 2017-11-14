@@ -23,7 +23,14 @@ class ContentContainerListAndModal extends Component {
 
   _setActiveItem (index) {
 
-    const itemsContainerHeight = index !== null ? this.sub_items_containers_refs[index].clientHeight : 'auto';
+    if(index !== null) {
+      this.originalItemsContainerHeight = this._listRef.clientHeight;
+    }
+
+    const itemsContainerHeight =
+      index !== null
+        ? this.sub_items_containers_refs[index].clientHeight
+        : this.originalItemsContainerHeight;
 
     this.setState( () => ({
         activeItemIndex: index,
@@ -32,9 +39,9 @@ class ContentContainerListAndModal extends Component {
     );
 
     scrollToComponent(
-      this,
+      this._listContainerRef,
       {
-        offset: - this.props.siteHeaderHeight,
+        offset: - this.props.siteHeaderHeight - 20,
         align: 'top',
         duration: 300,
       }
@@ -53,6 +60,7 @@ class ContentContainerListAndModal extends Component {
 
   _itemCloseButtonOnClickHandler (event) {
       event.preventDefault();
+      event.stopPropagation();
       this._resetActiveItem ();
   }
 
@@ -64,21 +72,33 @@ class ContentContainerListAndModal extends Component {
     return (
       <div className="content-container content-container-list-and-modal">
         <div className="row">
-          <div className="col-sm-4">
+          <div className="col-sm-4 sidebar">
             <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
           </div>
           <div className="col-sm-8">
-            <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
+            <div className="page-content" dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-12">
-            <ul className="items" style={ { height: this.state.itemsContainerHeight || 'auto' } }>
+          <div
+            className="col-sm-12 list-container"
+            ref={ (element) => this._listContainerRef = element }
+          >
+            <h3 className="list-header" dangerouslySetInnerHTML={ { __html: data.subtitle } } />
+            <ul
+              className="items"
+              style={ { height: this.state.itemsContainerHeight || 'auto' } }
+              ref={ (element) => this._listRef = element }
+            >
               {
                 data.items.map(
                   (item, index) => (
-                    <li key={ item.id } className={classNames({ active: this.state.activeItemIndex === index }, 'item')}>
-                      <a href="#" onClick={this._itemOnClickHandler.bind(null, index) } dangerouslySetInnerHTML={ {__html: item.title } } />
+                    <li
+                      key={ item.id }
+                      className={classNames({ active: this.state.activeItemIndex === index }, 'item')}
+                      onClick={this._itemOnClickHandler.bind(null, index) }
+                    >
+                      <span dangerouslySetInnerHTML={ {__html: item.title } } />
                       <div className="sub-items-container" ref={ (element) => this.sub_items_containers_refs[index] = element }>
                         <span onClick={this._itemCloseButtonOnClickHandler } className="button-close">X</span>
                         <div className="row">
