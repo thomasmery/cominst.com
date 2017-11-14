@@ -100,7 +100,16 @@ class ContentContainerListAndModal extends Component {
                     >
                       <span dangerouslySetInnerHTML={ {__html: item.title } } />
                       <div className="sub-items-container" ref={ (element) => this.sub_items_containers_refs[index] = element }>
-                        <span onClick={this._itemCloseButtonOnClickHandler } className="button-close">X</span>
+                        <span onClick={this._itemCloseButtonOnClickHandler } className="button-close">
+                          <svg width="23px" height="22px" viewBox="0 0 23 22" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
+                                <g id="close" transform="translate(11.500000, 10.500000) rotate(-45.000000) translate(-11.500000, -10.500000) translate(-2.000000, -3.000000)" stroke="#666666" strokeWidth="2">
+                                    <path d="M0.0649711575,13.5 L26.0649712,13.5" id="Line-2"></path>
+                                    <path d="M13.5,26.9350288 L13.5,0.935028843" id="Line-2-Copy"></path>
+                                </g>
+                            </g>
+                          </svg>
+                        </span>
                         <div className="row">
                           <div className="col-sm-6 image">
                             <div dangerouslySetInnerHTML= { { __html: item.image_html } } />
