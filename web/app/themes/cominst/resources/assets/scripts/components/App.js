@@ -386,6 +386,9 @@ class App extends Component {
       page.introduction = page.content_parts[0];
       page.body = page.content.rendered;
 
+      // acf stuff
+      page.subtitle = page.acf.subtitle;
+
       return page;
     });
   }

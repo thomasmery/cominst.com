@@ -156,8 +156,8 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
                     <div>
                       <div className="header">
                         <h3 className="title" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].title.rendered } } />
-                        { data.children[this.state.activeChildIndex].acf.subtitle
-                          && <h4 className="subtitle" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].acf.subtitle } } /> }
+                        { data.children[this.state.activeChildIndex].subtitle
+                          && <h4 className="subtitle" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].subtitle } } /> }
                       </div>
                       <div className="content" dangerouslySetInnerHTML={ { __html: this.state.activeChildContent } } />
                       <div className="actions">
