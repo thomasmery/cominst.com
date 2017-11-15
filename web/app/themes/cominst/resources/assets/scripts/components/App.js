@@ -658,6 +658,35 @@ class App extends Component {
     return sections;
   }
 
+  /** Footer */
+
+  _renderFooter () {
+    return (
+      <Section
+        key="footer"
+        title="Footer"
+        className="dark"
+        containerClassName={
+          classNames(
+            'ContentContainerFooter',
+            'container'
+          )
+        }
+        data={ {
+          site_name: this.state.data.site_name,
+          site_description: this.state.data.site_description,
+          ...this.state.data.theme_options,
+        } }
+        ContentContainer={ContentContainers['ContentContainerFooter']}
+        id="footer"
+        path={ null }
+        ref={this._storeSectionRef}
+        onEnter={ this._onEnterSection }
+        onLeave={ this._onLeaveSection }>
+      </Section>
+    )
+  }
+
   /** Navigation */
 
   _renderRoutes () {
@@ -803,23 +832,7 @@ class App extends Component {
 
       { this._renderSections() }
 
-      <Section
-        key="footer"
-        title="Footer"
-        containerClassName={
-          classNames(
-            'ContentContainerFooter',
-            'container'
-          )
-        }
-        data={ { site_name: this.state.data.site_name, site_description: this.state.data.site_description, ...this.state.data.theme_options} }
-        ContentContainer={ContentContainers['ContentContainerFooter']}
-        id="footer"
-        path={ null }
-        ref={this._storeSectionRef}
-        onEnter={ this._onEnterSection }
-        onLeave={ this._onLeaveSection }>
-      </Section>
+      { this._renderFooter() }
 
       { this._renderRoutes() }
 

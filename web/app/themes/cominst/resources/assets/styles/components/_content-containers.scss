@@ -463,3 +463,54 @@ $content-container-carousel-max-widths: (
     }
   }
 }
+
+/** Footer **/
+
+.content-container-footer {
+  font-family: $font-sans-serif;
+  font-size: 0.87rem;
+  line-height: 1.5625;
+
+  p,
+  ul {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .block h3 {
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: $color-blue-dark-01;
+  }
+
+  .social-networks {
+    display: flex;
+
+    .item {
+      margin-right: 1rem;
+    }
+
+    .icon {
+      font-size: 2rem;
+    }
+  }
+
+  .content {
+    margin-bottom: 2rem;
+  }
+
+  .signature {
+    text-align: center;
+  }
+
+  .col-left {
+    padding-right: 4rem;
+  }
+
+  .map-container {
+    > * {
+      width: 100%;
+    }
+  }
+}
