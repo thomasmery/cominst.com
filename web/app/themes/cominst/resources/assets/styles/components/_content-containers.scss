@@ -56,38 +56,41 @@
     flex-direction: column;
 
     .item {
-      padding: 10px;
+      > a {
+        display: block;
+        padding: 10px;
 
-      border-bottom: solid 1px $color-gray-light-03;
+        border-bottom: solid 1px $color-gray-light-03;
 
-      background-image: linear-gradient(to right, #49b9fa, #49b9fa);
-      background-repeat: no-repeat;
-      background-size: 0% 100%;
-      transition:
-        background-size 0.5s ease-in,
-        padding 0.3s ease-out,
-        color 0.7s ease-in;
-
-      color: $color-gray-dark-02;
-
-      cursor: pointer;
-
-      a {
-        color: inherit;
-      }
-
-      &.active,
-      &:hover {
-        color: $color-blue-light-03;
-        background-size: 100% 100%;
-        padding-left: 1rem;
+        background-image: linear-gradient(to right, #49b9fa, #49b9fa);
+        background-repeat: no-repeat;
+        background-size: 0% 100%;
         transition:
-          background-size 0.3s ease-in,
+          background-size 0.5s ease-in,
           padding 0.3s ease-out,
-          color 0.3s ease-out;
+          color 0.7s ease-in;
+
+        color: $color-gray-dark-02;
+
+        cursor: pointer;
 
         a {
-          transform: translateX(1rem);
+          color: inherit;
+        }
+
+        &.active,
+        &:hover {
+          color: $color-blue-light-03;
+          background-size: 100% 100%;
+          padding-left: 1rem;
+          transition:
+            background-size 0.3s ease-in,
+            padding 0.3s ease-out,
+            color 0.3s ease-out;
+
+          a {
+            transform: translateX(1rem);
+          }
         }
       }
     }
