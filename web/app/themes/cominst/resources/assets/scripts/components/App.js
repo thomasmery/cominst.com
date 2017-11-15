@@ -613,12 +613,6 @@ class App extends Component {
 
   }
 
-  _renderPosts ( post_type = 'post' ) {
-    return this.state.data.posts[post_type].map(
-      (post) => <h3 key={ post.id }>{ post.title.rendered }</h3>
-    )
-  }
-
   _renderSections () {
     // build sections out of main menu
     const sections = this.state.data.primary_navigation.map(
