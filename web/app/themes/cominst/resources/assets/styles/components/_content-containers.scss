@@ -400,13 +400,12 @@ $content-container-carousel-max-widths: (
 .content-container-archive {
   .sidebar {
     .header {
-      display: flex;
-      justify-content: space-between;
-
       .spinner {
+        position: absolute;
+        top: 0;
+        right: 0;
         color: $color-brand-primary;
         font-size: 2rem;
-        flex: 0 1 auto;
       }
     }
   }
