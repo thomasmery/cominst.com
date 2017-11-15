@@ -45,6 +45,7 @@ add_action('wp_enqueue_scripts', function () {
                 'expand_button' => asset_path('images/add.svg'),
             ],
             'home_page_id' => get_option( 'page_on_front' ),
+            'blog_page_id' => get_option( 'page_for_posts' ),
         ]
     );
 }, 100);
@@ -133,6 +134,9 @@ add_action('after_setup_theme', function () {
      * @see resources/assets/styles/layouts/_tinymce.scss
      */
     add_editor_style(asset_path('styles/main.css'));
+
+    /** Load string translations */
+    load_theme_textdomain('cominst', get_template_directory() . '/languages');
 }, 20);
 
 /**
