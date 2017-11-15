@@ -319,16 +319,72 @@
 }
 
 /** Carousel **/
+
+// will be used for reducing carousel center panel width
+$content-container-carousel-max-widths: (
+  sm: 540px,
+  md: 600px,
+  lg: 840px,
+  xl: 1020px
+);
+
 .content-container-carousel {
   overflow: hidden;
+  padding: 0;
 
   .image {
     opacity: 1;
     transition: opacity 1s ease-out;
+    width: 100%;
 
     &.hidden {
       opacity: 0;
       transition: opacity 0.4s ease-in;
+    }
+  }
+
+  // we need to reduce the center in width to show navigation at all times
+  // even when we reach the next lower breakpoint
+  .carousel-center-panel {
+    @include make-container-max-widths($content-container-carousel-max-widths);
+  }
+
+  .content {
+    padding-right: 2rem;
+    max-height: 400px;
+  }
+
+  .content-full-width {
+    padding: 0 3rem;
+  }
+
+  .carousel-side-panel,
+  .carousel-center-panel {
+    padding: 60px 0;
+  }
+
+  .carousel-side-panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .button-navigation {
+      padding: 0 1rem;
+    }
+
+    .button-navigation-left {
+      order: 2;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      opacity: 0.4;
     }
   }
 }

@@ -55,3 +55,41 @@ ul {
   list-style: none;
   padding: 0;
 }
+
+/** Links with Icons */
+
+.link-icon {
+  &::before {
+    font-family: 'FontAwesome';
+    position: relative;
+    margin-right: 5px;
+    font-size: 110%;
+  }
+}
+
+.link-email {
+  font-family: $font-sans-serif;
+
+  &::before {
+    content: "\f0e0";
+  }
+}
+
+.link-twitter {
+  &::before {
+    content: "\f081";
+  }
+}
+
+.link-facebook {
+  &::before {
+    content: "\f082";
+  }
+}
+
+.link-linkedin {
+  &::before {
+    content: "\f08c";
+  }
+}
+

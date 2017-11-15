@@ -48,3 +48,51 @@ add_filter(
         return $posts;
     }
 );
+
+/**
+ * Add custom styles formats to TinyMCE
+ *
+ * @param $init_array
+ * @return mixed
+ */
+function mce_insert_formats( $init_array ) {
+
+        $style_formats = array(
+            array(
+                'title' => 'Lien email',
+                'selector' => 'a',
+                'classes' => 'link-icon link-email',
+                'wrapper' => false,
+            ),
+            array(
+                'title' => 'Lien twitter',
+                'selector' => 'a',
+                'classes' => 'link-icon link-twitter',
+                'wrapper' => false,
+            ),
+            array(
+                'title' => 'Lien Facebook',
+                'selector' => 'a',
+                'classes' => 'link-icon link-facebook',
+                'wrapper' => false,
+            ),
+            array(
+                'title' => 'Lien LinkedIn',
+                'selector' => 'a',
+                'classes' => 'link-icon link-linkedin',
+                'wrapper' => false,
+            ),
+            array(
+                'title' => 'Lien LinkedIn 2',
+                'inline' => 'span',
+                'classes' => 'link-icon link-linkedin',
+                'wrapper' => true,
+            ),
+        );
+
+        $init_array['style_formats'] = json_encode( $style_formats );
+
+        return $init_array;
+    }
+
+    add_filter( 'tiny_mce_before_init', __NAMESPACE__ . '\\mce_insert_formats' );
