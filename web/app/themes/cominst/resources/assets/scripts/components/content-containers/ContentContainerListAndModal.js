@@ -55,6 +55,7 @@ class ContentContainerListAndModal extends Component {
 
   _itemOnClickHandler (index, event) {
     event.preventDefault();
+    console.log('ITEM CLICKED'); // eslint-disable-line
     this._setActiveItem(index);
   }
 
@@ -99,7 +100,11 @@ class ContentContainerListAndModal extends Component {
                       onClick={this._itemOnClickHandler.bind(null, index) }
                     >
                       <span dangerouslySetInnerHTML={ {__html: item.title } } />
-                      <div className="sub-items-container" ref={ (element) => this.sub_items_containers_refs[index] = element }>
+                      <div
+                        className="sub-items-container"
+                        ref={ (element) => this.sub_items_containers_refs[index] = element }
+                        onClick={ (event) => event.stopPropagation() }
+                      >
                         <span onClick={this._itemCloseButtonOnClickHandler } className="button-close">
                           <svg width="23px" height="22px" viewBox="0 0 23 22" version="1.1" xmlns="http://www.w3.org/2000/svg">
                             <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
