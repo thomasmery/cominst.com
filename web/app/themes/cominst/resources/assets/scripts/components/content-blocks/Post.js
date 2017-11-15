@@ -35,7 +35,7 @@ class Post extends Component {
   componentDidMount () {
     const header = document.querySelector('#app header');
     const headerHeight = header.offsetHeight;
-    this.scrollOffset = headerHeight + 20;
+    this.scrollOffset = headerHeight + 30;
     this.originalContentHeight = this._contentBoxRef.clientHeight;
     this.setState( () => (
       {
@@ -59,7 +59,6 @@ class Post extends Component {
   }
 
   _contentContainerTransitionEndHandler () {
-    console.log('ended');//eslint-disable-line
     this._toggleActive();
     this.props.history.push(this.props.postsListPath);
     this.setState((state) => ({
@@ -128,34 +127,59 @@ class Post extends Component {
     } = this.props;
     const activeContent = this.state.active ? content : excerpt.replace(/<a.*?>.*?<\/a>/g, '');
     return (
-      <div key={ data.id }>
-        <div>
-          {
-            data.categories_names.map(
-              (name, index) => (
-                <span key={index} dangerouslySetInnerHTML={ {__html: name } } />
-              )
-            )
-          }
-          <span> - <span dangerouslySetInnerHTML={ {__html: data.formatted_published_date } } /> </span>
-          {
-             data.medias_names.length ?
-              data.medias_names.map(
+      <div key={ data.id } className="child-content-container post">
+        <div className="header">
+          <div className="meta-data">
+            {
+              data.categories_names.map(
                 (name, index) => (
-                  <span key={index}> - <span dangerouslySetInnerHTML={ {__html: name } } /> </span>
+                  <span className="category" key={index} dangerouslySetInnerHTML={ {__html: name } } />
                 )
-              ) : ''
-          }
+              )
+            }
+            <span> <span dangerouslySetInnerHTML={ {__html: data.formatted_published_date } } /> </span>
+            {
+               data.medias_names.length ?
+                data.medias_names.map(
+                  (name, index) => (
+                    <span className="meta-data-media" key={index}> - <span dangerouslySetInnerHTML={ {__html: name } } /> </span>
+                  )
+                ) : ''
+            }
+          </div>
+          <h3 className="title" dangerouslySetInnerHTML={ {__html: data.title.rendered } } />
         </div>
-        <h3 style={ { color: this.state.active ? 'green' : 'blue'} } dangerouslySetInnerHTML={ {__html: data.title.rendered } } />
-        <div style={this.state.contentStyles} ref={ (element) => this._contentContainerRef = element }>
+        <div className="content" style={this.state.contentStyles} ref={ (element) => this._contentContainerRef = element }>
           <div ref={ (element) => this._contentBoxRef = element } dangerouslySetInnerHTML={ {__html: activeContent } } />
         </div>
-        <div>
+        <div className="actions">
           {
             ! this.state.active ?
-              <Link to={data.path}>+</Link> :
-              <a href="#" onClick={this._toggleButtonClickHandler}>-</a>
+              <Link to={data.path}>
+                <span className="collapsed">
+                  <svg className="expand-button" width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                      <defs></defs>
+                      <g id="expand-button-container" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
+                          <g id="expand-button-group" transform="translate(1.000000, 1.000000)" stroke="#018EC0" strokeWidth="2">
+                              <path d="M0,13 L27,13" id="horizontal-line"></path>
+                              <path d="M14,27 L14,0" id="vertical-line"></path>
+                          </g>
+                      </g>
+                  </svg>
+                </span>
+              </Link> :
+              <a href="#" onClick={this._toggleButtonClickHandler}>
+                <span className="collapsed">
+                  <svg className="expand-button" width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                      <defs></defs>
+                      <g id="expand-button-container" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
+                          <g id="expand-button-group" transform="translate(1.000000, 1.000000)" stroke="#018EC0" strokeWidth="2">
+                              <path d="M0,13 L27,13" id="horizontal-line"></path>
+                          </g>
+                      </g>
+                  </svg>
+              </span>
+              </a>
           }
         </div>
       </div>

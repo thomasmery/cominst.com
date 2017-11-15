@@ -1,13 +1,70 @@
 .pagination {
+  display: flex;
+  justify-content: center;
+
   li {
-    margin-left: 10px;
+    margin-left: 1rem;
 
     &.disabled {
       display: none;
     }
 
+    font-family: $font-sans-serif;
+    font-size: 1rem;
+    color: $color-gray-dark-02;
+
+    &:hover {
+      color: $color-blue-dark-01;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .pagination-link {
+      &::before {
+        font-size: 1rem;
+        font-family: "FontAwesome";
+        position: relative;
+        top: -3px;
+      }
+    }
+
+    .pagination-link-first {
+      font-size: 0;
+
+      &::before {
+        content: "\f104\f104";
+      }
+    }
+
+    .pagination-link-prev {
+      font-size: 0;
+
+      &::before {
+        content: "\f104";
+      }
+    }
+
+    .pagination-link-next {
+      font-size: 0;
+
+      &::before {
+        content: "\f105";
+      }
+    }
+
+    .pagination-link-last {
+      font-size: 0;
+
+      &::before {
+        content: "\f105\f105";
+      }
+    }
+
     &.active {
-      color: red;
+      color: $color-blue-dark-01;
+      font-weight: bold;
 
       a {
         color: inherit;

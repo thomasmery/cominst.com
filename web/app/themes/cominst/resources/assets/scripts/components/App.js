@@ -541,7 +541,11 @@ class App extends Component {
         object.posts = this.state.data.post_types[item.object].posts || []
         // choose which taxonomy filters/menu we make available to the component
         switch(item.object) {
-          case 'post':
+          case 'post': {
+            const blog_page_data = {
+              ...this.state.data.pages.filter((page)=> page.id == appData.blog_page_id)[0],
+              children: [],
+            }
             // hard coded taxonomies terms for posts - extracted from our data store
             // at this time we only need to display a categories menu and do not deal with other taxonomies (like 'post_tag' for instance)
             object.taxonomies = { categories: this.state.data.post_types_taxonomies.post.category || { terms: [] } }
@@ -549,7 +553,10 @@ class App extends Component {
             object.post_type_archive_path = `${item.path}/all`;
             object.active_post_slug = this.state.activePostSlug;
             object.posts_list_path = this.state.postsListPath;
+            object.title = blog_page_data.title;
+            object.subtitle = blog_page_data.subtitle;
             break;
+          }
           default:
             object.taxonomies = {}
         }
