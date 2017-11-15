@@ -34,7 +34,7 @@ add_action('wp_enqueue_scripts', function () {
             'primary_navigation' => Api::get_primary_navigation(),
             'theme_options' => Api::get_theme_options(),
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
-            'languages' => function_exists('icl_get_languages') ? icl_get_languages('skip_missing=0&orderby=code') : 'fr',
+            'languages' => function_exists('icl_get_languages') ? icl_get_languages('skip_missing=0&orderby=custom') : 'fr',
             'home_url' => get_home_url(),
             'template_directory_uri' => get_stylesheet_directory_uri(),
             'uploads_path' => wp_upload_dir(),
@@ -220,3 +220,16 @@ if (function_exists('acf_add_options_page')) {
       'redirect' => false
     ));
 }
+
+// we want to be able to modify the
+add_filter(
+    'wpml_active_languages_access',
+    function ($languages) {
+        foreach($languages as $key => $lang) {
+            if($lang['code'] === 'zh-hans') {
+                $languages[$key]['code'] = 'cn';
+            }
+        }
+        return $languages;
+    }
+);
