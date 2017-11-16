@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9271af16b407ca36f0db2ccf07807ed",
+    "content-hash": "c11799da3b195762a30d61a6d8cb06c5",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -620,15 +620,15 @@
         },
         {
             "name": "wpackagist-plugin/tinymce-advanced",
-            "version": "4.6.3",
+            "version": "4.6.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/tinymce-advanced/",
-                "reference": "tags/4.6.3"
+                "reference": "tags/4.6.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/tinymce-advanced.4.6.3.zip",
+                "url": "https://downloads.wordpress.org/plugin/tinymce-advanced.4.6.7.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -660,10 +660,10 @@
         },
         {
             "name": "wpml/wpml-core",
-            "version": "3.8.1",
+            "version": "3.8.4",
             "dist": {
                 "type": "zip",
-                "url": "https://wpml.org/?download=6088&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1505396441&version=3.8.1",
+                "url": "https://wpml.org/?download=6088&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1510830115&version=3.8.4",
                 "reference": null,
                 "shasum": null
             },
@@ -671,10 +671,10 @@
         },
         {
             "name": "wpml/wpml-string-translation",
-            "version": "2.6.1",
+            "version": "2.6.3",
             "dist": {
                 "type": "zip",
-                "url": "https://wpml.org/?download=6092&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1505396441&version=2.6.1",
+                "url": "https://wpml.org/?download=6092&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1510830115&version=2.6.3",
                 "reference": null,
                 "shasum": null
             },
