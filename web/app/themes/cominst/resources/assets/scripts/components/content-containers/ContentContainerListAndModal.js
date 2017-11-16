@@ -99,7 +99,7 @@ class ContentContainerListAndModal extends Component {
                       className={classNames({ active: this.state.activeItemIndex === index }, 'item')}
                       onClick={this._itemOnClickHandler.bind(null, index) }
                     >
-                      <span dangerouslySetInnerHTML={ {__html: item.title } } />
+                      <a href="#"><span dangerouslySetInnerHTML={ {__html: item.title } } /></a>
                       <div
                         className="sub-items-container"
                         ref={ (element) => this.sub_items_containers_refs[index] = element }
