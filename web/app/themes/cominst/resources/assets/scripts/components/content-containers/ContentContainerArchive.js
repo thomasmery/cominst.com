@@ -167,7 +167,7 @@ class ContentContainerArchive extends Component {
             <div className="pagination-container">
               <Pagination
                 activePage={parseInt(data.post_type.paging.currentPage)}
-                itemsCountPerPage={3}
+                itemsCountPerPage={this.props.data.posts_per_page}
                 totalItemsCount={data.post_type.paging.total}
                 pageRangeDisplayed={10}
                 onChange={(index) => history.push(`${pages[0].path}/page/${index}`)}

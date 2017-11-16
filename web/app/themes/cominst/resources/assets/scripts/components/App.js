@@ -176,7 +176,8 @@ class App extends Component {
     this._getClient().then(
       (client) => {
         const posts_request = client.posts();
-        posts_request.param( 'per_page', 3 );
+        // pagination
+        posts_request.param( 'per_page', appData.posts_per_page );
         params.forEach(
           (param) => posts_request.param( param.name, param.value )
         );
@@ -555,6 +556,7 @@ class App extends Component {
             object.posts_list_path = this.state.postsListPath;
             object.title = blog_page_data.title;
             object.subtitle = blog_page_data.subtitle;
+            object.posts_per_page = appData.posts_per_page;
             break;
           }
           default:
