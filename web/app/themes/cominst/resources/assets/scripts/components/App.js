@@ -446,8 +446,16 @@ class App extends Component {
 
       // split content using the <!--more--> html comment that a WP user can insert into a post content
       page.content_parts = page.content.rendered.split('<!--more-->');
-      page.introduction = page.content_parts[0];
-      page.body = page.content.rendered;
+      page.content_parts =
+        page.content_parts
+          .map( (part) => part
+                          .replace(/^<\/(.*)>/,'')
+                          .replace(/^<(.*)>$/,'')
+                      );
+      page.introduction = page.content_parts.concat().splice(0,1);
+      page.body = page.content_parts.length > 1
+        ? page.content_parts.concat().splice(1).join('')
+        : '';
 
       // acf stuff
       page.subtitle = page.acf.subtitle;

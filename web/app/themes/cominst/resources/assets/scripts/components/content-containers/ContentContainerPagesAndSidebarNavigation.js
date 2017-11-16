@@ -58,7 +58,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
   _toggleChildContent () {
     this.setState( (state) => ( {
           activeChildContent: ! state.childContentExpanded ?
-            this.props.data.children[state.activeChildIndex].body :
+            this.props.data.children[state.activeChildIndex].content.rendered :
             this.props.data.children[state.activeChildIndex].introduction,
           childContentExpanded: ! state.childContentExpanded,
       } ),

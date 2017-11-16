@@ -31,10 +31,10 @@ class ContentContainerPagesAndSidebarLinks extends Component {
       childContentExpanded: state.childContentExpanded.map( (value, _index) => {
         return index !== _index ? value : ! value;
       }),
-      // as we toggle we always show the 'body' as content - we will replace by 'introduction' on collapse when needed - see below
+      // as we toggle we always show the whole content as content - we will replace by 'introduction' on collapse when needed - see below
       childContent: state.childContent.map( (content, _index) => {
         return index !== _index ?
-        content : this.props.data.children[index].body;
+        content : this.props.data.children[index].content.rendered;
       }),
     }),
     () => {
@@ -54,7 +54,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
           this.setState( (state) => ({
             childContent: state.childContent.map( (content, _index) => {
               return index !== _index ?
-              content : _expanded ? this.props.data.children[index].body : this.props.data.children[index].introduction;
+              content : _expanded ? this.props.data.children[index].content.rendered : this.props.data.children[index].introduction;
             }),
           }))
           _element.removeEventListener('transitionend', _setContent, true);
