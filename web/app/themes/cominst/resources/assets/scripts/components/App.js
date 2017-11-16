@@ -141,13 +141,17 @@ class App extends Component {
     }
   }
 
+  /**
+   *
+   * @param {object} params an object to configure the get posts request
+   */
   _getPosts ( params = [] ) {
 
     if(this.state.data.isFetching.post) {
       return;
     }
 
-
+    // extract 'categories' from params
     const categories = [];
     if(params.filter( (param) => param.name === 'categories' ).length) {
       const category_id = params.filter( (param) => param.name === 'categories' )[0].value;
@@ -155,6 +159,7 @@ class App extends Component {
       categories.push(category)
     }
 
+    // notify we are fetching data
     this.setState(
       (state) => ({ data: {
           ...state.data,
@@ -178,15 +183,21 @@ class App extends Component {
         const posts_request = client.posts();
         // pagination
         posts_request.param( 'per_page', appData.posts_per_page );
+        // add other params to request
         params.forEach(
           (param) => posts_request.param( param.name, param.value )
         );
+        // request
         posts_request.then(
+          // now we have our posts
           (posts) => {
+            // paging
             const paging = {
               ...posts._paging,
-              currentPage: params.filter( (param) => param.name === 'page' ).length ?
-                params.filter( (param) => param.name === 'page' )[0].value : 1,
+              currentPage:
+                params.filter( (param) => param.name === 'page' ).length
+                  ? params.filter( (param) => param.name === 'page' )[0].value
+                  : 1,
             };
 
             this.setState(
@@ -195,10 +206,12 @@ class App extends Component {
                 activePostSlug: null,
                 data: {
                   ...state.data,
+                  // fetching has finished
                   isFetching: {
                     ...state.data.isFetching,
                     post: false,
                   },
+                  // set posts data
                   post_types: {
                     ...state.data.post_types,
                     'post': {
@@ -231,7 +244,8 @@ class App extends Component {
   */
   _updatePosts (path) {
 
-    const params = [];
+    let params = [];
+    let match = false;
 
     // extract pagination parameters
     const pagination_params_matches = path.match(/(page)\/([0-9]+)/);
@@ -243,7 +257,7 @@ class App extends Component {
     }
 
     // will trigger a fetch for all posts when path is (or contains) the post post_type_archive path
-    this.state.data.primary_navigation.map(
+    this.state.data.primary_navigation.forEach(
       (item) => {
         if(
           item.type === 'post_type_archive' &&
@@ -264,9 +278,14 @@ class App extends Component {
                 activePostSlug: null,
               }));
             }
+            match = true;
           }
       }
     );
+
+    if(match) {
+      return;
+    }
 
     // try to match a taxonomy term path
     // or a single post - a post's path contains the category as we set the permalink structure to /%category%/%postname%/
@@ -311,13 +330,14 @@ class App extends Component {
             const regExpSinglePost = new RegExp(term.path.replace(/\/?$/, `/([${characters_range}]+)`));
             const isSingle = path.replace(/\/?$/, '').match(regExpSinglePost);
             if( isSingle )  {
+              // WP REST API associates a URI encoded slug to posts - we need to match that
+              // thus the transformations on the original matched string
+              const post_slug = encodeURI(isSingle[1]).toLocaleLowerCase();
               // set active Post
               this.setState( (state) => ({
                 ...state,
                 postsListPath: term.path,
-                // WP REST API associates a URI encoded slug to posts - we need to match that
-                // thus the trnasformations on the original matched string
-                activePostSlug: encodeURI(isSingle[1]).toLocaleLowerCase(),
+                activePostSlug: post_slug,
               }));
               return;
             }
