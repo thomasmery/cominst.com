@@ -87,6 +87,7 @@
     
     "wpackagist-plugin/disable-url-autocorrect-guessing": "*",
     "wpackagist-plugin/no-category-base-wpml": "*",
+    "wpackagist-plugin/disable-emojis": "*",
 
     "wpackagist-plugin/wp-api-menus": "*",
 
