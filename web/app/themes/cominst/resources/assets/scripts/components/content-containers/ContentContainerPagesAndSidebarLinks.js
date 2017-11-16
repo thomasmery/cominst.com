@@ -153,7 +153,10 @@ class ContentContainerPagesAndSidebarLinks extends Component {
 
           <div className="col-sm-8">
 
-            <div className="page-content" dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
+            {
+              data.content.rendered
+                && <div className="page-content" dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
+            }
 
             {
               data.children.map(
