@@ -203,7 +203,9 @@ class App extends Component {
             this.setState(
               (state) => ({
                 ...state,
-                activePostSlug: null,
+                // we might have been requesting a single post but had to jump to its page to display it
+                activePostSlug: null || state.nextActivePostSlug,
+                nextActivePostSlug: null,
                 data: {
                   ...state.data,
                   // fetching has finished
@@ -330,9 +332,49 @@ class App extends Component {
             const regExpSinglePost = new RegExp(term.path.replace(/\/?$/, `/([${characters_range}]+)`));
             const isSingle = path.replace(/\/?$/, '').match(regExpSinglePost);
             if( isSingle )  {
+
+              // does the post exists in our store?
+
               // WP REST API associates a URI encoded slug to posts - we need to match that
               // thus the transformations on the original matched string
               const post_slug = encodeURI(isSingle[1]).toLocaleLowerCase();
+              const post_exists_in_store =
+                !! this.state.data.post_types.post.posts.filter(
+                  (post) => post.slug === post_slug
+                ).length;
+
+              // when a requested single post has not been loaded
+              // we look for its page in the 'all posts' list that contains posts' { id, post_name }
+              if( ! post_exists_in_store ) {
+                const posts = appData.all_posts_ids_and_slugs
+                // extract the index
+                const post = posts
+                  .map(
+                    (post, index) => ({ ...post, index })
+                  )
+                  .filter(
+                    (post) => post.post_name === post_slug
+                  );
+                const post_index = post.length && post[0].index;
+                if( ! post_index ) {
+                  return;
+                }
+                // find the page
+                const page = Math.ceil((post_index + 1) / appData.posts_per_page);
+                params = [];
+                params.push( {
+                  name: 'page',
+                  value: page,
+                } );
+                this._getPosts( params );
+                this.setState( (state) => ({
+                  ...state,
+                  nextActivePostSlug: post[0].post_name,
+                  postsListPath: '/fr/actualites',
+                }));
+                return;
+              }
+
               // set active Post
               this.setState( (state) => ({
                 ...state,

@@ -125,6 +125,33 @@ class Api {
         ];
     }
 
+    /** get ALL Posts IDs & slug */
+    public static function get_all_posts_ids_and_slugs( ) {
+        global $wpdb;
+
+        $wpml_is_installed = defined('ICL_LANGUAGE_CODE');
+        $lang = $wpml_is_installed ? ICL_LANGUAGE_CODE : 'fr';
+
+        $join_statement = $wpml_is_installed
+            ? ' INNER JOIN wp_icl_translations wpml ON p.ID = wpml.`element_id`'
+            : '';
+
+        $where_statement = "post_type = 'post' AND post_status IN ('publish')";
+        $where_statement .= $wpml_is_installed
+            ? " AND wpml.`language_code` = '$lang'"
+            : '';
+        $query = sprintf("SELECT ID, post_name
+            FROM wp_posts p
+            %s
+            WHERE %s
+            ORDER BY post_date DESC",
+            $join_statement,
+            $where_statement
+        );
+
+        return $wpdb->get_results($query);
+    }
+
     /**
     * post categories
     */

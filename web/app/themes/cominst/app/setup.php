@@ -27,6 +27,7 @@ add_action('wp_enqueue_scripts', function () {
             'site_description' => get_bloginfo('description'),
             'posts' => Api::get_posts(get_option( 'posts_per_page' )),
             'posts_per_page' => get_option( 'posts_per_page' ),
+            'all_posts_ids_and_slugs' => Api::get_all_posts_ids_and_slugs(),
             'categories' => Api::get_categories(),
             'taxonomies' => Api::get_taxonomies(),
             'post_types' => Api::get_post_types(),
