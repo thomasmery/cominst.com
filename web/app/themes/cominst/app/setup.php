@@ -223,7 +223,7 @@ if (function_exists('acf_add_options_page')) {
 }
 
 // we want to be able to modify the
-add_filter(
+/* add_filter(
     'wpml_active_languages_access',
     function ($languages) {
         foreach($languages as $key => $lang) {
@@ -233,4 +233,4 @@ add_filter(
         }
         return $languages;
     }
-);
+); */
