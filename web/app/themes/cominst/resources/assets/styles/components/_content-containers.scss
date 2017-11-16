@@ -343,6 +343,10 @@ $content-container-carousel-max-widths: (
   overflow: hidden;
   padding: 0;
 
+  p {
+    font-size: 0.9rem;
+  }
+
   .image {
     opacity: 1;
     transition: opacity 1s ease-out;
@@ -360,16 +364,75 @@ $content-container-carousel-max-widths: (
     @include make-container-max-widths($content-container-carousel-max-widths);
   }
 
-  .content {
-    padding-right: 2rem;
+  .child-content-container {
+
+    // reset rules from generic .child-content-container
+    overflow: visible;
+    transition: height 0 linear;
+    margin-bottom: 0;
+
+    position: relative;
+    padding-right: 3.75rem;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 40%;
+      border-bottom: solid 1px $color-black-01;
+      transform: scaleX(1);
+      transition: transform 0.3s ease-out;
+    }
+
+    &::before {
+      top: -2rem;
+      left: 0;
+      transform-origin: 0 0;
+    }
+
+    &::after {
+      bottom: -2.5rem;
+      right: 3.75rem;
+      transform-origin: 100% 0;
+    }
+
+    .content {
+      position: relative;
+    }
   }
 
   .content-full-width {
-    padding: 0 3rem;
+    padding: 0 3.75rem;
+
+    &::before {
+      left: 3.75rem;
+    }
   }
 
-  .carousel-side-panel,
   .carousel-center-panel {
+    padding: 3.75rem 0;
+
+    &.sliding {
+      .child-content-container {
+        &::before,
+        &::after {
+          transform: scaleX(0);
+          transition: transform 0s linear;
+        }
+      }
+    }
+
+    // make up for vertical space inside the swipe container
+    // because we need to show the deco lines placed inside .content
+    // which would be hidden otherwise - because of the swipe-container > div overflow
+    .react-swipe-container {
+      > div {
+        padding: 2.5rem 0;
+      }
+    }
+  }
+
+  .carousel-side-panel {
     padding: 6.25rem 0;
   }
 
@@ -380,6 +443,10 @@ $content-container-carousel-max-widths: (
 
     .button-navigation {
       padding: 0 1rem;
+
+      svg g {
+        stroke: $color-black-01;
+      }
     }
 
     .button-navigation-left {

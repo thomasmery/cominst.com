@@ -59,6 +59,8 @@ ul {
 /** Links with Icons */
 
 .link-icon {
+  font-family: $font-sans-serif;
+
   &::before {
     font-family: 'FontAwesome';
     position: relative;
@@ -68,8 +70,6 @@ ul {
 }
 
 .link-email {
-  font-family: $font-sans-serif;
-
   &::before {
     content: "\f0e0";
   }

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 
+// import scrollToComponent from 'react-scroll-to-component';
+
 import ReactSwipe from 'react-swipe';
 
 class ContentContainerCarousel extends Component {
@@ -12,6 +14,8 @@ class ContentContainerCarousel extends Component {
 
     this.state = {
       sideImagesAnimationClass: null,
+      centerPanelClass: null,
+      swipeContainerHeight: 'auto',
       carouselCurrentIndex: 0,
       carouselPreviousIndex: this.props.data.children.length - 1,
       carouselNextIndex: 1,
@@ -49,14 +53,29 @@ class ContentContainerCarousel extends Component {
     const swipeOptions = {
       speed: 400,
       callback(index) {// eslint-disable-line
+
+        const _active_slide_element = _this.carousel.container.querySelectorAll('[data-index]')[index];
+
+        /* scrollToComponent(
+          _this,
+          {
+            offset: - _this.props.siteHeaderHeight - 20,
+            align: 'top',
+            duration: 300,
+          }
+        ); */
+
         _this.setState( {
             sideImagesAnimationClass: 'hidden',
+            centerPanelClass: 'sliding',
+            swipeContainerHeight: _active_slide_element.clientHeight + 70,
           }
         )
       },
       transitionEnd(index) {
         _this.setState( () => ({
           sideImagesAnimationClass: null,
+          centerPanelClass: null,
           carouselCurrentIndex: index,
           carouselPreviousIndex: index === 0 ? _this.props.data.children.length - 1 : index - 1,
           carouselNextIndex: index === _this.props.data.children.length - 1 ? 0 : index + 1,
@@ -85,11 +104,33 @@ class ContentContainerCarousel extends Component {
               dangerouslySetInnerHTML={ {__html: data.children[this.state.carouselPreviousIndex].featured_media_html } }
             />
         </div>
-        <div className="container carousel-center-panel" style={{ flex: '1 0 auto', margin: 0 }}>
+        <div
+          className={ classNames( this.state.centerPanelClass, 'container carousel-center-panel')}
+          style={{ flex: '1 0 auto', margin: 0 }}
+        >
           <ReactSwipe
             key={data.children.length}
             ref={ (element) => this.carousel = element }
             swipeOptions={swipeOptions}
+            style={{
+              container: {
+                overflow: 'hidden',
+                visibility: 'hidden',
+                position: 'relative',
+                height: this.state.swipeContainerHeight,
+                transition: 'height 0.2s ease-out',
+                },
+                wrapper: {
+                  overflow: 'hidden',
+                  position: 'relative',
+                },
+                child: {
+                  float: 'left',
+                  width: '100%',
+                  position: 'relative',
+                  transitionProperty: 'transform',
+                },
+              }}
           >
             {
               data.children.map(
@@ -105,13 +146,18 @@ class ContentContainerCarousel extends Component {
                          )
                       }
                       <div className={child.featured_media_html ? "col-sm-9" : "col-sm-12"}>
-                        <div className={ classNames({ "content-full-width": ! child.featured_media_html }, 'content') }>
-                          <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-                          {
-                            child.subtitle
-                              && <h4 className="subtitle" dangerouslySetInnerHTML={ {__html: child.subtitle } } />
-                          }
-                          <p dangerouslySetInnerHTML={ {__html: child.content.rendered } } />
+                        <div className={ classNames({ "content-full-width": ! child.featured_media_html }, 'child-content-container') }>
+                          <div className="header">
+                            <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
+                            {
+                              child.subtitle
+                                && <h4 className="subtitle" dangerouslySetInnerHTML={ {__html: child.subtitle } } />
+                            }
+                          </div>
+                          <div className="content">
+                            <div className="introduction" dangerouslySetInnerHTML={ {__html: child.introduction } } />
+                            <div className="body" dangerouslySetInnerHTML={ {__html: child.body } } />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -147,6 +193,7 @@ class ContentContainerCarousel extends Component {
 
 ContentContainerCarousel.propTypes = {
   data: PropTypes.object,
+  siteHeaderHeight: PropTypes.number,
 }
 
 export default ContentContainerCarousel;
