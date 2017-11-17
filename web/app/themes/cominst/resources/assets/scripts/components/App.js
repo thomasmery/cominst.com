@@ -402,6 +402,7 @@ class App extends Component {
     const supported_item_types = [
       'post_type',
       'post_type_archive',
+      'custom',
     ];
 
     // remove unwanted elements
@@ -635,7 +636,20 @@ class App extends Component {
         // fetching flag - using the psot_type key - i.e. 'post'
         object.isFetching = this.state.data.isFetching[item.object] || false;
       break;
-
+      case 'custom':
+        switch(item.url) {
+          case '/contact':
+            object = {
+              ...object,
+              color_theme: 'dark',
+              site_name: this.state.data.site_name,
+              site_description: this.state.data.site_description,
+              ...this.state.data.theme_options,
+            }
+            object.content_template = 'ContentContainerFooter';
+          break;
+        }
+      break;
     }
     return object;
   }
@@ -898,7 +912,7 @@ class App extends Component {
 
       { this._renderSections() }
 
-      { this._renderFooter() }
+      { /* this._renderFooter() */ }
 
       { this._renderRoutes() }
 
