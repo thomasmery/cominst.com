@@ -187,6 +187,12 @@
 
 .content-container-home {
   position: absolute;
+
+  // this is a bootstrap .container
+  // inside another .container
+  // left ppty is not specified so it is positioned where we want but we need to move it back a little
+  // because of the parent container padding
+  margin-left: -($grid-gutter-width / 2);
   // on larger screens we don't want the content box to be too low
   @include media-breakpoint-up(lg) {
     top: 57%;

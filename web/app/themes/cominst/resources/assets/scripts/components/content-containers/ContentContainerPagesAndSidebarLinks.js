@@ -75,7 +75,9 @@ class ContentContainerPagesAndSidebarLinks extends Component {
                   styles :
                   {
                     ...styles,
-                    height: ! state.childContentExpanded[index] ? state.childrenStyles[index].originalHeight : this._childrenRefs[index].scrollHeight,
+                    height: ! state.childContentExpanded[index]
+                      ? state.childrenStyles[index].originalHeight
+                      : this._childrenRefs[index].scrollHeight,
                   }
                 }
               ),
@@ -122,6 +124,30 @@ class ContentContainerPagesAndSidebarLinks extends Component {
           ),
       } )
     );
+
+    window.addEventListener('resize', () => {
+        console.log('resize');// eslint-disable-line
+        this.props.data.children.forEach(
+          (child, index) => {
+            this._childrenRefs[index].style.height = 'auto';
+            // this._childrenRefs[index].style.height = this._childrenRefs[index].clientHeight + 'px';
+          }
+        );
+
+        this.setState( () => ( {
+            childrenStyles:
+              this.props.data.children.map(
+                (child, index) => ({
+                  height: this._childrenRefs[index].clientHeight,
+                  originalHeight: this._childrenRefs[index].clientHeight,
+                })
+              ),
+          } ),
+          () => this.forceUpdate()
+        );
+
+      }
+    )
   }
 
   render () {
@@ -167,7 +193,11 @@ class ContentContainerPagesAndSidebarLinks extends Component {
               data.children.map(
                 (child, index) => (
                   <div key={ child.id } >
-                    <div className="child-content-container" style={ this.state.childrenStyles[index] } ref={ (element) => this._childrenRefs[index] = element }>
+                    <div
+                      className="child-content-container"
+                      style={ this.state.childrenStyles[index] }
+                      ref={ (element) => this._childrenRefs[index] = element }
+                    >
                       <div className="header">
                         <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
                       </div>
