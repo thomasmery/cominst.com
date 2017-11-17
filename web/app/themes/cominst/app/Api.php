@@ -65,7 +65,7 @@ add_action('rest_api_init', function() {
 function get_featured_media_html($object) {
     $html = '';
     if(isset($object['featured_media']) && $object['featured_media']) {
-        $html = wp_get_attachment_image( $object['featured_media'], 'medium');
+        $html = wp_get_attachment_image( $object['featured_media'], 'large');
     }
     return $html;
 }
