@@ -95,7 +95,20 @@ class App extends Component {
    */
   _getHeaderHeight () {
     const header = document.querySelector('#app header');
-    return header && header.offsetHeight;
+    const headerChild = header.children[0];
+    const navContainer = document.querySelector('#app header .nav-container');
+    const leftBrandLogo = document.querySelector('#app header .text-left .brand-logo');
+    const headerPaddingTop = parseInt(getComputedStyle(header).paddingTop);
+    const headerPaddingBottom = parseInt(getComputedStyle(header).paddingBottom);
+    const navContainerHeight =
+      navContainer.offsetHeight + parseInt(getComputedStyle(navContainer).marginTop);
+    const leftBrandLogoHeight = leftBrandLogo.offsetHeight;
+    const collapsedBaseHeight = leftBrandLogoHeight > navContainerHeight ? leftBrandLogoHeight + 10 : navContainerHeight
+    const headerHeight =
+      ( this.state.headerIsCollapsed ? collapsedBaseHeight : headerChild.clientHeight )
+      + headerPaddingTop
+      + headerPaddingBottom
+    return header && headerHeight;
   }
 
   /**
@@ -108,6 +121,9 @@ class App extends Component {
 
     this.windowHeight = window.innerHeight;
     this.expandedHeaderHeight = this._getHeaderHeight();
+
+    const header = document.querySelector('#app header');
+    header.style.height = this.expandedHeaderHeight + 'px';
 
   }
 
@@ -720,7 +736,7 @@ class App extends Component {
                   )
                 }
                 ContentContainer={ContentContainers[data.content_template]}
-                siteHeaderHeight={87}
+                siteHeaderHeight={this.state.headerHeight}
                 isFetching={data.isFetching}
                 id={item.slug}
                 path={item.path}
@@ -816,7 +832,7 @@ class App extends Component {
                     ease="in-out-quad"
                     duration={500}
                     targetComponent={this.sections[item.slug]}
-                    offset={87}
+                    offset={this.previousHeaderHeight}
                     { ...route_props }
                   />
                 }
@@ -849,11 +865,15 @@ class App extends Component {
       {
         activeSectionId: section.props.id,
         headerIsCollapsed: section.props.id !== 'home',
-        headerHeight: this._getHeaderHeight(),
       },
       () => {
         // we're done entering - we need to 're-activate' the routing mechanism for nav links
         this.enteringSection = false;
+
+        this.previousHeaderHeight = this.headerHeight;
+        this.headerHeight = this._getHeaderHeight();
+        const header = document.querySelector('#app header');
+        header.style.height = this.headerHeight + 'px';
       }
     );
   }
@@ -886,7 +906,7 @@ class App extends Component {
         className={this.state.headerIsCollapsed ? 'collapsed' : ''}
       >
         <div className="row">
-          <div className="col-sm-4 text-left">
+          <div className="col-sm-2 text-left">
             <Link to={`/${this.state.lang.code}`} className="brand-logo">
               <img src={`${appData.ui.brand_logo}`} />
             </Link>
@@ -894,19 +914,17 @@ class App extends Component {
               {appData.site_description}
             </h3>
           </div>
-          <div className="col-sm-4 text-center">
+          <div className="col-sm-8 text-center">
             <Link to={`/${this.state.lang.code}`} className="brand-logo">
               <img src={`${appData.ui.brand_logo}`} />
             </Link>
-          </div>
-          <div className="col-sm-4 text-right">
-            <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
-          </div>
-          </div>
-          <div className="row nav-container">
-            <div className="col-sm-12 text-center">
+            <div className="nav-container">
               <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
             </div>
+          </div>
+          <div className="col-sm-2 text-right">
+            <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
+          </div>
         </div>
       </Header>
 
