@@ -141,7 +141,12 @@ class ContentContainerPagesAndSidebarLinks extends Component {
                     { links.map( (link) => (
                         <li className="item" key={link.label}>
                           <span>{link.title}</span><br />
-                          <a href={ link.type === 'page' ? link.page_url : link.file_url }>{  link.label }</a>
+                          <a
+                            href={ link.type === 'page' ? link.page_url : link.file_url }
+                            target="_blank"
+                          >
+                            {  link.label }
+                          </a>
                         </li>
                       )
                     ) }

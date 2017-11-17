@@ -139,8 +139,10 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
               {
                 data.children.map(
                   (child, index) => (
-                    <li key={ child.id } className={ classNames({ active: index === this.state.activeChildIndex }, 'item') }>
-                      <a onClick={ this._childTitleClickHandler.bind(null, index) } dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
+                    <li
+                      key={ child.id }
+                      className="item">
+                        <a className={ classNames({ active: index === this.state.activeChildIndex }) } onClick={ this._childTitleClickHandler.bind(null, index) } dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
                     </li>
                   )
                 )

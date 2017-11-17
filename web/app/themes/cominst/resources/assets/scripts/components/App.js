@@ -658,7 +658,7 @@ class App extends Component {
    * Rendering
    */
 
-  _renderHomePage() {
+  _renderHome() {
 
     const home_page_data = {
       ...appData.pages.filter((page)=> page.id == appData.home_page_id)[0],
@@ -711,6 +711,7 @@ class App extends Component {
               <Section
                 key={item.id}
                 title={item.title}
+                data={data}
                 className={ classNames(data.color_theme) }
                 containerClassName={
                   classNames(
@@ -718,7 +719,6 @@ class App extends Component {
                     data.content_template
                   )
                 }
-                data={data}
                 ContentContainer={ContentContainers[data.content_template]}
                 siteHeaderHeight={87}
                 isFetching={data.isFetching}
@@ -733,7 +733,7 @@ class App extends Component {
         );
 
     // add Home
-    sections.unshift(this._renderHomePage());
+    sections.unshift(this._renderHome());
 
     return sections;
   }
