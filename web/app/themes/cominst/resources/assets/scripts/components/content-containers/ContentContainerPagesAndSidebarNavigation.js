@@ -48,7 +48,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     scrollToComponent(
       this._childContentContainerRef,
       {
-        offset: - this.props.siteHeaderHeight - 20,
+        offset: - this.props.siteHeaderHeight,
         align: 'top',
         duration: 300,
       }
@@ -77,7 +77,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     scrollToComponent(
       this._childContentContainerRef,
       {
-        offset: - this.props.siteHeaderHeight - 20,
+        offset: - this.props.siteHeaderHeight,
         align: 'top',
         duration: 300,
       }

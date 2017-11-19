@@ -39,7 +39,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
     }),
     () => {
         const _expanded = this.state.childContentExpanded[index];
-        const _scrollOffset = - this.props.siteHeaderHeight - 20;
+        const _scrollOffset = - this.props.siteHeaderHeight - 50; // 50 is the content-container paddingTop - should be dynamic
         const _element = this._childrenRefs[index];
         const _scrollToElement = () => {
           scrollToComponent(_element,{
@@ -102,7 +102,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
         {
           leftSidebarStyles: {
             ...state.leftSidebarStyles,
-            top: nextProps.siteHeaderHeight + 20,
+            top: nextProps.siteHeaderHeight + 50,
           },
         } )
       );
@@ -113,7 +113,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
     this.setState( (state) => ( {
         leftSidebarStyles: {
           ...state.leftSidebarStyles,
-          top: this.props.siteHeaderHeight + 20,
+          top: this.props.siteHeaderHeight + 50,
         },
         childrenStyles:
           this.props.data.children.map(

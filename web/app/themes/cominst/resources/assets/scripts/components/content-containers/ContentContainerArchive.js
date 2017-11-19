@@ -30,7 +30,7 @@ class ContentContainerArchive extends Component {
         {
           leftSidebarStyles: {
             ...state.leftSidebarStyles,
-            top: nextProps.siteHeaderHeight + 20,
+            top: nextProps.siteHeaderHeight + 50,
           },
         } )
       );
