@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 
-// import scrollToComponent from 'react-scroll-to-component';
+import scrollToComponent from 'react-scroll-to-component';
 
 import ReactSwipe from 'react-swipe';
 
@@ -34,11 +34,13 @@ class ContentContainerCarousel extends Component {
     this.carousel.next()
   }
 
-  _onPreviousButtonClickHandler () {
+  _onPreviousButtonClickHandler (event) {
+    event.preventDefault();
     this.showPreviousSlide();
   }
 
-  _onNextButtonClickHandler () {
+  _onNextButtonClickHandler (event) {
+    event.preventDefault();
     this.showNextSlide();
   }
 
@@ -56,15 +58,6 @@ class ContentContainerCarousel extends Component {
 
         const _active_slide_element = _this.carousel.container.querySelectorAll('[data-index]')[index];
 
-        /* scrollToComponent(
-          _this,
-          {
-            offset: - _this.props.siteHeaderHeight - 20,
-            align: 'top',
-            duration: 300,
-          }
-        ); */
-
         _this.setState( {
             sideImagesAnimationClass: 'hidden',
             centerPanelClass: 'sliding',
@@ -79,7 +72,16 @@ class ContentContainerCarousel extends Component {
           carouselCurrentIndex: index,
           carouselPreviousIndex: index === 0 ? _this.props.data.children.length - 1 : index - 1,
           carouselNextIndex: index === _this.props.data.children.length - 1 ? 0 : index + 1,
-        }))
+        }));
+
+        scrollToComponent(
+          _this,
+          {
+            offset: - _this.props.siteHeaderHeight,
+            align: 'top',
+            duration: 300,
+          }
+        );
       },
     }
 

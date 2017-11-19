@@ -22,6 +22,9 @@ class ContentContainerArchive extends Component {
         top: 0,
       },
     }
+
+    this._scrollToComponentTop = this._scrollToComponentTop.bind(this);
+
   }
 
   componentWillReceiveProps (nextProps) {
@@ -30,21 +33,12 @@ class ContentContainerArchive extends Component {
         {
           leftSidebarStyles: {
             ...state.leftSidebarStyles,
-            top: nextProps.siteHeaderHeight + 20,
+            top: nextProps.siteHeaderHeight + 50, // 50 is the content-container paddingTop - should be dynamic
           },
         } )
       );
     }
-    if(this.props.data.posts !== nextProps.data.posts) {
-      scrollToComponent(
-        this,
-        {
-          offset: - nextProps.siteHeaderHeight,
-          align: 'top',
-          duration: 300,
-        }
-      );
-    }
+    // if(this.props.data.posts !== nextProps.data.posts) {}
   }
 
   componentDidMount () {
@@ -57,6 +51,17 @@ class ContentContainerArchive extends Component {
         }
       )
     )
+  }
+
+  _scrollToComponentTop () {
+    scrollToComponent(
+      this,
+      {
+        offset: - this.props.siteHeaderHeight,
+        align: 'top',
+        duration: 300,
+      }
+    );
   }
 
 
@@ -110,6 +115,7 @@ class ContentContainerArchive extends Component {
                     // we want to set the item as active if there is no active category for posts
                     isActive={ () => ! data.post_type.categories || data.post_type.categories.length === 0 }
                     to={data.post_type_archive_path}
+                    onClick={ this._scrollToComponentTop }
                     dangerouslySetInnerHTML= { { __html: data.subtitle } }
                   />
                 </li>
@@ -135,6 +141,7 @@ class ContentContainerArchive extends Component {
                                   // we want to set the item as active if there is an active category for posts that matches the term.id
                                   isActive={ () => data.post_type.categories && data.post_type.categories.filter( (category) => category.id === term.id).length }
                                   to={term.path}
+                                  onClick={ this._scrollToComponentTop }
                                   dangerouslySetInnerHTML= { { __html: term.name } }
                                 />
                               </li>
@@ -169,8 +176,12 @@ class ContentContainerArchive extends Component {
                 activePage={parseInt(data.post_type.paging.currentPage)}
                 itemsCountPerPage={this.props.data.posts_per_page}
                 totalItemsCount={data.post_type.paging.total}
-                pageRangeDisplayed={10}
-                onChange={(index) => history.push(`${pages[0].path}/page/${index}`)}
+                pageRangeDisplayed={5}
+                onChange={(index) => {
+                    this._scrollToComponentTop()
+                    history.push(`${pages[0].path}/page/${index}`);
+                  }
+                }
 
                 innerClass="pagination"
                 linkClassFirst="pagination-link pagination-link-first"
