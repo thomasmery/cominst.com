@@ -45,6 +45,8 @@ class App extends Component {
     this.sections = {};
     this.targetSectionPath = null;
 
+    this.allowScroll = true;
+
     this.state = {
       headerIsCollapsed: false,
       lang: {
@@ -111,6 +113,26 @@ class App extends Component {
     return header && headerHeight;
   }
 
+  // compute header height in its collapsed state
+  // relying on what we know it will be comprise of in this state
+  // this is not ideal since we're relying on knowing how the .collapsed class will affect the header layout
+  // it woud probaby be better to stay in react all the time and set inline styles etc.
+  _getCollaspsedHeaderHeight () {
+    const header = document.querySelector('#app header');
+    const navContainer = document.querySelector('#app header .nav-container');
+    const leftBrandLogo = document.querySelector('#app header .text-left .brand-logo');
+    const headerPaddingTop = 6;
+    const headerPaddingBottom = 16;
+    const navContainerHeight =
+      navContainer.offsetHeight + parseInt(getComputedStyle(navContainer).marginTop);
+    const leftBrandLogoHeight = leftBrandLogo.offsetHeight;
+    const collapsedBaseHeight = leftBrandLogoHeight > navContainerHeight ? leftBrandLogoHeight + 10 : navContainerHeight
+    const headerHeight = collapsedBaseHeight
+      + headerPaddingTop
+      + headerPaddingBottom
+    return header && headerHeight;
+  }
+
   /**
    * Lifecycle
    */
@@ -120,10 +142,6 @@ class App extends Component {
     this._updatePosts(this.props.location.pathname);
 
     this.windowHeight = window.innerHeight;
-    this.expandedHeaderHeight = this._getHeaderHeight();
-
-    const header = document.querySelector('#app header');
-    header.style.height = this.expandedHeaderHeight + 'px';
 
   }
 
@@ -133,12 +151,24 @@ class App extends Component {
       return;
     }
 
-    this.setState( { headerHeight: this._getHeaderHeight() } )
     this.windowHeight = window.innerHeight;
 
     // update posts - reacting to route change to a taxonomy archive route
     this._updatePosts(nextProps.location.pathname);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    // updating headerHeight as the DOM header element has updated its styles
+    // after we set the headerIsCollapsed App state property
+    const headerHeight = this._getHeaderHeight();
+    if(prevState.headerHeight !== headerHeight) {
+      this.setState(
+        { headerHeight }
+      )
+    }
+  }
+
 
   /** Fetching Data */
 
@@ -795,7 +825,7 @@ class App extends Component {
       path={ `/${this.state.lang.code}` }
       exact
       render={ (route_props) => {
-          if (this.sections.home && ! this.enteringSection) {
+          if (this.sections.home && this.allowScroll) {
             return <ScrollToRouteHelper
               targetComponent={this.sections.home}
               offset={this.state.headerHeight}
@@ -822,17 +852,24 @@ class App extends Component {
                 // this helps as we're first rendering the page and the refs to the Sections are not accessible for render
                 //  we are also checking if we are not manually scrolling into a section
                 // if we are we will unmount the ScrollToRouteHelper component as soon as we enter another section
-                //  i.e. setState is called in _onEnterSection and thus the route is re-rendered but this time ... enteringSection is true
+                //  i.e. setState is called in _onEnterSection and thus the route is re-rendered but this time ... allowScroll is false
                 // this will allow ScrollToRouteHelper to be mounted again next time we trigger the route
                 // and thus trigger a scroll to the Section
                 // this is necessary because the scroll is triggered on ScrollToRouteHelper componentDidMount
                 // note: scroll could be triggered on componentDidUpdate ... this has to be explored
-                if (this.sections[item.slug] && ! this.enteringSection) {
+                if (this.sections[item.slug] && this.allowScroll) {
                   return <ScrollToRouteHelper
                     ease="in-out-quad"
                     duration={500}
                     targetComponent={this.sections[item.slug]}
-                    offset={this.previousHeaderHeight}
+
+                    // as the scroll is triggered when the route is matched
+                    // the headerHeight has not changed to the collapsed height
+                    // so we get it directly from the DOM - computing what it will be
+                    offset={ this.state.headerIsCollapsed
+                      ? this.state.headerHeight
+                      : this._getCollaspsedHeaderHeight()
+                    }
                     { ...route_props }
                   />
                 }
@@ -849,16 +886,10 @@ class App extends Component {
     return routes;
   }
 
-  /* componentDidUpdate(prevProps, prevState) {
-    if(prevState.headerIsCollapsed !== this.state.headerIsCollapsed) {
-      this.setState( { headerHeight: this._getHeaderHeight() });
-    }
-  } */
-
   _onEnterSection (section) {
     // we need to flag the fact that we're 'scrolling' into the section
     // main reason is to be able to unmount the ScrollToRouteHelper as we scroll into a section - @see _renderRoutes()
-    this.enteringSection = true;
+    this.allowScroll = false;
 
     // we also want to track which section is active - for Nav items highlighting mainly
     this.setState(
@@ -868,12 +899,7 @@ class App extends Component {
       },
       () => {
         // we're done entering - we need to 're-activate' the routing mechanism for nav links
-        this.enteringSection = false;
-
-        this.previousHeaderHeight = this.headerHeight;
-        this.headerHeight = this._getHeaderHeight();
-        const header = document.querySelector('#app header');
-        header.style.height = this.headerHeight + 'px';
+        this.allowScroll = true;
       }
     );
   }
@@ -904,6 +930,7 @@ class App extends Component {
           }
         }
         className={this.state.headerIsCollapsed ? 'collapsed' : ''}
+        style={{ height:this.state.headerHeight }}
       >
         <div className="row">
           <div className="col-sm-2 text-left">
