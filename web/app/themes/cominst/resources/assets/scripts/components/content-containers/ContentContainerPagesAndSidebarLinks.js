@@ -150,42 +150,47 @@ class ContentContainerPagesAndSidebarLinks extends Component {
     )
   }
 
+  _renderLinks () {
+    const {
+      data,
+    } = this.props;
+
+    const links = data.acf.links || [];
+
+    return links.length
+      ? <ul className="links">
+        { links.map( (link) => (
+            <li className="item" key={link.label}>
+              <span>{link.title}</span><br />
+              <a
+                href={ link.type === 'page' ? link.page_url : link.file_url }
+                target="_blank"
+              >
+                {  link.label }
+              </a>
+            </li>
+          )
+        ) }
+      </ul>
+      : ''
+  }
+
   render () {
     const {
       data,
     } = this.props;
-    const links = data.acf.links || [];
+
     return (
       <div className="content-container content-container-pages-and-sidebar-links">
         <div className="row">
-          <div className="col-sm-4">
+          <div className="col-md-4">
             <div className="sidebar" style={this.state.leftSidebarStyles}>
               <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
-              {
-                links.length
-                 ? <ul className="links">
-                    { links.map( (link) => (
-                        <li className="item" key={link.label}>
-                          <span>{link.title}</span><br />
-                          <a
-                            href={ link.type === 'page' ? link.page_url : link.file_url }
-                            target="_blank"
-                          >
-                            {  link.label }
-                          </a>
-                        </li>
-                      )
-                    ) }
-                  </ul>
-                  : ''
-                }
+              { this._renderLinks() }
             </div>
           </div>
-
-          <div className="col-sm-8">
-
-            {
-              data.content.rendered
+          <div className="col-md-8">
+            { data.content.rendered
                 && <div className="page-content" dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
             }
 
@@ -229,7 +234,9 @@ class ContentContainerPagesAndSidebarLinks extends Component {
                 )
               )
             }
-
+          </div>
+          <div className="col mobile">
+            { this._renderLinks() }
           </div>
         </div>
       </div>

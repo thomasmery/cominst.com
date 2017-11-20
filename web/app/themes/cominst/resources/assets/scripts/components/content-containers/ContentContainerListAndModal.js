@@ -73,16 +73,16 @@ class ContentContainerListAndModal extends Component {
     return (
       <div className="content-container content-container-list-and-modal">
         <div className="row">
-          <div className="col-sm-4 sidebar">
+          <div className="col-md-4 sidebar">
             <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
           </div>
-          <div className="col-sm-8">
+          <div className="col-md-8">
             <div className="page-content" dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
           </div>
         </div>
         <div className="row">
           <div
-            className="col-sm-12 list-container"
+            className="col-md-12 list-container"
             ref={ (element) => this._listContainerRef = element }
           >
             <h3 className="list-header" dangerouslySetInnerHTML={ { __html: data.subtitle } } />
@@ -116,20 +116,22 @@ class ContentContainerListAndModal extends Component {
                           </svg>
                         </span>
                         <div className="row">
-                          <div className="col-sm-6 image">
+                          <div className="col-md-6 image">
                             <div dangerouslySetInnerHTML= { { __html: item.image_html } } />
                           </div>
-                          <div className="col-sm-6">
-                            <h4>{ item.title }</h4>
-                            <ul className="sub-items">
-                              { item.sub_items.map( (sub_item) => (
-                                    <li key={sub_item.id} className="sub-item">
-                                      { sub_item.title }
-                                    </li>
+                          <div className="col-md-6">
+                            <div className="list">
+                              <h4>{ item.title }</h4>
+                              <ul className="sub-items">
+                                { item.sub_items.map( (sub_item) => (
+                                      <li key={sub_item.id} className="sub-item">
+                                        { sub_item.title }
+                                      </li>
+                                    )
                                   )
-                                )
-                              }
-                            </ul>
+                                }
+                              </ul>
+                            </div>
                           </div>
                         </div>
                       </div>

@@ -110,64 +110,86 @@ class ContentContainerCarousel extends Component {
           className={ classNames( this.state.centerPanelClass, 'container carousel-center-panel')}
           style={{ flex: '1 0 auto', margin: 0 }}
         >
-          <ReactSwipe
-            key={data.children.length}
-            ref={ (element) => this.carousel = element }
-            swipeOptions={swipeOptions}
-            style={{
-              container: {
-                overflow: 'hidden',
-                visibility: 'hidden',
-                position: 'relative',
-                height: this.state.swipeContainerHeight,
-                transition: 'height 0.2s ease-out',
-                },
-                wrapper: {
-                  overflow: 'hidden',
-                  position: 'relative',
-                },
-                child: {
-                  float: 'left',
-                  width: '100%',
-                  position: 'relative',
-                  transitionProperty: 'transform',
-                },
-              }}
-          >
-            {
-              data.children.map(
-                (child) => (
-                  <div key={ child.id }>
-                    <div className="row">
-                      {
-                        child.featured_media_html
-                         && (
-                           <div className="col-sm-3">
-                            <div className="image" dangerouslySetInnerHTML={ {__html: child.featured_media_html } } />
-                          </div>
-                         )
-                      }
-                      <div className={child.featured_media_html ? "col-sm-9" : "col-sm-12"}>
-                        <div className={ classNames({ "content-full-width": ! child.featured_media_html }, 'child-content-container') }>
-                          <div className="header">
-                            <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-                            {
-                              child.subtitle
-                                && <h4 className="subtitle" dangerouslySetInnerHTML={ {__html: child.subtitle } } />
-                            }
-                          </div>
-                          <div className="content">
-                            <div className="introduction" dangerouslySetInnerHTML={ {__html: child.introduction } } />
-                            <div className="body" dangerouslySetInnerHTML={ {__html: child.body } } />
+          <div className="row">
+            <div className="col-sm-12">
+              <ReactSwipe
+                key={data.children.length}
+                ref={ (element) => this.carousel = element }
+                swipeOptions={swipeOptions}
+                style={{
+                  container: {
+                    overflow: 'hidden',
+                    visibility: 'hidden',
+                    position: 'relative',
+                    height: this.state.swipeContainerHeight,
+                    transition: 'height 0.2s ease-out',
+                    },
+                    wrapper: {
+                      overflow: 'hidden',
+                      position: 'relative',
+                    },
+                    child: {
+                      float: 'left',
+                      width: '100%',
+                      position: 'relative',
+                      transitionProperty: 'transform',
+                    },
+                  }}
+              >
+                {
+                  data.children.map(
+                    (child) => (
+                      <div key={ child.id }>
+                        <div className="row">
+                          {
+                            child.featured_media_html
+                            && (
+                              <div className="col-sm-3">
+                                <div className="image" dangerouslySetInnerHTML={ {__html: child.featured_media_html } } />
+                              </div>
+                            )
+                          }
+                          <div className={child.featured_media_html ? "col-sm-9" : "col-sm-12"}>
+                            <div className={ classNames({ "content-full-width": ! child.featured_media_html }, 'child-content-container') }>
+                              <div className="header">
+                                <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
+                                {
+                                  child.subtitle
+                                    && <h4 className="subtitle" dangerouslySetInnerHTML={ {__html: child.subtitle } } />
+                                }
+                              </div>
+                              <div className="content">
+                                <div className="introduction" dangerouslySetInnerHTML={ {__html: child.introduction } } />
+                                <div className="body" dangerouslySetInnerHTML={ {__html: child.body } } />
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                )
-              )
-            }
-          </ReactSwipe>
+                    )
+                  )
+                }
+              </ReactSwipe>
+              <div className="row navigation navigation-mobile">
+                <div className="col-6 text-left">
+                  <a
+                    href="#"
+                    onClick={this._onPrevButtonClickHandler}
+                  >
+                    <i className="fa fa-angle-left" aria-hidden="true"></i>
+                  </a>
+                </div>
+                <div className="col-6 text-right">
+                  <a
+                    href="#"
+                    onClick={this._onNextButtonClickHandler}
+                  >
+                    <i className="fa fa-angle-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           className="carousel-side-panel carousel-side-panel-right"

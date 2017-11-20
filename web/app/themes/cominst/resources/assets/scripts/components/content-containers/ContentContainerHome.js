@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ContentContainerHome = function({ data, scrollHintElement }) {
   return (
     <div className="container content-container content-container-home">
-      <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
+      <div dangerouslySetInnerHTML={ { __html: data.content.rendered } } />
       <div className="scroll-hint">{scrollHintElement}</div>
     </div>
     );

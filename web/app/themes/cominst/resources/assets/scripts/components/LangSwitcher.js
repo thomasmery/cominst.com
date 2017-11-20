@@ -10,13 +10,11 @@ class LangSwitcher extends Component {
         {
           this.props.languages.map(
             (lang) => (
-              <li key={lang.code}>
-                <a
-                  href={`/${lang.code}`}
-                  className={ classNames( { active: lang.code === this.props.activeLanguage } ) }
-                >
-                    {lang.code}
-                </a>
+              <li
+                key={lang.code}
+                className={ classNames( { active: lang.code === this.props.activeLanguage } ) }
+              >
+                <a href={`/${lang.code}`} >{lang.code}</a>
               </li>
             )
           )

@@ -29,6 +29,7 @@ class Nav extends Component {
         key={ id }
         to={ path }
         className={ classNames( { active: slug === this.props.activeSectionId } ) }
+        onClick={ this.props.onItemClickHandler }
       >
           { title }
       </Link>
@@ -44,6 +45,7 @@ class Nav extends Component {
 Nav.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeSectionId: PropTypes.string,
+  onItemClickHandler: PropTypes.func,
 }
 
 export default Nav;

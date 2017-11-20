@@ -48,13 +48,21 @@
   }
 
   .sidebar {
-    padding-right: 3.125rem;
+    @include media-breakpoint-up(md) {
+      padding-right: 3.125rem;
+    }
+    // should not be a pb on desktop
+    margin-bottom: 2rem;
   }
 
   .nav,
   .links,
   .items {
-    margin-top: 3.125rem;
+    margin-top: 1.5rem;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 3.125rem;
+    }
   }
 
   .nav,
@@ -202,21 +210,17 @@
 
   text-align: center;
 
-  padding: 45px 7%;
-  // as the container becomes wider we need larger margins
-  @include media-breakpoint-up(lg) {
-    padding: 70px 15% 45px;
-  }
+  padding: 20px 7% 40px;
 
   h1 {
-    font-size: 1.6875rem;
+    font-size: 1.375rem;
     font-weight: normal;
     color: $color-brand-primary;
   }
 
   h2 {
-    font-size: 1.125rem;
-    line-height: 1.6875rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
     font-weight: 600;
     color: $color-gray-dark-01;
     // reset
@@ -225,18 +229,45 @@
   }
 
   h3 {
-    font-size: 1rem;
-    line-height: 1.625rem;
+    font-size: 0.825rem;
+    line-height: 1.25rem;
     font-weight: normal;
     color: $color-gray-dark-01;
   }
 
+  @include media-breakpoint-up(md) {
+    padding: 45px 7%;
+
+    h1 {
+      font-size: 1.6875rem;
+    }
+
+    h2 {
+      font-size: 1.125rem;
+      line-height: 1.6875rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+      line-height: 1.625rem;
+    }
+  }
+
+  // as the container becomes wider we need larger margins
+  @include media-breakpoint-up(lg) {
+    padding: 70px 15% 45px;
+  }
+
   .scroll-hint {
     position: absolute;
-    bottom: 2rem;
+    bottom: 1rem;
     text-align: center;
     left: 0;
     right: 0;
+
+    @include media-breakpoint-up(md) {
+      bottom: 2rem;
+    }
   }
 }
 
@@ -257,11 +288,31 @@
     font-family: $font-sans-serif;
 
     .item {
-      margin-bottom: 2rem;
+      margin-bottom: 0.5rem;
+
+      @include media-breakpoint-up(md) {
+        top: 2rem;
+      }
 
       a {
         font-weight: 600;
       }
+    }
+  }
+
+  .sidebar .links {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+  }
+
+  .mobile .links {
+    display: block;
+
+    @include media-breakpoint-up(md) {
+      display: none;
     }
   }
 }
@@ -303,7 +354,16 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem;
+
+    padding: 0;
+
+    @include media-breakpoint-up(md) {
+      padding: 2rem;
+    }
+
+    .list {
+      padding: 1rem 1rem 1rem 1.5rem;
+    }
 
     color: $color-gray-dark-01;
     background-color: $color-blue-light-04;
@@ -366,6 +426,8 @@ $content-container-carousel-max-widths: (
     transition: opacity 1s ease-out;
     width: 100%;
 
+    margin-bottom: 1rem;
+
     &.hidden {
       opacity: 0;
       transition: opacity 0.4s ease-in;
@@ -386,28 +448,40 @@ $content-container-carousel-max-widths: (
     margin-bottom: 0;
 
     position: relative;
-    padding-right: 3.75rem;
+    padding-right: 1rem;
 
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      width: 40%;
-      border-bottom: solid 1px $color-black-01;
-      transform: scaleX(1);
-      transition: transform 0.3s ease-out;
+    @include media-breakpoint-up(sm) {
+      padding-right: 3.75rem;
     }
 
-    &::before {
-      top: -2rem;
-      left: 0;
-      transform-origin: 0 0;
+    @include media-breakpoint-up(sm) {
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        width: 40%;
+        border-bottom: solid 1px $color-black-01;
+        transform: scaleX(1);
+        transition: transform 0.3s ease-out;
+      }
+
+      &::before {
+        top: -2rem;
+        left: 0;
+        transform-origin: 0 0;
+      }
+
+      &::after {
+        bottom: -2.5rem;
+        right: 3.75rem;
+        transform-origin: 100% 0;
+      }
     }
 
-    &::after {
-      bottom: -2.5rem;
-      right: 3.75rem;
-      transform-origin: 100% 0;
+    .header {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 0;
+      }
     }
 
     .content {
@@ -416,7 +490,11 @@ $content-container-carousel-max-widths: (
   }
 
   .content-full-width {
-    padding: 0 3.75rem;
+    padding: 1rem;
+
+    @include media-breakpoint-up(sm) {
+      padding: 0 3.75rem;
+    }
 
     &::before {
       left: 3.75rem;
@@ -424,7 +502,9 @@ $content-container-carousel-max-widths: (
   }
 
   .carousel-center-panel {
-    padding: 3.75rem 0;
+    @include media-breakpoint-up(sm) {
+      padding: 3.75rem 0;
+    }
 
     &.sliding {
       .child-content-container {
@@ -441,7 +521,9 @@ $content-container-carousel-max-widths: (
     // which would be hidden otherwise - because of the swipe-container > div overflow
     .react-swipe-container {
       > div {
-        padding: 2.5rem 0;
+        @include media-breakpoint-up(sm) {
+          padding: 2.5rem 0;
+        }
       }
     }
   }
@@ -478,6 +560,15 @@ $content-container-carousel-max-widths: (
       opacity: 0.4;
     }
   }
+
+  .navigation-mobile {
+    padding: 1rem;
+    font-size: 3rem;
+
+    @include media-breakpoint-up(sm) {
+      display: none;
+    }
+  }
 }
 
 /** Archive **/
@@ -485,6 +576,8 @@ $content-container-carousel-max-widths: (
 .content-container-archive {
   .sidebar {
     .header {
+      position: relative;
+
       .spinner {
         position: absolute;
         top: 0;
@@ -561,12 +654,32 @@ $content-container-carousel-max-widths: (
   font-size: 0.87rem;
   line-height: 1.5625;
 
+  @include media-breakpoint-down(md) {
+    padding-top: 1rem;
+  }
+
   padding-bottom: 2rem;
 
   p,
   ul {
     font-size: inherit;
     line-height: inherit;
+  }
+
+  .map-container {
+    > * {
+      width: 100%;
+
+      @include media-breakpoint-down(md) {
+        height: 230px;
+      }
+    }
+  }
+
+  .block {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 1rem;
+    }
   }
 
   .block h3 {
@@ -597,12 +710,21 @@ $content-container-carousel-max-widths: (
   }
 
   .col-left {
-    padding-right: 4rem;
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+      padding-right: 4rem;
+    }
   }
 
-  .map-container {
-    > * {
-      width: 100%;
+  .col-right {
+    .map-container {
+      display: block;
+
+      @include media-breakpoint-up(md) {
+        display: none;
+      }
     }
   }
 }

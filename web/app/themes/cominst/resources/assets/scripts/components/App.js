@@ -49,6 +49,7 @@ class App extends Component {
 
     this.state = {
       headerIsCollapsed: false,
+      mobileMenuIsHidden: true,
       lang: {
         code: appData.lang || 'fr',
       },
@@ -89,6 +90,10 @@ class App extends Component {
     this._getPosts = this._getPosts.bind(this);
     this._updatePosts = this._updatePosts.bind(this);
 
+    this._onMobileMenuItemClickHandler = this._onMobileMenuItemClickHandler.bind(this);
+    this._onMobileMenuButtonOpenClickHandler = this._onMobileMenuButtonOpenClickHandler.bind(this);
+    this._onMobileMenuButtonCloseClickHandler = this._onMobileMenuButtonCloseClickHandler.bind(this);
+
   }
 
   /**
@@ -99,13 +104,17 @@ class App extends Component {
     const header = document.querySelector('#app header');
     const headerChild = header.children[0];
     const navContainer = document.querySelector('#app header .nav-container');
+    const colLeft = document.querySelector('#app header .col-left');
     const leftBrandLogo = document.querySelector('#app header .text-left .brand-logo');
     const headerPaddingTop = parseInt(getComputedStyle(header).paddingTop);
     const headerPaddingBottom = parseInt(getComputedStyle(header).paddingBottom);
     const navContainerHeight =
       navContainer.offsetHeight + parseInt(getComputedStyle(navContainer).marginTop);
     const leftBrandLogoHeight = leftBrandLogo.offsetHeight;
-    const collapsedBaseHeight = leftBrandLogoHeight > navContainerHeight ? leftBrandLogoHeight + 10 : navContainerHeight
+    let collapsedBaseHeight = leftBrandLogoHeight > navContainerHeight ? leftBrandLogoHeight + 10 : navContainerHeight
+    if (window.matchMedia("(max-width: 575px)").matches) {
+      collapsedBaseHeight = colLeft.offsetHeight;
+    }
     const headerHeight =
       ( this.state.headerIsCollapsed ? collapsedBaseHeight : headerChild.clientHeight )
       + headerPaddingTop
@@ -120,13 +129,17 @@ class App extends Component {
   _getCollaspsedHeaderHeight () {
     const header = document.querySelector('#app header');
     const navContainer = document.querySelector('#app header .nav-container');
-    const leftBrandLogo = document.querySelector('#app header .text-left .brand-logo');
+    const colLeft = document.querySelector('#app header .col-left');
+    const leftBrandLogo = document.querySelector('#app header .col-left .brand-logo');
     const headerPaddingTop = 6;
     const headerPaddingBottom = 16;
     const navContainerHeight =
       navContainer.offsetHeight + parseInt(getComputedStyle(navContainer).marginTop);
     const leftBrandLogoHeight = leftBrandLogo.offsetHeight;
-    const collapsedBaseHeight = leftBrandLogoHeight > navContainerHeight ? leftBrandLogoHeight + 10 : navContainerHeight
+    let collapsedBaseHeight = leftBrandLogoHeight > navContainerHeight ? leftBrandLogoHeight + 10 : navContainerHeight;
+    if (window.matchMedia("(max-width: 575px)").matches) {
+      collapsedBaseHeight = colLeft.offsetHeight;
+    }
     const headerHeight = collapsedBaseHeight
       + headerPaddingTop
       + headerPaddingBottom
@@ -979,6 +992,27 @@ class App extends Component {
       return;
     }
     this.sections[element.props.id] = element;
+  }
+
+  _onMobileMenuItemClickHandler () {
+    if(window.matchMedia("(max-width: 575px)").matches) {
+      this.allowScroll = ! this.allowScroll;
+      this._toggleMobileMenu();
+    }
+  }
+
+  _onMobileMenuButtonOpenClickHandler () {
+    this.allowScroll = false;
+    this._toggleMobileMenu();
+  }
+
+  _onMobileMenuButtonCloseClickHandler () {
+    this.allowScroll = false;
+    this._toggleMobileMenu();
+  }
+
+  _toggleMobileMenu () {
+    this.setState( (state) => ({ mobileMenuIsHidden: ! state.mobileMenuIsHidden }))
   }
 
   render() {

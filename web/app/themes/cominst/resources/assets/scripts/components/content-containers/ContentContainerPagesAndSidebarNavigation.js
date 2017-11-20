@@ -29,6 +29,22 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
   }
 
+  _scrollToComponentTop () {
+
+    const _scrollOffset = window.matchMedia("(max-width: 576px)").matches
+    ? 20
+    : 0;
+
+    scrollToComponent(
+      window.matchMedia("(max-width: 576px)").matches ? this._childContentContainerRef : this,
+      {
+        offset: - this.props.siteHeaderHeight - _scrollOffset,
+        align: 'top',
+        duration: 300,
+      }
+    );
+  }
+
   _setActiveChild (index) {
     this.setState( () => ( {
         activeChildIndex: index,
@@ -45,14 +61,8 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
       }
     )
 
-    scrollToComponent(
-      this._childContentContainerRef,
-      {
-        offset: - this.props.siteHeaderHeight,
-        align: 'top',
-        duration: 300,
-      }
-    );
+    this._scrollToComponentTop();
+
   }
 
   _toggleChildContent () {
@@ -74,14 +84,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
       }
     )
 
-    scrollToComponent(
-      this._childContentContainerRef,
-      {
-        offset: - this.props.siteHeaderHeight,
-        align: 'top',
-        duration: 300,
-      }
-    );
+    this._scrollToComponentTop()
 
   }
 
@@ -129,10 +132,10 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     return (
       <div className="content-container content-container-pages-and-sidebar-navigation">
         <div className="row">
-          <div className="col-sm-12">
+          <div className="col-md-12">
             {/* <p dangerouslySetInnerHTML={ { __html: data.content.rendered } } /> */}
           </div>
-          <div className="col-sm-4 sidebar">
+          <div className="col-md-4 sidebar">
             <div style={this.state.leftSidebarStyles}>
               <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
               <ul className="nav">
@@ -150,7 +153,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
               </ul>
             </div>
           </div>
-          <div className="col-sm-8 pages">
+          <div className="col-md-8 pages">
             {
               data.children.length ?
                 <div>

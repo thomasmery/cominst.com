@@ -20,5 +20,9 @@ ul.lang-switcher {
     &:last-child::after {
       content: "";
     }
+
+    &.active {
+      color: $color-blue-dark-01;
+    }
   }
 }
