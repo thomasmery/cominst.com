@@ -704,7 +704,74 @@ class App extends Component {
    * Rendering
    */
 
-  _renderHome() {
+  _renderHeader () {
+    return (
+      <Header
+        title="Communication & Institutions"
+        homeUrl={`/${this.state.lang.code}`}
+        ref={
+          (element) => {
+            if(!element) {
+              return;
+            }
+            this.headerRef = element;
+          }
+        }
+        className={
+          classNames(
+            {
+              collapsed: this.state.headerIsCollapsed,
+              "mobile-menu-hidden": this.state.mobileMenuIsHidden,
+            }
+          )
+        }
+        style={{ height:this.state.headerHeight }}
+      >
+        <div className="row">
+          <div className="col-sm-2 col-left text-left">
+            <Link to={`/${this.state.lang.code}`} className="brand-logo">
+              <img src={`${appData.ui.brand_logo}`} />
+            </Link>
+            <h3 className="site-description">
+              {appData.site_description}
+            </h3>
+          </div>
+          <div className="col-sm-8 col-center text-center">
+            <div
+              className="mobile-menu-button mobile-menu-button-close"
+              onClick={ this._onMobileMenuButtonCloseClickHandler }
+            >
+              <i className="fa fa-close" aria-hidden="true"></i>
+            </div>
+            <Link to={`/${this.state.lang.code}`} className="brand-logo">
+              <img src={`${appData.ui.brand_logo}`} />
+            </Link>
+            <div className="nav-container">
+              <Nav
+                data={this.state.data.primary_navigation}
+                activeSectionId={this.state.activeSectionId}
+                onItemClickHandler={ this._onMobileMenuItemClickHandler }
+              />
+            </div>
+            <div className="d-sm-none">
+              <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
+            </div>
+          </div>
+          <div className="col-sm-2 col-right text-right">
+            <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
+            <div
+              className="mobile-menu-button mobile-menu-button-open"
+              onClick={ this._onMobileMenuButtonOpenClickHandler }
+            >
+              <i className="fa fa-bars" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </Header>
+    );
+  }
+
+  _renderHome () {
 
     const home_page_data = {
       ...appData.pages.filter((page)=> page.id == appData.home_page_id)[0],
@@ -916,52 +983,19 @@ class App extends Component {
 
   render() {
 
-    return <div>
+    return (
 
-      <Header
-        title="Communication & Institutions"
-        homeUrl={`/${this.state.lang.code}`}
-        ref={
-          (element) => {
-            if(!element) {
-              return;
-            }
-            this.headerRef = element;
-          }
-        }
-        className={this.state.headerIsCollapsed ? 'collapsed' : ''}
-        style={{ height:this.state.headerHeight }}
-      >
-        <div className="row">
-          <div className="col-sm-2 text-left">
-            <Link to={`/${this.state.lang.code}`} className="brand-logo">
-              <img src={`${appData.ui.brand_logo}`} />
-            </Link>
-            <h3 className="site-description">
-              {appData.site_description}
-            </h3>
-          </div>
-          <div className="col-sm-8 text-center">
-            <Link to={`/${this.state.lang.code}`} className="brand-logo">
-              <img src={`${appData.ui.brand_logo}`} />
-            </Link>
-            <div className="nav-container">
-              <Nav data={this.state.data.primary_navigation} activeSectionId={this.state.activeSectionId} />
-            </div>
-          </div>
-          <div className="col-sm-2 text-right">
-            <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
-          </div>
-        </div>
-      </Header>
+      <div>
 
-      { this._renderSections() }
+        { this._renderHeader() }
 
-      { /* this._renderFooter() */ }
+        { this._renderSections() }
 
-      { this._renderRoutes() }
+        { /* this._renderFooter() */ }
 
-    </div>
+        { this._renderRoutes() }
+
+      </div>)
 
   }
 
