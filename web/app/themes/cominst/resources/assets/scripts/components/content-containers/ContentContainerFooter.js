@@ -1,3 +1,4 @@
+/* global appData */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -10,13 +11,15 @@ const ContentContainerFooter = function( { data }) {
         </div>
         <div className="col-sm-4 col-right">
 
-          <div className="block">
-            <h3>Nos coordonnées</h3>
+          <div className="block contact-details-container">
+            <h3>{appData.i18n.contact_details}</h3>
             <p dangerouslySetInnerHTML={ { __html: data.contact_details } }/>
           </div>
 
-          <div className="block">
-            <h3>Nous suivre</h3>
+          <div className="block map-container" dangerouslySetInnerHTML={ { __html: data.map } } />
+
+          <div className="block social-networks-container">
+            <h3>{appData.i18n.follow_us}</h3>
             <ul className="social-networks">
             {
               data.social_networks.map(
@@ -32,8 +35,8 @@ const ContentContainerFooter = function( { data }) {
             </ul>
           </div>
 
-          <div className="block">
-            <h3>Newsletter</h3>
+          <div className="block block-newsletters-container">
+            <h3>{appData.i18n.newsletter}</h3>
           </div>
 
         </div>

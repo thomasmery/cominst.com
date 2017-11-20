@@ -48,6 +48,12 @@ add_action('wp_enqueue_scripts', function () {
             ],
             'home_page_id' => get_option( 'page_on_front' ),
             'blog_page_id' => get_option( 'page_for_posts' ),
+            'i18n' => [
+                'contact_details' => __('Contact details', 'cominst'),
+                'social_networks' => __('Social Networks', 'cominst'),
+                'follow_us' => __('Follow Us', 'cominst'),
+                'newsletter' => __('Newsletter', 'cominst'),
+            ]
         ]
     );
 }, 100);
