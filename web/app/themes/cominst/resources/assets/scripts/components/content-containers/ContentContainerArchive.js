@@ -34,6 +34,7 @@ class ContentContainerArchive extends Component {
           leftSidebarStyles: {
             ...state.leftSidebarStyles,
             top: nextProps.siteHeaderHeight + 50, // 50 is the content-container paddingTop - should be dynamic
+
           },
         } )
       );
