@@ -496,6 +496,10 @@ $content-container-carousel-max-widths: (
   overflow: hidden;
   padding: 0;
 
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+
   p {
     font-size: 0.9rem;
   }
@@ -581,6 +585,9 @@ $content-container-carousel-max-widths: (
   }
 
   .carousel-center-panel {
+    flex: 1 0 auto;
+    margin: 0;
+
     @include media-breakpoint-up(sm) {
       padding: 3.75rem 0;
     }
@@ -616,8 +623,11 @@ $content-container-carousel-max-widths: (
     display: flex;
     align-items: flex-start;
 
-    flex: 1 0 280px !important;
-    max-width: 280px !important;
+    flex: 1 0 auto;
+
+    &.carousel-side-panel-left {
+      justify-content: flex-end;
+    }
 
     .button-navigation {
       padding: 150px 1rem 0;
@@ -631,6 +641,10 @@ $content-container-carousel-max-widths: (
       order: 2;
     }
 
+    .image {
+      width: 230px;
+    }
+
     &::after {
       content: "";
       position: absolute;
@@ -638,6 +652,9 @@ $content-container-carousel-max-widths: (
       left: 0;
       width: 100%;
       height: 100%;
+
+      // try to fix panel not expanding enough dwnwrd on IE10
+      min-height: 100vh;
       background-color: #000;
       opacity: 0.4;
     }

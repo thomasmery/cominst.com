@@ -86,10 +86,9 @@ class ContentContainerCarousel extends Component {
     }
 
     return data.children.length ? (
-      <div  className="content-container content-container-carousel" style={{ display: 'flex', justifyContent: 'center', minHeight: '100vh' }}>
+      <div  className="content-container content-container-carousel">
         <div
           className="carousel-side-panel carousel-side-panel-left"
-          style={{ flex: '1 0 300px', maxWidth: 300 }}
           onClick={this._onPrevButtonClickHandler}
         >
             <div className="button-navigation button-navigation-left">
@@ -108,7 +107,6 @@ class ContentContainerCarousel extends Component {
         </div>
         <div
           className={ classNames( this.state.centerPanelClass, 'container carousel-center-panel')}
-          style={{ flex: '1 0 auto', margin: 0 }}
         >
           <div className="row">
             <div className="col-sm-12">
@@ -193,7 +191,6 @@ class ContentContainerCarousel extends Component {
         </div>
         <div
           className="carousel-side-panel carousel-side-panel-right"
-          style={{ flex: '1 0 300px', maxWidth: 300 }}
           onClick={this._onNextButtonClickHandler}
         >
           <div className="button-navigation button-navigation-right">
