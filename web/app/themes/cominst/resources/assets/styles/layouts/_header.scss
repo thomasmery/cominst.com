@@ -23,6 +23,14 @@ header {
 
   > .container {
     position: relative;
+
+    > .row {
+      // this is to fix the lang switcher column (right column)
+      // of the header to wrap on IE 10 & 11
+      // this should not happen but I did not find how to prevent it
+      // so the hack which does not seem to have side effects
+      flex-wrap: nowrap;
+    }
   }
 
   .row:first-of-type {
