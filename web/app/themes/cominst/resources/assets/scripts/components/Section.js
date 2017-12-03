@@ -47,6 +47,8 @@ class Section extends PureComponent {
               { this._renderContent() }
             </div>
           </div>
+
+          <div className="scroll-hint">{this.props.scrollHintElement}</div>
         </section>
       </Waypoint>
     );
@@ -65,6 +67,7 @@ Section.propTypes = {
   children: PropTypes.node,
   onEnter: PropTypes.func,
   onLeave: PropTypes.func,
+  scrollHintElement: PropTypes.node,
 }
 
 export default Section;

@@ -10,6 +10,7 @@ import { withRouter } from 'react-router';
 import { Route, Link } from 'react-router-dom';
 import WPAPI from 'wpapi';
 import classNames from 'classnames';
+// import _ from 'lodash';
 
 /**
  * Internal dependencies
@@ -48,6 +49,7 @@ class App extends Component {
     this.allowScroll = true;
 
     this.state = {
+      windowHeight: window.innerHeight,
       headerIsCollapsed: false,
       mobileMenuIsHidden: true,
       lang: {
@@ -151,11 +153,22 @@ class App extends Component {
    */
 
   componentDidMount () {
-    this.setState( { headerHeight: this._getHeaderHeight() } );
+    this.setState( {
+      headerHeight: this._getHeaderHeight(),
+      windowHeight: window.innerHeight,
+    } );
+    /* window.addEventListener(
+      'resize',
+      _.debounce( () => {
+        this.setState( {
+          headerHeight: this._getHeaderHeight(),
+          windowHeight: window.innerHeight,
+        } );
+      },
+      250)
+    ); */
+
     this._updatePosts(this.props.location.pathname);
-
-    this.windowHeight = window.innerHeight;
-
   }
 
   componentWillReceiveProps (nextProps) {
@@ -741,7 +754,7 @@ class App extends Component {
         style={{ height:this.state.headerHeight }}
       >
         <div className="row">
-          <div className="col-sm-2 col-left text-left">
+          <div className="col-sm-1 col-left text-left">
             <Link to={`/${this.state.lang.code}`} className="brand-logo">
               <img src={`${appData.ui.brand_logo}`} />
             </Link>
@@ -749,7 +762,7 @@ class App extends Component {
               {appData.site_description}
             </h3>
           </div>
-          <div className="col-sm-8 col-center text-center">
+          <div className="col-sm-10 col-center text-center">
             <div
               className="mobile-menu-button mobile-menu-button-close"
               onClick={ this._onMobileMenuButtonCloseClickHandler }
@@ -766,11 +779,11 @@ class App extends Component {
                 onItemClickHandler={ this._onMobileMenuItemClickHandler }
               />
             </div>
-            <div className="d-sm-none">
+            <div className="d-sm-none lang-switcher-container">
               <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
             </div>
           </div>
-          <div className="col-sm-2 col-right text-right">
+          <div className="col-sm-1 col-right text-right">
             <LangSwitcher languages={this.state.data.languages} activeLanguage={this.state.lang.code} />
             <div
               className="mobile-menu-button mobile-menu-button-open"
@@ -813,7 +826,7 @@ class App extends Component {
         ContentContainer={contentContainerHome}
         sectionStyles={{
           backgroundImage: `url(${appData.uploads_path.baseurl}/${home_page_data.featured_media_metadata.file})`,
-          height: this.windowHeight || 'auto',
+          // height: '100vh', //this.state.windowHeight || 'auto',
         }}
         id="home"
         path={ `/${this.state.lang.code}` }
@@ -845,6 +858,9 @@ class App extends Component {
                     data.content_template
                   )
                 }
+                sectionStyles={{
+                  // minHeight: '100vh', // this.state.windowHeight || 0,
+                }}
                 ContentContainer={ContentContainers[data.content_template]}
                 siteHeaderHeight={this.state.headerHeight}
                 isFetching={data.isFetching}
@@ -852,7 +868,13 @@ class App extends Component {
                 path={item.path}
                 ref={this._storeSectionRef}
                 onEnter={ this._onEnterSection }
-                onLeave={ this._onLeaveSection }>
+                onLeave={ this._onLeaveSection }
+                /* scrollHintElement={
+                  index < this.state.data.primary_navigation.length - 1
+                  ? <Link to={this.state.data.primary_navigation[index+1].path}><img src={appData.ui.scroll_hint} /></Link>
+                  : null
+                } */
+              >
               </Section>
             ) : '';
           }

@@ -3,6 +3,27 @@ section {
   background-size: cover;
   background-repeat: no-repeat;
 
+  @include media-breakpoint-up(sm) {
+    min-height: 100vh;
+  }
+
+  /* .scroll-hint {
+    position: absolute;
+    bottom: 3%;
+    width: 100%;
+    text-align: center;
+  } */
+
+  // we need the home section bg picture to focus on what's interesting at all times
+  &#home {
+    height: 100vh;
+    background-position: top 30% left 0;
+
+    @include media-breakpoint-down(sm) {
+      background-position: top 50% left -70px;
+    }
+  }
+
   /** Color themes */
 
   &.light {

@@ -1,7 +1,7 @@
 header {
-  @include media-breakpoint-down(md) {
+  /* @include media-breakpoint-down(md) {
     height: auto !important;
-  }
+  } */
 
   transition: background-color 0.5s ease-out, height 0.5s ease-out;
 
@@ -18,7 +18,7 @@ header {
   @include media-breakpoint-up(sm) {
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: none;
-    padding: 20px 0 21px;
+    padding: 20px 0 12px;
   }
 
   > .container {
@@ -27,7 +27,7 @@ header {
 
   .row:first-of-type {
     // vertically center elements inside row
-    align-items: baseline;
+    // align-items: baseline;
 
     // margin-bottom: 1rem;
 
@@ -71,9 +71,9 @@ header {
       // reset bootstrap column rule
       max-width: none;
 
-      @include media-breakpoint-down(md) {
+      /*  @include media-breakpoint-down(md) {
         padding: 1rem 0;
-      }
+      } */
 
       @include media-breakpoint-up(sm) {
         display: block;
@@ -91,6 +91,13 @@ header {
           display: block;
         }
       }
+
+      // mobile blocks above and below menu
+      .mobile-menu-button,
+      .lang-switcher-container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
     }
 
     .col-right {
@@ -98,6 +105,7 @@ header {
       top: 0;
       right: 0;
       z-index: 6666;
+      width: auto;
 
       @include media-breakpoint-up(sm) {
         position: relative;
@@ -105,6 +113,11 @@ header {
 
       .lang-switcher {
         display: none;
+
+        // hack to not break on smaller screens
+        position: absolute;
+        width: 400px;
+        right: 0;
 
         @include media-breakpoint-up(sm) {
           display: block;
@@ -117,12 +130,29 @@ header {
     @include hide-from-user;
   }
 
+  .site-description,
+  .lang-switcher {
+    margin-top: 10px;
+  }
+
   .site-description {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     line-height: 1.1rem;
     color: $color-brand-primary;
     text-transform: uppercase;
     transition: opacity 0.2s ease-in;
+
+    // hack to make the description overflow its container
+    @include media-breakpoint-up(sm) {
+      position: absolute;
+      text-align: left;
+      top: 0;
+      width: 1000px;
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: auto;
+    }
   }
 
   .brand-logo {
@@ -147,11 +177,11 @@ header {
     transition: transform 0.4s ease-out;
 
     @include media-breakpoint-up(md) {
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
     @include media-breakpoint-down(md) {
-      width: 80%;
+      width: 90%;
       margin: auto;
     }
   }
@@ -191,7 +221,11 @@ header.mobile-menu-hidden {
 }
 
 .mobile-menu-button {
+  text-align: right;
   font-size: 1.125rem;
+
+  font-size: 1.4rem;
+  padding-top: 0.5rem;
 
   @include media-breakpoint-up(sm) {
     display: none;

@@ -3,11 +3,12 @@
   padding: 3.125rem 0;
 
   h2 {
-    font-size: 1.625rem;
-    line-height: 2.125rem;
-    font-weight: normal;
+    font-size: 1.3125rem;
+    line-height: 1.725rem;
+    font-weight: 600;
+    text-transform: uppercase;
     color: $color-gray-dark-01;
-    padding-bottom: 1.875rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid $color-gray-dark-01;
   }
 
@@ -19,20 +20,30 @@
   }
 
   h4 {
-    font-size: 1.325rem;
-    font-weight: 600;
-    color: $color-blue-dark-01;
-  }
-
-  h4.subtitle {
     font-size: 1.125rem;
+    font-weight: 600;
     line-height: 1.75rem;
     color: $color-gray-dark-01;
   }
 
   .content {
-    h4 {
-      margin-bottom: 1rem;
+    h5 {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      font-weight: bold;
+      color: $color-gray-dark-01;
+    }
+
+    h6 {
+      font-size: 0.9375rem;
+      line-height: 1.3;
+    }
+
+    ul,
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -61,7 +72,7 @@
     margin-top: 1.5rem;
 
     @include media-breakpoint-up(md) {
-      margin-top: 3.125rem;
+      margin-top: 1.3125rem;
     }
   }
 
@@ -118,7 +129,7 @@
     line-height: 1.5;
     color: $color-gray-dark-01;
 
-    padding-bottom: 1rem;
+    padding-bottom: 0;
     margin-bottom: 2.5rem;
 
     p {
@@ -127,15 +138,15 @@
     }
 
     > p:last-child {
-      padding-bottom: 1rem;
+      padding-bottom: 1.375rem;
     }
 
     &::after {
       content: "";
       position: absolute;
       bottom: 0;
-      width: 50%;
-      border-bottom: 1px solid $color-gray-dark-01;
+      width: 100%; // calc(100% - 45px);
+      border-bottom: 1px solid $color-gray-light-02;
     }
   }
 
@@ -144,17 +155,31 @@
     overflow: hidden;
     transition: height 0.4s ease-out;
 
-    margin-bottom: 2rem;
+    margin-bottom: 1rem; // 0.375rem;
 
     .header {
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.6875rem;
     }
 
     .content {
-      &::after {
+      /* &::after {
         content: "";
         position: absolute;
         width: 50%;
+      } */
+
+      ul {
+        margin-left: 1rem;
+
+        li {
+          margin-bottom: 0.4rem;
+          font-size: 0.875rem;
+
+          &::before {
+            content: " — ";
+            margin-left: -1rem;
+          }
+        }
       }
     }
 
@@ -163,13 +188,22 @@
       text-align: right;
       min-height: 30px;
 
+      margin-top: 1.25rem;
+
       &::before {
         content: "";
         position: absolute;
-        width: 50%;
+        width: 100%;
+        top: -3px;
         left: 0;
         height: 50%;
-        border-bottom: solid 1px $color-gray-dark-01;
+        border-bottom: solid 1px $color-gray-light-02;
+      }
+
+      &.has-more-content {
+        &::before {
+          width: calc(100% - 45px);
+        }
       }
 
       .expand-button {
@@ -203,14 +237,14 @@
   margin-left: -($grid-gutter-width / 2);
   // on larger screens we don't want the content box to be too low
   @include media-breakpoint-up(lg) {
-    top: 57%;
+    // top: 57%;
   }
-  bottom: 0;
+  bottom: -1px;
   background-color: $color-white-01;
 
   text-align: center;
 
-  padding: 20px 7% 40px;
+  padding: 40px 7%;
 
   h1 {
     font-size: 1.375rem;
@@ -222,6 +256,7 @@
     font-size: 1rem;
     line-height: 1.5rem;
     font-weight: 600;
+    text-transform: initial;
     color: $color-gray-dark-01;
     // reset
     padding: 0;
@@ -236,7 +271,7 @@
   }
 
   @include media-breakpoint-up(md) {
-    padding: 45px 7%;
+    padding: 40px 7%;
 
     h1 {
       font-size: 1.6875rem;
@@ -255,18 +290,18 @@
 
   // as the container becomes wider we need larger margins
   @include media-breakpoint-up(lg) {
-    padding: 70px 15% 45px;
+    padding: 60px 5% 45px;
   }
 
   .scroll-hint {
     position: absolute;
-    bottom: 1rem;
+    bottom: 7%;
     text-align: center;
     left: 0;
     right: 0;
 
     @include media-breakpoint-up(md) {
-      bottom: 2rem;
+      bottom: 7%;
     }
   }
 }
@@ -279,6 +314,10 @@
         width: 100%;
       }
     }
+
+    .actions {
+      margin-top: 0.5rem;
+    }
   }
 }
 
@@ -286,6 +325,7 @@
 .content-container-pages-and-sidebar-links {
   .links {
     font-family: $font-sans-serif;
+    margin-bottom: 2rem;
 
     .item {
       margin-bottom: 0.5rem;
@@ -300,7 +340,34 @@
     }
   }
 
-  .sidebar .links {
+  .images {
+    width: 95%;
+
+    .item {
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: solid 1px $color-gray-light-02;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .title {
+        font-family: $font-sans-serif;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+        display: block;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .sidebar .links,
+  .sidebar .images {
     display: none;
 
     @include media-breakpoint-up(md) {
@@ -308,7 +375,12 @@
     }
   }
 
-  .mobile .links {
+  .col.mobile {
+    margin-top: -2rem;
+  }
+
+  .mobile .links,
+  .mobile .images {
     display: block;
 
     @include media-breakpoint-up(md) {
@@ -363,6 +435,10 @@
 
     .list {
       padding: 1rem 1rem 1rem 1.5rem;
+
+      ul {
+        margin-left: 1.25rem;
+      }
     }
 
     color: $color-gray-dark-01;
@@ -372,17 +448,20 @@
     transition: opacity 1s ease-out, transform 0.4s ease-in-out;
 
     h4 {
+      color: $color-blue-dark-01;
       font-weight: bold;
       font-size: 1.125rem;
     }
 
     li {
       margin-bottom: 0.2rem;
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
+      text-transform: initial;
+      margin-left: -1px;
 
       &::before {
         content: " — ";
-        margin-left: -1rem;
+        margin-left: -1.2rem;
       }
     }
 
@@ -445,7 +524,7 @@ $content-container-carousel-max-widths: (
     // reset rules from generic .child-content-container
     overflow: visible;
     transition: height 0 linear;
-    margin-bottom: 0;
+    margin-bottom: 1rem; // at least - necessary to make bottom deco line appear below slide content
 
     position: relative;
     padding-right: 1rem;
@@ -535,10 +614,13 @@ $content-container-carousel-max-widths: (
   .carousel-side-panel {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+
+    flex: 1 0 280px !important;
+    max-width: 280px !important;
 
     .button-navigation {
-      padding: 0 1rem;
+      padding: 150px 1rem 0;
 
       svg g {
         stroke: $color-black-01;
@@ -580,7 +662,7 @@ $content-container-carousel-max-widths: (
 
       .spinner {
         position: absolute;
-        top: 0;
+        top: -10px;
         right: 0;
         color: $color-brand-primary;
         font-size: 2rem;
@@ -654,7 +736,7 @@ $content-container-carousel-max-widths: (
   font-size: 0.87rem;
   line-height: 1.5625;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     padding-top: 1rem;
   }
 
@@ -677,8 +759,10 @@ $content-container-carousel-max-widths: (
   }
 
   .block {
-    @include media-breakpoint-down(md) {
-      margin-bottom: 1rem;
+    margin-bottom: 2rem;
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 1.5rem;
     }
   }
 
@@ -687,6 +771,30 @@ $content-container-carousel-max-widths: (
     font-weight: normal;
     text-transform: uppercase;
     color: $color-blue-dark-01;
+  }
+
+  .block .link-email {
+    background-color: $color-blue-dark-03;
+    // border: 1px #e3e3e3 solid;
+    padding: 0.8rem 1rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+
+    transition:
+      color 0.3s ease-out,
+      background-color 0.3s ease-out;
+
+    &:hover {
+      background-color: $color-blue-dark-04;
+      color: $color-white-01;
+    }
+
+    &::before {
+      font-size: 22px;
+      top: 2px;
+      margin-right: 0.6rem;
+    }
   }
 
   .social-networks {
@@ -698,6 +806,45 @@ $content-container-carousel-max-widths: (
 
     .icon {
       font-size: 2rem;
+    }
+  }
+
+  .block-newsletters-container {
+    .form-container {
+      background-color: $color-blue-dark-03;
+      padding: 10px;
+      height: 64px;
+
+      form {
+        height: 100%;
+        font-size: 0.75rem;
+        font-family: $font-sans-serif;
+        font-weight: 600;
+
+        input {
+          height: 100%;
+          border: none;
+          border-radius: 0;
+          text-transform: uppercase;
+          color: $color-blue-light-03;
+
+          &::placeholder {
+            color: $color-blue-light-03;
+          }
+
+          &[type="text"] {
+            width: calc(100% - 85px);
+            padding-left: 0.8rem;
+            padding-top: 5px;
+            background-color: transparent;
+          }
+
+          &[type="submit"] {
+            background-color: $color-blue-dark-04;
+            width: 85px;
+          }
+        }
+      }
     }
   }
 

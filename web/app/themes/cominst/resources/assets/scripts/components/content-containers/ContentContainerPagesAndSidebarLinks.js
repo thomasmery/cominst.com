@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+
+import classNames from 'classnames';
 
 import scrollToComponent from 'react-scroll-to-component';
 
@@ -125,32 +128,34 @@ class ContentContainerPagesAndSidebarLinks extends Component {
       } )
     );
 
-    window.addEventListener('resize', () => {
-        console.log('resize');// eslint-disable-line
-        this.props.data.children.forEach(
-          (child, index) => {
-            this._childrenRefs[index].style.height = 'auto';
-            // this._childrenRefs[index].style.height = this._childrenRefs[index].clientHeight + 'px';
-          }
-        );
+    window.addEventListener('resize', _.debounce(
+          () => {
+            this.props.data.children.forEach(
+              (child, index) => {
+                this._childrenRefs[index].style.height = 'auto';
+                // this._childrenRefs[index].style.height = this._childrenRefs[index].clientHeight + 'px';
+              }
+            );
 
-        this.setState( () => ( {
-            childrenStyles:
-              this.props.data.children.map(
-                (child, index) => ({
-                  height: this._childrenRefs[index].clientHeight,
-                  originalHeight: this._childrenRefs[index].clientHeight,
-                })
-              ),
-          } ),
-          () => this.forceUpdate()
-        );
+            this.setState( () => ( {
+                childrenStyles:
+                  this.props.data.children.map(
+                    (child, index) => ({
+                      height: this._childrenRefs[index].clientHeight,
+                      originalHeight: this._childrenRefs[index].clientHeight,
+                    })
+                  ),
+              } ),
+              () => this.forceUpdate()
+            );
 
-      }
+        },
+        250
+      )
     )
   }
 
-  _renderLinks () {
+  _renderSidebarLinks () {
     const {
       data,
     } = this.props;
@@ -175,6 +180,28 @@ class ContentContainerPagesAndSidebarLinks extends Component {
       : ''
   }
 
+  _renderSidebarImages () {
+    const {
+      data,
+    } = this.props;
+
+    const images = data.acf.images || [];
+
+    return images.length
+      ? <ul className="images">
+        { images.map( (image) => (
+            <li className="item" key={image.image.ID}>
+              {
+                image.title
+                  && <span className="title"><span>{image.title}</span><br /></span>
+              }
+              <img src={ image.image.sizes.medium } alt={ image.image.name } />
+            </li>
+          )
+        ) }
+      </ul>
+      : ''
+  }
   render () {
     const {
       data,
@@ -186,7 +213,12 @@ class ContentContainerPagesAndSidebarLinks extends Component {
           <div className="col-md-4">
             <div className="sidebar" style={this.state.leftSidebarStyles}>
               <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
-              { this._renderLinks() }
+              <div className="links">
+                { this._renderSidebarLinks() }
+              </div>
+              <div className="images">
+                { this._renderSidebarImages() }
+              </div>
             </div>
           </div>
           <div className="col-md-8">
@@ -209,7 +241,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
                       <div className="content">
                         <div dangerouslySetInnerHTML={ {__html: this.state.childContent[index] } } />
                       </div>
-                      <div className="actions">
+                      <div className={ classNames( { 'has-more-content': child.content_parts.length > 1 }, 'actions')}>
                         {
                           child.content_parts.length > 1 ?
                             <a onClick={this._onContentToggleHandler.bind(null, index)}>
@@ -236,7 +268,8 @@ class ContentContainerPagesAndSidebarLinks extends Component {
             }
           </div>
           <div className="col mobile">
-            { this._renderLinks() }
+            { this._renderSidebarLinks() }
+            { this._renderSidebarImages() }
           </div>
         </div>
       </div>

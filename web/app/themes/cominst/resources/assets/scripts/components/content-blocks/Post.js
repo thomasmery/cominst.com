@@ -152,7 +152,7 @@ class Post extends Component {
         <div className="content" style={this.state.contentStyles} ref={ (element) => this._contentContainerRef = element }>
           <div ref={ (element) => this._contentBoxRef = element } dangerouslySetInnerHTML={ {__html: activeContent } } />
         </div>
-        <div className="actions">
+        <div className="has-more-content actions">
           {
             ! this.state.active ?
               <Link to={data.path}>

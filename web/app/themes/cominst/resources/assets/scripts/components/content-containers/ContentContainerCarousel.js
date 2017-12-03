@@ -21,7 +21,7 @@ class ContentContainerCarousel extends Component {
       carouselNextIndex: 1,
     }
 
-    this._onPreviousButtonClickHandler = this._onPreviousButtonClickHandler.bind(this);
+    this._onPrevButtonClickHandler = this._onPrevButtonClickHandler.bind(this);
     this._onNextButtonClickHandler = this._onNextButtonClickHandler.bind(this);
 
   }
@@ -34,7 +34,7 @@ class ContentContainerCarousel extends Component {
     this.carousel.next()
   }
 
-  _onPreviousButtonClickHandler (event) {
+  _onPrevButtonClickHandler (event) {
     event.preventDefault();
     this.showPreviousSlide();
   }
@@ -86,11 +86,11 @@ class ContentContainerCarousel extends Component {
     }
 
     return data.children.length ? (
-      <div  className="content-container content-container-carousel" style={{ display: 'flex', justifyContent: 'center' }}>
+      <div  className="content-container content-container-carousel" style={{ display: 'flex', justifyContent: 'center', minHeight: '100vh' }}>
         <div
           className="carousel-side-panel carousel-side-panel-left"
           style={{ flex: '1 0 300px', maxWidth: 300 }}
-          onClick={this._onPreviousButtonClickHandler}
+          onClick={this._onPrevButtonClickHandler}
         >
             <div className="button-navigation button-navigation-left">
               <svg width="16px" height="29px" viewBox="0 0 16 29" version="1.1" xmlns="http://www.w3.org/2000/svg">

@@ -6,10 +6,10 @@ const ContentContainerFooter = function( { data }) {
   return (
     <div className="content-container content-container-footer">
       <div className="row content">
-        <div className="col-sm-8 col-left">
+        <div className="col-md-8 col-left">
           <div className="map-container" dangerouslySetInnerHTML={ { __html: data.map } } />
         </div>
-        <div className="col-sm-4 col-right">
+        <div className="col-md-4 col-right">
 
           <div className="block contact-details-container">
             <h3>{appData.i18n.contact_details}</h3>
@@ -37,6 +37,12 @@ const ContentContainerFooter = function( { data }) {
 
           <div className="block block-newsletters-container">
             <h3>{appData.i18n.newsletter}</h3>
+            <div className="form-container">
+              <form>
+                <input type="text" placeholder="Votre email" />
+                <input type="submit" value="OK" />
+              </form>
+            </div>
           </div>
 
         </div>

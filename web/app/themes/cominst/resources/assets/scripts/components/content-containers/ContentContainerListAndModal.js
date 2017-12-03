@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import scrollToComponent from 'react-scroll-to-component';
+// import scrollToComponent from 'react-scroll-to-component';
 
 class ContentContainerListAndModal extends Component {
 
@@ -38,14 +38,14 @@ class ContentContainerListAndModal extends Component {
       })
     );
 
-    scrollToComponent(
+    /* scrollToComponent(
       this._listContainerRef,
       {
         offset: - this.props.siteHeaderHeight - 20,
         align: 'top',
         duration: 300,
       }
-    );
+    ); */
 
   }
 
