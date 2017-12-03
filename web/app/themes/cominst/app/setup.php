@@ -145,6 +145,9 @@ add_action('after_setup_theme', function () {
 
     /** Load string translations */
     load_theme_textdomain('cominst', get_template_directory() . '/languages');
+
+    /** Images Sizes */
+    add_image_size('xl', 1920, 0);
 }, 20);
 
 /**

@@ -71,11 +71,14 @@ function get_featured_media_html($object) {
 }
 
 function get_featured_media_metadata($object) {
-    $sizes = '';
+    $metadata = [];
     if(isset($object['featured_media']) && $object['featured_media']) {
-        $sizes = wp_get_attachment_metadata( $object['featured_media']);
+        $metadata  = wp_get_attachment_metadata( $object['featured_media'] );
+        foreach($metadata['sizes'] as $size => $size_infos ) {
+            $metadata['sizes'][$size]['url'] = wp_get_attachment_image_src( $object['featured_media'], $size )[0];
+        }
     }
-    return $sizes;
+    return $metadata ;
 }
 
 function get_categories_names($object) {
