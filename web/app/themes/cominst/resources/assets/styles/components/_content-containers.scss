@@ -849,17 +849,23 @@ $content-container-carousel-max-widths: (
             color: $color-blue-light-03;
           }
 
-          &[type="text"] {
+          &[type="text"],
+          &[type="email"] {
             width: calc(100% - 85px);
             padding-left: 0.8rem;
             padding-top: 5px;
             background-color: transparent;
           }
+        }
 
-          &[type="submit"] {
-            background-color: $color-blue-dark-04;
-            width: 85px;
-          }
+        button[type="submit"],
+        input[type="submit"] {
+          background-color: $color-blue-dark-04;
+          width: 85px;
+        }
+
+        .message {
+          margin-top: 1rem;
         }
       }
     }

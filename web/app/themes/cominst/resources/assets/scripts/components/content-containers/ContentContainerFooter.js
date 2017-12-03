@@ -2,7 +2,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MailchimpSubscribeForm from '../tools/MailchimpSubscribeForm';
+
 const ContentContainerFooter = function( { data }) {
+
+  try {
+    if ( ! data.mailchimp_subscribe_url ) {
+      throw new Error('You must define a mailchimp_subscribe_url for your site');
+    }
+  }
+  catch (error) {
+    console.warn(error.message); // eslint-disable-line no-console
+  }
+
   return (
     <div className="content-container content-container-footer">
       <div className="row content">
@@ -37,14 +49,18 @@ const ContentContainerFooter = function( { data }) {
 
           <div className="block block-newsletters-container">
             <h3>{appData.i18n.newsletter}</h3>
-            <div className="form-container">
-              <form>
-                <input type="text" placeholder="Votre email" />
-                <input type="submit" value="OK" />
-              </form>
+              <MailchimpSubscribeForm
+                className="form-container"
+                action={data.mailchimp_subscribe_url}
+                messages = {{
+                  inputPlaceholder: appData.i18n.newsletterSubscribeForm.inputPlaceholder,
+                  btnLabel: appData.i18n.newsletterSubscribeForm.btnLabel,
+                  sending: appData.i18n.newsletterSubscribeForm.sending,
+                  success: appData.i18n.newsletterSubscribeForm.success,
+                  error: appData.i18n.newsletterSubscribeForm.error,
+                }}
+              />
             </div>
-          </div>
-
         </div>
       </div>
       <div className="row signature">

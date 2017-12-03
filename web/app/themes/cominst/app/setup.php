@@ -53,6 +53,13 @@ add_action('wp_enqueue_scripts', function () {
                 'social_networks' => __('Social Networks', 'cominst'),
                 'follow_us' => __('Follow Us', 'cominst'),
                 'newsletter' => __('Newsletter', 'cominst'),
+                'newsletterSubscribeForm' => [
+                    'inputPlaceholder' => __('Your email', 'cominst'),
+                    'btnLabel' => __('Send', 'cominst'),
+                    'sending' => __('Sending...', 'cominst'),
+                    'success' => __('Thank you for subscribing.', 'cominst'),
+                    'error' => __('There seems to be a problem with this email address.', 'cominst'),
+                ]
             ]
         ]
     );

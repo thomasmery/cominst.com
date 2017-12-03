@@ -119,6 +119,22 @@
             "maxlength": "",
             "rows": "",
             "new_lines": ""
+        },
+        {
+            "key": "field_5a2438e1526d8",
+            "label": "Mailchimp : URL d'inscription à la Newsletter",
+            "name": "mailchimp_subscribe_url",
+            "type": "url",
+            "instructions": "Vous trouverez cette url dans l'attribut \"action\" de la balise <form> des formulaires disponibles pour chaque liste Mailchimp.\r\n\r\nCette url ressemble à : https:\/\/myaccount.us1.list-manage.com\/subscribe\/post?u=e9dcc6f157d6a768e8935123c&amp;id=1239b32b9e",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
         }
     ],
     "location": [
@@ -138,5 +154,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1509961640
+    "modified": 1512323504
 }
