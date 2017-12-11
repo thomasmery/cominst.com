@@ -631,9 +631,12 @@ $content-container-carousel-max-widths: (
 
     .button-navigation {
       padding: 150px 1rem 0;
+      z-index: 1;
 
       svg g {
-        stroke: $color-black-01;
+        stroke: $color-gray-light-04;
+        stroke-width: 3px;
+        transition: stroke 0.3s ease-out;
       }
     }
 
@@ -643,6 +646,7 @@ $content-container-carousel-max-widths: (
 
     .image {
       width: 230px;
+      transition: transform 0.2s cubic-bezier(0.82, 0.21, 0.88, 0.29);
     }
 
     &::after {
@@ -656,8 +660,32 @@ $content-container-carousel-max-widths: (
       // try to fix panel not expanding enough dwnwrd on IE10
       min-height: 100vh;
       background-color: #000;
-      opacity: 0.4;
+      opacity: 0.6;
+
+      transition: opacity 0.3s ease-out;
     }
+
+    &:hover {
+      .button-navigation {
+        svg g {
+          stroke: $color-white-01;
+        }
+      }
+
+      .button-navigation-left + .image {
+        transform: translateX(46px);
+      }
+
+      .button-navigation-right + .image {
+        transform: translateX(-46px);
+      }
+
+      &::after {
+        background-color: #000;
+        opacity: 0.3;
+      }
+    }
+  }
   }
 
   .navigation-mobile {
