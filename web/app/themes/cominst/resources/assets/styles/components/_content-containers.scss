@@ -769,6 +769,9 @@ $content-container-carousel-max-widths: (
     > * {
       width: 100%;
 
+      // quick fix for having the map take the most of the Section container height
+      height: 72vh;
+
       @include media-breakpoint-down(md) {
         height: 230px;
       }
@@ -877,6 +880,24 @@ $content-container-carousel-max-widths: (
 
   .signature {
     text-align: center;
+
+    // position at the bottom of the Section
+    // the parent with position: relative must be the Section
+    position: absolute;
+    left: 0;
+    bottom: 2rem;
+    width: 100%;
+
+    @include media-breakpoint-down(md) {
+      .site-name,
+      .site-description {
+        display: block;
+      }
+
+      .separator {
+        display: none;
+      }
+    }
   }
 
   .col-left {
