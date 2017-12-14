@@ -77,6 +77,7 @@ function get_featured_media_metadata($object) {
         foreach($metadata['sizes'] as $size => $size_infos ) {
             $metadata['sizes'][$size]['url'] = wp_get_attachment_image_src( $object['featured_media'], $size )[0];
         }
+        $metadata['sizes']['original']['url'] = wp_get_attachment_image_src( $object['featured_media'] )[0];
     }
     return $metadata ;
 }

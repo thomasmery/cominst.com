@@ -3,6 +3,40 @@ section {
   background-size: cover;
   background-repeat: no-repeat;
 
+  background-position: center;
+
+  background-blend-mode: multiply;
+
+  &#nos-valeurs,
+  &#nos-services,
+  &#nos-references, {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      // default opacity layer style
+      background-color: $color-white-01;
+      opacity: 0.9;
+    }
+
+    &.dark {
+      &::before {
+        background-color: $color-blue-dark-02;
+        opacity: 0.6;
+      }
+    }
+
+    .content-container {
+      /* position: relative;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 3rem; */
+    }
+  }
+
   @include media-breakpoint-up(sm) {
     min-height: 100vh;
   }
@@ -21,6 +55,19 @@ section {
 
     @include media-breakpoint-down(sm) {
       background-position: top 50% left -70px;
+    }
+
+    // reducing home content box
+    $content-container-home-max-widths: (
+      sm: 540px,
+      md: 600px,
+      lg: 820px,
+      xl: 980px
+    );
+
+    > .container,
+    .content-container.container {
+      @include make-container-max-widths($content-container-home-max-widths);
     }
   }
 
@@ -58,6 +105,10 @@ section {
     p,
     ul {
       color: $color-gray-light-01;
+    }
+
+    .nav .item > a {
+      color: $color-blue-dark-05;
     }
   }
 }

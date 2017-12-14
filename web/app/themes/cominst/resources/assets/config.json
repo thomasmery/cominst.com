@@ -10,7 +10,7 @@
     ]
   },
   "publicPath": "/app/themes/cominst",
-  "devUrl": "http://www.cominst.dev",
+  "devUrl": "http://www.cominst.localhost",
   "proxyUrl": "http://localhost:3000",
   "cacheBusting": "[name]_[hash:8]",
   "watch": [

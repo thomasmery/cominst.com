@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import Page from '../content-blocks/Page';
+
 import scrollToComponent from 'react-scroll-to-component';
 
 class ContentContainerPagesAndSidebarNavigation extends Component {
@@ -10,8 +12,12 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     super(props);
 
     this.state = {
-      activeChildIndex: this.props.data.children.length ? 0 : null,
-      activeChildContent: this.props.data.children.length ? this.props.data.children[0].introduction : '',
+      activeChildIndex: props.data.content.rendered !== '' ? null : 0,
+      activeChildTitle: props.data.content.rendered !== '' ? this.props.data.subtitle : props.data.children[0].title.rendered,
+      activeChildSubtitle: props.data.content.rendered !== '' ? '' : props.data.children[0].subtitle,
+      activeChildContent: props.data.content.rendered !== '' ? props.data.content.rendered : props.data.children[0].introduction,
+      activeChildImage: props.data.content.rendered !== '' ? props.data.content.featured_media_html : props.data.children[0].featured_media_html,
+      activeChildContentParts: props.data.content.rendered !== '' ? props.data.content_parts : props.data.children[0].content_parts,
       childContentExpanded: false,
       activeChildContentStyles: {
         height: 'auto',
@@ -36,7 +42,8 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     : 0;
 
     scrollToComponent(
-      window.matchMedia("(max-width: 576px)").matches ? this._childContentContainerRef : this,
+      // window.matchMedia("(max-width: 576px)").matches ? this._childContentContainerRef : this,
+      this.props.parent,
       {
         offset: - this.props.siteHeaderHeight - _scrollOffset,
         align: 'top',
@@ -47,8 +54,12 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
   _setActiveChild (index) {
     this.setState( () => ( {
-        activeChildIndex: index,
-        activeChildContent: this.props.data.children[index].introduction,
+        activeChildIndex: index === null ? null : index,
+        activeChildTitle: index === null ? this.props.data.subtitle : this.props.data.children[index].title.rendered,
+        activeChildSubtitle: index === null ? '' : this.props.data.children[index].subtitle,
+        activeChildContent: index === null ? this.props.data.content.rendered : this.props.data.children[index].introduction,
+        activeChildImage: index === null ? this.props.data.content.featured_media_html : this.props.data.children[index].featured_media_html,
+        activeChildContentParts: index === null ? this.props.data.content_parts : this.props.data.children[index].content_parts,
         childContentExpanded: false,
       } ),
       () => {
@@ -91,6 +102,11 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
   _childTitleClickHandler (index, event) {
     event.preventDefault();
     this._setActiveChild(index);
+    this.props.dataCallback(
+      index !== null
+        ? this.props.data.children[index]
+        : this.props.data
+    );
   }
 
   _onContentToggleHandler () {
@@ -123,6 +139,41 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
         },
       } )
     );
+
+    this.props.dataCallback(
+      this.props.data.content.rendered !== ''
+      ? this.props.data
+      : this.props.data.children[0]
+    );
+
+  }
+
+  /** Render */
+
+  _renderNav() {
+    const {
+      data,
+    } = this.props;
+
+    return (
+              <ul className="nav">
+              {
+                data.children.map(
+                  (child, index) => (
+                    <li
+                      key={ child.id }
+                      className="item">
+                <a
+                  className={ classNames({ active: index === this.state.activeChildIndex }) }
+                  onClick={ this._childTitleClickHandler.bind(null, index) }
+                  dangerouslySetInnerHTML={ {__html: child.title.rendered } }
+                />
+                    </li>
+                  )
+                )
+              }
+              </ul>
+    )
   }
 
   render () {
@@ -137,20 +188,11 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
           </div>
           <div className="col-md-4 sidebar">
             <div style={this.state.leftSidebarStyles}>
-              <h2 dangerouslySetInnerHTML={ { __html: data.title.rendered } }></h2>
-              <ul className="nav">
-              {
-                data.children.map(
-                  (child, index) => (
-                    <li
-                      key={ child.id }
-                      className="item">
-                        <a className={ classNames({ active: index === this.state.activeChildIndex }) } onClick={ this._childTitleClickHandler.bind(null, index) } dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-                    </li>
-                  )
-                )
-              }
-              </ul>
+              <h2
+                dangerouslySetInnerHTML={ { __html: data.title.rendered } }
+                onClick={ this._childTitleClickHandler.bind(null, null) }
+              />
+              { this._renderNav() }
             </div>
           </div>
           <div className="col-md-8 pages">
@@ -159,35 +201,17 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
                 <div>
                   <div className="child-content-container" style={this.state.activeChildContentStyles} ref={ (element) => this._childContentContainerRef = element }>
                     <div>
-                      <div className="header">
-                        <h3 className="title" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].title.rendered } } />
-                        { data.children[this.state.activeChildIndex].subtitle
-                          && <h4 className="subtitle" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].subtitle } } /> }
-                      </div>
-                      <div className="content" dangerouslySetInnerHTML={ { __html: this.state.activeChildContent } } />
-                      <div className="actions">
-                        {
-                          data.children[this.state.activeChildIndex].content_parts.length > 1 ?
-                            <a onClick={this._onContentToggleHandler}>
-                              {
-                                <span className={ ! this.state.childContentExpanded && 'collapsed'}>
-                                  <svg className="expand-button" width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                      <defs></defs>
-                                      <g id="expand-button-container" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
-                                          <g id="expand-button-group" transform="translate(1.000000, 1.000000)" stroke="#018EC0" strokeWidth="2">
-                                              <path d="M0,13 L27,13" id="horizontal-line"></path>
-                                              <path d="M14,27 L14,0" id="vertical-line"></path>
-                                          </g>
-                                      </g>
-                                  </svg>
-                                </span>
-                              }
-                            </a> : ''
-                        }
-                      </div>
+                      <Page
+                        title={ this.state.activeChildTitle }
+                        subtitle={ this.state.activeChildSubtitle }
+                        content={ this.state.activeChildContent }
+                        contentParts={ this.state.activeChildContentParts}
+                        contentExpanded={ this.state.childContentExpanded }
+                        contentToggleHandler={ this._onContentToggleHandler }
+                      />
                     </div>
                   </div>
-                  <div className="child-image image" dangerouslySetInnerHTML={ { __html: data.children[this.state.activeChildIndex].featured_media_html || data.featured_media_html } } />
+                  <div className="child-image image" dangerouslySetInnerHTML={ { __html: this.state.activeChildImage } } />
                 </div> :
                 'NO CHILDREN PAGES'
             }
@@ -202,6 +226,7 @@ ContentContainerPagesAndSidebarNavigation.propTypes = {
   data: PropTypes.object,
   parent: PropTypes.object,
   siteHeaderHeight: PropTypes.number,
+  dataCallback: PropTypes.func,
 }
 
 ContentContainerPagesAndSidebarNavigation.defaultProps = {

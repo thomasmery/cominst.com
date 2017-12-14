@@ -144,9 +144,11 @@ header {
   }
 
   .site-description {
-    font-size: 0.8125rem;
+    // font-size: 0.8125rem;
+    font-size: 0.9375rem;
     line-height: 1.1rem;
-    color: $color-brand-primary;
+    // color: $color-brand-primary;
+    color: $color-gray-dark-04;
     text-transform: uppercase;
     transition: opacity 0.2s ease-in;
 
@@ -211,12 +213,14 @@ nav {
       margin-bottom: 6px;
     }
 
-    color: $color-gray-dark-04;
+    // color: $color-gray-dark-04;
+    color: $color-brand-primary;
 
     &:hover,
     &.active {
       text-decoration: none;
-      color: $color-brand-primary;
+      // color: $color-brand-primary;
+      color: $color-blue-dark-03;
     }
   }
 }

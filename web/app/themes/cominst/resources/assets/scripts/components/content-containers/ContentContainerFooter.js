@@ -65,7 +65,7 @@ const ContentContainerFooter = function( { data }) {
       </div>
       <div className="row signature">
         <div className="col-sm-12">
-          © { data.site_name } - { data.site_description }
+          <span className="site-name">© { data.site_name }</span> <span className="separator">-</span> <span className="site-description">{ data.site_description }</span>
         </div>
       </div>
     </div>

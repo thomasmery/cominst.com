@@ -8,8 +8,14 @@ class Section extends PureComponent {
   constructor (props) {
     super(props);
 
+    this.state = {
+      sectionStyles: props.sectionStyles,
+    };
+
     this._onEnter = props.onEnter ? props.onEnter.bind(null, this) : () => {};
     this._onLeave = props.onLeave ? props.onLeave.bind(null, this) : () => {};
+
+    this._switchBackground = this._switchBackground.bind(this);
 
   }
 
@@ -25,10 +31,28 @@ class Section extends PureComponent {
           data={data}
           parent={this}
           siteHeaderHeight={this.props.siteHeaderHeight}
+          dataCallback={this._switchBackground}
         />
        )
       : ContentContainer;
 
+  }
+
+  _switchBackground (child_data) {
+    if( ! child_data.featured_media_metadata.file) {
+      return;
+    }
+
+    const image_url = child_data.featured_media_metadata.sizes.large
+      ? child_data.featured_media_metadata.sizes.xl.url
+      : child_data.featured_media_metadata.sizes.original.url;
+
+    this.setState( (state) => ({
+      sectionStyles: {
+        ...state.sectionStyles,
+        backgroundImage: `url(${image_url})`,
+      },
+    }))
   }
 
   render () {
@@ -39,7 +63,11 @@ class Section extends PureComponent {
         topOffset={400}
         bottomOffset={400}
       >
-        <section id={this.props.id} className={ this.props.className } style={this.props.sectionStyles}>
+        <section
+          id={this.props.id}
+          className={ this.props.className }
+          style={this.state.sectionStyles}
+        >
           <div className={ this.props.containerClassName }>
             {/* <h2>{ this.props.title }</h2> */}
             <div className="section-content">
@@ -68,6 +96,10 @@ Section.propTypes = {
   onEnter: PropTypes.func,
   onLeave: PropTypes.func,
   scrollHintElement: PropTypes.node,
+}
+
+Section.defaultProps = {
+  sectionStyles: {},
 }
 
 export default Section;

@@ -525,7 +525,7 @@ class App extends Component {
                           .replace(/^<\/(.*)>/,'')
                           .replace(/^<(.*)>$/,'')
                       );
-      page.introduction = page.content_parts.concat().splice(0,1);
+      page.introduction = page.content_parts.concat().splice(0,1)[0];
       page.body = page.content_parts.length > 1
         ? page.content_parts.concat().splice(1).join('')
         : '';

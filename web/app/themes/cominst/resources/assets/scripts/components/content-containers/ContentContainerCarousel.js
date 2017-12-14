@@ -149,16 +149,18 @@ class ContentContainerCarousel extends Component {
                           }
                           <div className={child.featured_media_html ? "col-sm-9" : "col-sm-12"}>
                             <div className={ classNames({ "content-full-width": ! child.featured_media_html }, 'child-content-container') }>
-                              <div className="header">
-                                <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
-                                {
-                                  child.subtitle
-                                    && <h4 className="subtitle" dangerouslySetInnerHTML={ {__html: child.subtitle } } />
-                                }
-                              </div>
-                              <div className="content">
-                                <div className="introduction" dangerouslySetInnerHTML={ {__html: child.introduction } } />
-                                <div className="body" dangerouslySetInnerHTML={ {__html: child.body } } />
+                              <div>
+                                <div className="header">
+                                  <h3 dangerouslySetInnerHTML={ {__html: child.title.rendered } } />
+                                  {
+                                    child.subtitle
+                                      && <h4 className="subtitle" dangerouslySetInnerHTML={ {__html: child.subtitle } } />
+                                  }
+                                </div>
+                                <div className="content">
+                                  <div className="introduction" dangerouslySetInnerHTML={ {__html: child.introduction } } />
+                                  <div className="body" dangerouslySetInnerHTML={ {__html: child.body } } />
+                                </div>
                               </div>
                             </div>
                           </div>
