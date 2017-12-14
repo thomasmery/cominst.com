@@ -118,9 +118,9 @@ class App extends Component {
       collapsedBaseHeight = colLeft.offsetHeight;
     }
     const headerHeight =
-      ( this.state.headerIsCollapsed ? collapsedBaseHeight : headerChild.clientHeight )
+      ( this.state.headerIsCollapsed ? collapsedBaseHeight : headerChild.clientHeight - 10 )
       + headerPaddingTop
-      + headerPaddingBottom
+      + headerPaddingBottom;
     return header && headerHeight;
   }
 

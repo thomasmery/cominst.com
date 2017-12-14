@@ -145,7 +145,7 @@ header {
 
   .site-description {
     font-size: 1rem;
-    line-height: 1.1rem;
+    line-height: 1.25rem;
     // color: $color-brand-primary;
     color: $color-gray-dark-04;
     text-transform: uppercase;
@@ -159,7 +159,7 @@ header {
       width: 1000px;
     }
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       width: auto;
     }
   }
