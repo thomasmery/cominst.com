@@ -4,12 +4,12 @@
   // padding: 0 0 3.125rem;
 
   h2 {
-    font-size: 1.3125rem;
+    font-size: 1.5rem;
     line-height: 1.725rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: $color-gray-dark-01;
-    padding-bottom: 1rem;
+    color: $color-gray-dark-01; // default - overridden by section color themes - light/dark
+    padding-bottom: 0.625rem;
     border-bottom: 1px solid $color-gray-dark-01;
   }
 
@@ -49,7 +49,7 @@
   }
 
   h3 + h4 {
-    margin-top: -6px;
+    // margin-top: -6px;
   }
 
   .image {
@@ -60,8 +60,12 @@
   }
 
   .sidebar {
+    h2 {
+      margin-bottom: 0;
+    }
+
     @include media-breakpoint-up(md) {
-      padding-right: 3.125rem;
+      padding-right: 2.5rem;
     }
     // margin-top: 2.75rem;
     // should not be a pb on desktop
@@ -71,10 +75,10 @@
   .nav,
   .links,
   .items {
-    margin-top: 1.5rem;
+    // margin-top: 1.5rem;
 
     @include media-breakpoint-up(md) {
-      margin-top: 1.3125rem;
+      // margin-top: 1.3125rem;
     }
   }
 
@@ -85,7 +89,7 @@
     .item {
       > a {
         display: block;
-        padding: 10px;
+        padding: 0.625rem;
 
         border-bottom: solid 1px $color-gray-light-03;
 
@@ -100,10 +104,6 @@
         color: $color-gray-dark-02;
 
         cursor: pointer;
-
-        a {
-          color: inherit;
-        }
 
         &.active,
         &:hover {
@@ -120,6 +120,12 @@
           }
         }
       }
+
+      /* &:last-child {
+        > a {
+          border-bottom: solid 1px $color-gray-light-03;
+        }
+      } */
     }
   }
 
@@ -159,14 +165,6 @@
 
     margin-bottom: 1rem; // 0.375rem;
 
-    section & {
-      background-color: rgba($color-white-01, 0.8);
-    }
-
-    section.dark & {
-      background-color: rgba($color-blue-dark-02, 0.8);
-    }
-
     .header {
       margin-bottom: 0.6875rem;
     }
@@ -183,7 +181,7 @@
 
         li {
           margin-bottom: 0.4rem;
-          font-size: 0.875rem;
+          // font-size: 0.875rem;
 
           &::before {
             content: " — ";
@@ -319,6 +317,12 @@
 /** Pages & sidebar navigation */
 .content-container-pages-and-sidebar-navigation {
   .pages {
+
+    // vertically align with Section title bottom border
+    padding-top: 2.375rem;
+    // more space between sidebar and content
+    padding-right: 2.5rem;
+
     .image {
       // hide image in content as we have moved it to the bg of the section
       display: none;
@@ -329,11 +333,29 @@
     }
 
     .child-content-container {
+      h3 {
+        font-size: 1.875rem;
+      }
+
+      h4 {
+        font-size: 1.5rem;
+        line-height: 1.875rem;
+      }
       // we use the innr div because of the way we set the height on the parent
       // @see ContentContainerPagesAndSidebarNavigation.js
       // @todo find a way to apply the padding to the parent directly? (just to make things cleaner)
       > div {
         padding: 2.5rem;
+      }
+
+      section & {
+        background-color: rgba($color-white-01, 0.85);
+        box-shadow: 3px 3px 3px 0 rgba($color-gray-dark-01, 0.3);
+      }
+
+      section.dark & {
+        background-color: rgba($color-blue-dark-02, 0.85);
+        box-shadow: 3px 3px 3px 0 rgba($color-black-01, 0.65);
       }
     }
 

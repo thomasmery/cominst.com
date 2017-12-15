@@ -2,10 +2,7 @@ section {
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
-
-  background-position: center;
-
-  background-blend-mode: multiply;
+  background-position: top;
 
   &#nos-valeurs,
   &#nos-services,
@@ -20,13 +17,13 @@ section {
 
       // default opacity layer style
       background-color: $color-white-01;
-      opacity: 0.9;
+      opacity: 0.8;
     }
 
     &.dark {
       &::before {
-        background-color: $color-blue-dark-02;
-        opacity: 0.6;
+        background-color: $color-blue-dark-06;
+        opacity: 0.8;
       }
     }
 
@@ -83,6 +80,23 @@ section {
 
   &.light {
     background-color: $color-blue-light-02;
+
+    h2,
+    h3 {
+      color: $color-blue-dark-05;
+      border-color: $color-blue-dark-02;
+    }
+
+    .nav .item > a {
+      color: $color-blue-dark-05;
+      background-image: linear-gradient(to right, $color-white-01, $color-white-01);
+      border-color: $color-gray-light-02;
+
+      &.active,
+      &:hover {
+        color: $color-blue-dark-05;
+      }
+    }
   }
 
   &.dark {
@@ -102,6 +116,10 @@ section {
       color: $color-blue-light-01;
     }
 
+    h2 {
+      border-color: rgba($color-blue-dark-04, 0.7);
+    }
+
     h4.subtitle {
       color: $color-blue-dark-01;
     }
@@ -112,7 +130,9 @@ section {
     }
 
     .nav .item > a {
-      color: $color-blue-dark-05;
+      color: $color-blue-light-03;
+      background-image: linear-gradient(to right, $color-blue-dark-02, $color-blue-dark-02);
+      border-color: $color-blue-dark-02;
     }
   }
 }

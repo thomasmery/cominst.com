@@ -3,14 +3,14 @@
   justify-content: center;
 
   li {
-    margin-left: 1rem;
+    margin-left: 2.5rem;
 
     &.disabled {
       display: none;
     }
 
     font-family: $font-sans-serif;
-    font-size: 1rem;
+    font-size: 1.25rem;
     color: $color-gray-dark-02;
 
     &:hover {
