@@ -95,7 +95,9 @@
     "wpml/wpml-string-translation": "*",
     
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
-    "wpackagist-plugin/acf-to-rest-api": "*"
+    "wpackagist-plugin/acf-to-rest-api": "*",
+
+    "wpackagist-plugin/svg-support": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
