@@ -157,16 +157,6 @@ class App extends Component {
       headerHeight: this._getHeaderHeight(),
       windowHeight: window.innerHeight,
     } );
-    /* window.addEventListener(
-      'resize',
-      _.debounce( () => {
-        this.setState( {
-          headerHeight: this._getHeaderHeight(),
-          windowHeight: window.innerHeight,
-        } );
-      },
-      250)
-    ); */
 
     this._updatePosts(this.props.location.pathname);
   }
