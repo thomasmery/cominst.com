@@ -62,7 +62,7 @@ let webpackConfig = {
                   targets: {
                     browsers: ['last 4 versions'],
                   },
-                  debug: true,
+                  debug: false,
                 }],
               ],
               plugins: ['transform-react-jsx', 'transform-object-rest-spread'],
