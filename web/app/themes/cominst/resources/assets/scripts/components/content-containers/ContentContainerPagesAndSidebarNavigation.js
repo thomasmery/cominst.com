@@ -11,13 +11,15 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
   constructor (props) {
     super(props);
 
+    this.hasRootPageContent = props.data.content.rendered !== '';
+
     this.state = {
-      activeChildIndex: props.data.content.rendered !== '' ? null : 0,
-      activeChildTitle: props.data.content.rendered !== '' ? this.props.data.subtitle : props.data.children[0].title.rendered,
-      activeChildSubtitle: props.data.content.rendered !== '' ? '' : props.data.children[0].subtitle,
-      activeChildContent: props.data.content.rendered !== '' ? props.data.content.rendered : props.data.children[0].introduction,
-      activeChildImage: props.data.content.rendered !== '' ? props.data.content.featured_media_html : props.data.children[0].featured_media_html,
-      activeChildContentParts: props.data.content.rendered !== '' ? props.data.content_parts : props.data.children[0].content_parts,
+      activeChildIndex: this.hasRootPageContent ? null : 0,
+      activeChildTitle: this.hasRootPageContent ? this.props.data.subtitle : props.data.children[0].title.rendered,
+      activeChildSubtitle: this.hasRootPageContent ? '' : props.data.children[0].subtitle,
+      activeChildContent: this.hasRootPageContent ? props.data.content.rendered : props.data.children[0].introduction,
+      activeChildImage: this.hasRootPageContent ? props.data.content.featured_media_html : props.data.children[0].featured_media_html,
+      activeChildContentParts: this.hasRootPageContent ? props.data.content_parts : props.data.children[0].content_parts,
       childContentExpanded: false,
       activeChildContentStyles: {
         height: 'auto',
@@ -30,6 +32,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
     this._childContentContainerRef = null;
 
+    this._sectionTitleClickHandler = this._sectionTitleClickHandler.bind(this);
     this._childTitleClickHandler = this._childTitleClickHandler.bind(this);
     this._onContentToggleHandler = this._onContentToggleHandler.bind(this);
 
@@ -53,6 +56,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
   }
 
   _setActiveChild (index) {
+
     this.setState( () => ( {
         activeChildIndex: index === null ? null : index,
         activeChildTitle: index === null ? this.props.data.subtitle : this.props.data.children[index].title.rendered,
@@ -97,6 +101,17 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
     this._scrollToComponentTop()
 
+  }
+
+  _sectionTitleClickHandler (index, event) {
+    event.preventDefault();
+    // don't do anything if we're requesting the Root Page content
+    // but there is none ...
+    if( ! this.hasRootPageContent) {
+      return;
+    }
+    //
+    this._childTitleClickHandler(index, event);
   }
 
   _childTitleClickHandler (index, event) {
@@ -190,7 +205,10 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
             <div style={this.state.leftSidebarStyles}>
               <h2
                 dangerouslySetInnerHTML={ { __html: data.title.rendered } }
-                onClick={ this._childTitleClickHandler.bind(null, null) }
+                onClick={ this._sectionTitleClickHandler.bind(null, null) }
+                style= {{
+                  cursor: this.hasRootPageContent ? 'pointer' : 'text',
+                }}
               />
               { this._renderNav() }
             </div>
