@@ -160,7 +160,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
           top: this.props.siteHeaderHeight + 20,
         },
         activeChildContentStyles: {
-          height: this._childContentContainerRef && this._childContentContainerRef.clientHeight,
+          height: this._childContentContainerRef && this._childContentContainerRef.children[0].clientHeight,
         },
       } )
     );
