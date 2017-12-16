@@ -12,6 +12,8 @@ import WPAPI from 'wpapi';
 import classNames from 'classnames';
 // import _ from 'lodash';
 
+import ImagePreloader from 'image-preloader';
+
 /**
  * Internal dependencies
  */
@@ -153,10 +155,18 @@ class App extends Component {
    */
 
   componentDidMount () {
-    this.setState( {
-      headerHeight: this._getHeaderHeight(),
-      windowHeight: window.innerHeight,
-    } );
+
+    // we need to detect when images in the header are actually loaded
+    // because we will then get an accurate height value
+    const preloader = new ImagePreloader();
+    const images = document.querySelectorAll('#app header img');
+    const _component = this;
+    preloader.preload.apply(this, images).then(() => {
+        _component.setState( {
+          headerHeight: _component._getHeaderHeight(),
+          windowHeight: window.innerHeight,
+        } );
+    });
 
     this._updatePosts(this.props.location.pathname);
   }

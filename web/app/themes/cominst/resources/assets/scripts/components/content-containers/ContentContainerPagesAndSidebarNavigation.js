@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import ImagePreloader from 'image-preloader';
+
 import Page from '../content-blocks/Page';
 
 import scrollToComponent from 'react-scroll-to-component';
@@ -67,12 +69,20 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
         childContentExpanded: false,
       } ),
       () => {
-          this.setState( () => ( {
-            activeChildContentStyles: {
-              height: this._childContentContainerRef.children[0].clientHeight,
-            },
-          } )
-        );
+        // we need to detect when images in the content are actually loaded
+        // before we set the height of the container
+        // otherwise we might set it to a wring height and the content would be cut off
+        const preloader = new ImagePreloader();
+        const images = this._childContentContainerRef.querySelectorAll('img');
+        const _component = this;
+        preloader.preload.apply(this, images).then(() => {
+            _component.setState( () => ( {
+                activeChildContentStyles: {
+                  height: _component._childContentContainerRef.children[0].clientHeight,
+                },
+              } )
+            );
+        });
       }
     )
 

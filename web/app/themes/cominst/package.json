@@ -144,6 +144,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "classnames": "^2.2.5",
+    "image-preloader": "^1.1.1",
     "jquery": "1.12.4 - 3",
     "jsonp": "^0.2.1",
     "popper.js": "^1.11.0",
