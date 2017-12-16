@@ -798,7 +798,12 @@ class App extends Component {
       ContentContainers['ContentContainerHome'],
       {
         data: home_page_data,
-        scrollHintElement: <Link to={this.state.data.primary_navigation[0].path}><img src={appData.ui.scroll_hint} /></Link>,
+        scrollHintElement:
+          <Link to={this.state.data.primary_navigation[0].path}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="29" height="17" viewBox="0 0 29 17">
+              <path fill="none" stroke="#018EC0" strokeWidth="2" d="M19.7005615,19.3045654 C19.7005615,19.3045654 15.4009196,15.1267497 6.80163574,6.77111816 L19.3790283,-6.20349121" transform="rotate(-90 14.751 7.05)" strokeLinecap="square"/>
+            </svg>
+          </Link>,
       }
     );
 
@@ -806,6 +811,7 @@ class App extends Component {
       <Section
         key="0"
         title="Home"
+        className={ classNames(home_page_data.acf.theme.color_theme) } // acf field path is a bit different here (...theme.color_theme because we've used a clone field in the admin - this should be standardized across all pages/sections ...)
         containerClassName={
           classNames(
             'ContentContainerHome',

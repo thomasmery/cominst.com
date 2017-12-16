@@ -248,7 +248,12 @@
     // top: 57%;
   }
   bottom: -1px;
+
   background-color: rgba($color-white-01, 0.9);
+
+  section.dark & {
+    background-color: rgba($color-blue-dark-02, 0.9);
+  }
 
   text-align: center;
 
@@ -258,6 +263,26 @@
     font-size: 1.375rem;
     font-weight: normal;
     color: $color-brand-primary;
+
+    section.dark & {
+      color: $color-white-01;
+    }
+
+    /*
+      we might want to use an image for the '&' of  'Communications & Institutions'
+      this is done in the WP editor
+      a .with-image-ampersand must be added to the title tag
+    */
+
+    &.with-image-ampersand {
+      // make up for '&' image that sticks up above the text
+      margin-top: -1rem;
+    }
+
+    img {
+      width: 1.5rem;
+      vertical-align: baseline;
+    }
   }
 
   h2 {
@@ -266,6 +291,10 @@
     font-weight: 600;
     text-transform: initial;
     color: $color-gray-dark-01;
+
+    section.dark & {
+      color: $color-blue-light-03;
+    }
     // reset
     padding: 0;
     border: none;
@@ -276,6 +305,10 @@
     line-height: 1.25rem;
     font-weight: normal;
     color: $color-gray-dark-01;
+
+    section.dark & {
+      color: $color-blue-light-02;
+    }
   }
 
   @include media-breakpoint-up(md) {
@@ -310,6 +343,12 @@
 
     @include media-breakpoint-up(md) {
       bottom: 7%;
+    }
+
+    section.dark & {
+      path {
+        stroke: $color-blue-light-02;
+      }
     }
   }
 }
@@ -546,7 +585,7 @@ $content-container-carousel-max-widths: (
   min-height: 100vh;
 
   p {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .image {
