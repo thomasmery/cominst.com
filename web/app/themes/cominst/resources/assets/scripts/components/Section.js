@@ -43,7 +43,7 @@ class Section extends PureComponent {
       return;
     }
 
-    const image_url = child_data.featured_media_metadata.sizes.large
+    const image_url = child_data.featured_media_metadata.sizes.xl
       ? child_data.featured_media_metadata.sizes.xl.url
       : child_data.featured_media_metadata.sizes.original.url;
 

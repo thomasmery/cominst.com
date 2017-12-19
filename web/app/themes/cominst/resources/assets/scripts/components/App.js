@@ -831,7 +831,11 @@ class App extends Component {
         data={home_page_data}
         ContentContainer={contentContainerHome}
         sectionStyles={{
-          backgroundImage: `url(${home_page_data.featured_media_metadata.sizes.xl.url})`,
+          backgroundImage: `url(${
+            home_page_data.featured_media_metadata.sizes.xl
+              ? home_page_data.featured_media_metadata.sizes.xl.url
+              : home_page_data.featured_media_metadata.sizes.original.url
+          })`,
           // height: '100vh', //this.state.windowHeight || 'auto',
         }}
         id="home"
