@@ -4,7 +4,7 @@ Plugin Name: Communication & Institutions - Configuration plugin
 */
 
 // post types
-require ('includes/post-types.php');
+// require ('includes/post-types.php');
 
 // taxonomies
 require ('includes/taxonomies.php');
