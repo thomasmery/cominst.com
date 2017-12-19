@@ -938,6 +938,7 @@ class App extends Component {
       exact
       render={ (route_props) => {
           if (this.sections.home && this.allowScroll) {
+            document.title = `${appData.site_name} - ${appData.site_description}`;
             return <ScrollToRouteHelper
               targetComponent={this.sections.home}
               offset={this.state.headerHeight}
@@ -970,6 +971,7 @@ class App extends Component {
                 // this is necessary because the scroll is triggered on ScrollToRouteHelper componentDidMount
                 // note: scroll could be triggered on componentDidUpdate ... this has to be explored
                 if (this.sections[item.slug] && this.allowScroll) {
+                  document.title = `${appData.site_name} - ${item.title}`;
                   return <ScrollToRouteHelper
                     ease="in-out-quad"
                     duration={500}
