@@ -13,7 +13,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
   constructor (props) {
     super(props);
 
-    this.hasRootPageContent = props.data.content.rendered !== '';
+    this.hasRootPageContent = props.data.acf.show_root_content && props.data.content.rendered !== '';
 
     this.state = {
       activeChildIndex: this.hasRootPageContent ? null : 0,
@@ -225,7 +225,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
           </div>
           <div className="col-md-8 pages">
             {
-              data.children.length ?
+              this.hasRootPageContent || data.children.length ?
                 <div>
                   <div className="child-content-container" style={this.state.activeChildContentStyles} ref={ (element) => this._childContentContainerRef = element }>
                     <div>
