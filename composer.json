@@ -35,11 +35,11 @@
       "type": "package",
       "package": {
         "name": "advanced-custom-fields/advanced-custom-fields-pro",
-        "version": "5.6.3",
+        "version": "5.6.7",
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
-          "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=b3JkZXJfaWQ9MzcyODl8dHlwZT1wZXJzb25hbHxkYXRlPTIwMTQtMDgtMTMgMTY6MDI6MzY="
+          "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k=b3JkZXJfaWQ9MzcyODl8dHlwZT1wZXJzb25hbHxkYXRlPTIwMTQtMDgtMTMgMTY6MDI6MzY="
         }
       }
     },
@@ -79,7 +79,7 @@
     "wpackagist-plugin/admin-menu-editor": "*",
     "wpackagist-plugin/ambrosite-nextprevious-page-link-plus": "*",
     "wpackagist-plugin/taxonomy-terms-order": "*",
-    "wpackagist-plugin/cms-tree-page-view": "*",
+    "wpackagist-plugin/wordpress-seo": "*",
     "wpackagist-plugin/enable-media-replace": "*",
     "wpackagist-plugin/members": "*",
     "wpackagist-plugin/regenerate-thumbnails": "*",
