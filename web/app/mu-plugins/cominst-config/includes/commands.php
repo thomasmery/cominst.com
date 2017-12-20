@@ -6,7 +6,7 @@
 function cominst_migrate_interventions() {
     global $wpdb;
 
-    // select all media-nterventions IDs
+    // select all media-interventions IDs
     $ids = $wpdb->get_col("SELECT ID from wp_posts WHERE post_type = 'media-intervention'");
 
     echo "Count: " . count($ids) . "\n";
@@ -40,8 +40,7 @@ function cominst_migrate_interventions() {
 
 }
 
-function correct_wrong_category_id_for_en_cimedia_posts() {
-
+function cominst_correct_wrong_category_id_for_en_cimedia_posts() {
     global $wpdb;
 
     $ids = $wpdb->get_col("SELECT ID FROM wp_posts as p
@@ -63,6 +62,32 @@ function correct_wrong_category_id_for_en_cimedia_posts() {
             ]
         );
     }
+}
 
+function cominst_migrate_cimedia_interventiondate_to_publishdate() {
+    global $wpdb;
+    
+    // select all media-interventions posts
+    $ids = $wpdb->get_col("SELECT ID FROM wp_posts as p
+    INNER JOIN wp_icl_translations as wpml ON wpml.element_id = p.ID
+    INNER JOIN wp_term_relationships AS tr ON tr.object_id = p.ID 
+    WHERE p.post_type = 'post'
+    AND tr.term_taxonomy_id = 58");
+
+    foreach($ids as $post_id) {
+        $intervention_date = get_post_meta($post_id, 'ecpt_interventiondate', true);
+        $published_date = "$intervention_date 08:00:00";
+        if($intervention_date) {
+            wp_update_post(
+                array (
+                    'ID'            => $post_id, // ID of the post to update
+                    'post_date'     => $published_date,
+                    'post_date_gmt' => get_gmt_from_date( $published_date )
+                )
+            );
+            echo $post_id . ": " . $published_date . "\n";
+            ob_flush();
+        }
+    }
 
 }
