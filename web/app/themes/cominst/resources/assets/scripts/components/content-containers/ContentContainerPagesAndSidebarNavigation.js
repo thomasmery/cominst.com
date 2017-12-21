@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom';
 
 import ImagePreloader from 'image-preloader';
 
@@ -124,8 +126,8 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     this._childTitleClickHandler(index, event);
   }
 
-  _childTitleClickHandler (index, event) {
-    event.preventDefault();
+  _childTitleClickHandler (index) {
+    // event.preventDefault();
     this._setActiveChild(index);
     this.props.dataCallback(
       index !== null
@@ -171,6 +173,31 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
       : this.props.data.children[0]
     );
 
+    // we want to activate the sub-section
+    // if its slug is in the url
+    const slug = this._getSubSectionSlug();
+    const children_with_index = this.props.data.children.map((child, index) => ({ index, slug: child.slug }));
+    const children = children_with_index.filter((child) => child.slug === slug);
+    const child_index = children.length
+      ? children[0].index
+      : this.hasRootPageContent ? null : 0;
+
+    this._setActiveChild(child_index);
+    // console.log(slug);//eslint-disable-line
+  }
+
+  /**
+   * get the sub page slug from the pathname if available
+   */
+  _getSubSectionSlug () {
+    const match = this.props.location.pathname.match(this.props.parent.props.path);
+    if(match) {
+      const path_parts = this.props.location.pathname.replace(/^\/(.*)?\/$/, '$1').split('/');
+      if(path_parts.length !== 3) {
+        return;
+      }
+      return path_parts[path_parts.length - 1];
+    }
   }
 
   /** Render */
@@ -188,8 +215,9 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
                     <li
                       key={ child.id }
                       className="item">
-                <a
+                <Link
                   className={ classNames({ active: index === this.state.activeChildIndex }) }
+                  to={`${this.props.parent.props.path}/${child.slug}`}
                   onClick={ this._childTitleClickHandler.bind(null, index) }
                   dangerouslySetInnerHTML={ {__html: child.title.rendered } }
                 />
@@ -255,10 +283,12 @@ ContentContainerPagesAndSidebarNavigation.propTypes = {
   parent: PropTypes.object,
   siteHeaderHeight: PropTypes.number,
   dataCallback: PropTypes.func,
+
+  location: PropTypes.object,
 }
 
 ContentContainerPagesAndSidebarNavigation.defaultProps = {
   siteHeaderHeight: 0,
 }
 
-export default ContentContainerPagesAndSidebarNavigation;
+export default withRouter(ContentContainerPagesAndSidebarNavigation);

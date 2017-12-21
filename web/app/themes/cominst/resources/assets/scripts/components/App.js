@@ -959,7 +959,7 @@ class App extends Component {
           <Route
             key={item.id}
             path={ item.path }
-            exact
+            exact={false}
             render={ (route_props) => {
                 //  here we need to check if the ref to the section has been stored so it can be used
                 // this helps as we're first rendering the page and the refs to the Sections are not accessible for render
