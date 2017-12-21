@@ -167,12 +167,6 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
       } )
     );
 
-    this.props.dataCallback(
-      this.props.data.content.rendered !== ''
-      ? this.props.data
-      : this.props.data.children[0]
-    );
-
     // we want to activate the sub-section
     // if its slug is in the url
     const slug = this._getSubSectionSlug();
@@ -184,6 +178,12 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
     this._setActiveChild(child_index);
     // console.log(slug);//eslint-disable-line
+
+    this.props.dataCallback(
+      this.hasRootPageContent
+      ? this.props.data
+      : this.props.data.children[child_index]
+    );
   }
 
   /**
