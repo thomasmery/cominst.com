@@ -166,6 +166,7 @@ class ContentContainerArchive extends Component {
                       active={post.slug === data.active_post_slug }
                       postsListPath={data.posts_list_path}
                       history={this.props.history}
+                      siteHeaderHeight={this.props.siteHeaderHeight}
                     />
                   )
                 )

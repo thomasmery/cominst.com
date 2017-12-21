@@ -10,8 +10,6 @@ class Post extends Component {
   constructor (props) {
     super(props);
 
-    this.scrollOffset = 0;
-
     this.state = {
       active: props.active || false,
       contentStyles: {
@@ -33,9 +31,6 @@ class Post extends Component {
   }
 
   componentDidMount () {
-    const header = document.querySelector('#app header');
-    const headerHeight = header.offsetHeight;
-    this.scrollOffset = headerHeight + 30;
     this.originalContentHeight = this._contentBoxRef.clientHeight;
     this.setState( () => (
       {
@@ -106,7 +101,7 @@ class Post extends Component {
     scrollToComponent(
       this,
       {
-        offset: - this.scrollOffset,
+        offset: - this.props.siteHeaderHeight - 50, // 50 is the content-container paddingTop - should be dynamic
         align: 'top',
         duration: 300,
       }
@@ -193,6 +188,7 @@ Post.propTypes = {
   active: PropTypes.bool,
   postsListPath: PropTypes.string,
   history: PropTypes.object,
+  siteHeaderHeight: PropTypes.number,
 }
 
 export default Post;
