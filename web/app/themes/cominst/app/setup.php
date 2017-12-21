@@ -32,7 +32,7 @@ add_action('wp_enqueue_scripts', function () {
             'taxonomies' => Api::get_taxonomies(),
             'post_types' => Api::get_post_types(),
             'pages' => Api::get_top_pages(),
-            'references_by_sectors' => Api::get_references_by_sectors(),
+            // 'references_by_sectors' => Api::get_references_by_sectors(),
             'primary_navigation' => Api::get_primary_navigation(),
             'theme_options' => Api::get_theme_options(),
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
