@@ -40,6 +40,17 @@ class Post extends Component {
         },
       }
     ));
+
+    if(this.state.active) {
+      scrollToComponent(
+      this,
+      {
+        offset: - this.props.siteHeaderHeight - 50, // 50 is the content-container paddingTop - should be dynamic
+        align: 'top',
+        duration: 300,
+      }
+    );
+    }
   }
 
   _toggleActive ( callback = () => {} ) {
