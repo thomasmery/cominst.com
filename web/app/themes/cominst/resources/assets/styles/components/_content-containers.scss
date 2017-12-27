@@ -70,6 +70,10 @@
     // margin-top: 2.75rem;
     // should not be a pb on desktop
     margin-bottom: 2rem;
+
+    > div {
+      position: sticky;
+    }
   }
 
   .nav,

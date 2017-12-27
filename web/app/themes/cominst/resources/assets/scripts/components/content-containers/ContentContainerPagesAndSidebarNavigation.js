@@ -19,11 +19,11 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
     this.state = {
       activeChildIndex: this.hasRootPageContent ? null : 0,
-      activeChildTitle: this.hasRootPageContent ? this.props.data.subtitle : props.data.children[0].title.rendered,
-      activeChildSubtitle: this.hasRootPageContent ? '' : props.data.children[0].subtitle,
-      activeChildContent: this.hasRootPageContent ? props.data.content.rendered : props.data.children[0].introduction,
-      activeChildImage: this.hasRootPageContent ? props.data.content.featured_media_html : props.data.children[0].featured_media_html,
-      activeChildContentParts: this.hasRootPageContent ? props.data.content_parts : props.data.children[0].content_parts,
+      activeChildTitle: this.hasRootPageContent || ! props.data.children.length ? this.props.data.subtitle : props.data.children[0].title.rendered,
+      activeChildSubtitle: this.hasRootPageContent || ! props.data.children.length ? '' : props.data.children[0].subtitle,
+      activeChildContent: this.hasRootPageContent || ! props.data.children.length ? props.data.content.rendered : props.data.children[0].introduction,
+      activeChildImage: this.hasRootPageContent || ! props.data.children.length ? props.data.content.featured_media_html : props.data.children[0].featured_media_html,
+      activeChildContentParts: this.hasRootPageContent || ! props.data.children.length ? props.data.content_parts : props.data.children[0].content_parts,
       childContentExpanded: false,
       activeChildContentStyles: {
         height: 'auto',
@@ -74,6 +74,9 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
         // we need to detect when images in the content are actually loaded
         // before we set the height of the container
         // otherwise we might set it to a wring height and the content would be cut off
+        if( ! this._childContentContainerRef ) {
+          return;
+        }
         const preloader = new ImagePreloader();
         const images = this._childContentContainerRef.querySelectorAll('img');
         const _component = this;
@@ -174,7 +177,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     const children = children_with_index.filter((child) => child.slug === slug);
     const child_index = children.length
       ? children[0].index
-      : this.hasRootPageContent ? null : 0;
+      : (this.hasRootPageContent || ! children_with_index.length ? null : 0);
 
     this._setActiveChild(child_index);
     // console.log(slug);//eslint-disable-line

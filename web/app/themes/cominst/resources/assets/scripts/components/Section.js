@@ -39,7 +39,7 @@ class Section extends PureComponent {
   }
 
   _switchBackground (child_data) {
-    if( ! child_data.featured_media_metadata.file) {
+    if( ! child_data || ! child_data.featured_media_metadata.file) {
       return;
     }
 
