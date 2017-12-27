@@ -676,6 +676,17 @@ class App extends Component {
           case 'ContentContainerListAndModal':
             object.items = this._prepareReferencesBySectors(this.state.data.references_by_sectors);
             break;
+          case 'ContentContainerFooter':
+            object = {
+              ...object,
+              color_theme: 'dark',
+              site_name: this.state.data.site_name,
+              site_description: this.state.data.site_description,
+              ...this.state.data.theme_options,
+              contact_details: object.content.rendered,
+            }
+            object.content_template = 'ContentContainerFooter';
+            break;
         }
         object.isFetching = this.state.data.isFetching[object.slug] || false;
       break;
