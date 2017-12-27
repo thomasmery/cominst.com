@@ -19,7 +19,8 @@
                 "ContentContainerPagesAndSidebarNavigation": "Pages et navigation latérale",
                 "ContentContainerPagesAndSidebarLinks": "Pages et panneau latérale avec liens",
                 "ContentContainerCarousel": "Carousel",
-                "ContentContainerListAndModal": "Liste et Popup"
+                "ContentContainerListAndModal": "Liste et Popup",
+                "ContentContainerFooter": "Contact \/ Pied de page"
             },
             "default_value": [
                 "ContentContainer01"
@@ -292,7 +293,15 @@
             "type": "true_false",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_59f2f609e08ac",
+                        "operator": "==",
+                        "value": "ContentContainerPagesAndSidebarNavigation"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -332,5 +341,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1513752474
+    "modified": 1513855532
 }
