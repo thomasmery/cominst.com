@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { Route, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import WPAPI from 'wpapi';
 import classNames from 'classnames';
 // import _ from 'lodash';
@@ -942,27 +942,6 @@ class App extends Component {
 
     const routes = [];
 
-    // a route for Home
-    routes.push(<Route
-      key="0"
-      path={ `/${this.state.lang.code}` }
-      exact
-      render={ (route_props) => {
-          if (this.sections.home && this.allowScroll) {
-            document.title = `${appData.site_name} - ${appData.site_description}`;
-            return <ScrollToRouteHelper
-              targetComponent={this.sections.home}
-              offset={this.state.headerHeight}
-              { ...route_props }
-            />
-          }
-          else {
-            return null;
-          }
-        }
-      }
-    />)
-
     // a route for each main menu item
     routes.push(
       this.state.data.primary_navigation.map(
@@ -1007,6 +986,27 @@ class App extends Component {
         )
       )
     );
+
+    // a route for Home
+    routes.push(<Route
+      key="0"
+      path={ ['/', `/${this.state.lang.code}/`] }
+      exact={true}
+      render={ (route_props) => {
+          if (this.sections.home && this.allowScroll) {
+            document.title = `${appData.site_name} - ${appData.site_description}`;
+            return <ScrollToRouteHelper
+              targetComponent={this.sections.home}
+              offset={this.state.headerHeight}
+              { ...route_props }
+            />
+          }
+          else {
+            return null;
+          }
+        }
+      }
+    />)
 
     return routes;
   }
@@ -1072,7 +1072,9 @@ class App extends Component {
 
         { /* this._renderFooter() */ }
 
-        { this._renderRoutes() }
+        <Switch>
+          { this._renderRoutes() }
+        </Switch>
 
       </div>)
 
