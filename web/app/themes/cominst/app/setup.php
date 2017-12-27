@@ -224,20 +224,25 @@ add_action( 'send_headers', function() {
 	}
 } );
 
-
 /**
  * Register ACF options page
  */
-if (function_exists('acf_add_options_page')) {
-    acf_add_options_page(array(
-      'page_title' => __('Options du thème', 'cominst'),
-      'menu_title' => __('Options du thème', 'cominst'),
-      'menu_slug' => 'theme-general-settings',
-      'post_id' => 'theme-general-settings',
-      'capability' => 'manage_options',
-      'redirect' => false
-    ));
-}
+add_action(
+    'acf/init',
+    function() {
+        if (function_exists('acf_add_options_page')) {
+            acf_add_options_page(array(
+              'page_title' => __('Options du thème', 'cominst'),
+              'menu_title' => __('Options du thème', 'cominst'),
+              'menu_slug' => 'theme-general-settings',
+              'post_id' => 'theme-general-settings',
+              'capability' => 'manage_options',
+              'redirect' => false
+            ));
+        }
+    }
+);
+
 
 // we want to be able to modify the
 /* add_filter(
