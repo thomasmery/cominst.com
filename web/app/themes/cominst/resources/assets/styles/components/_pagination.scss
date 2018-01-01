@@ -1,9 +1,17 @@
 .pagination {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+
+  @include media-breakpoint-up(md) {
+    justify-content: center;
+  }
+
+  flex-wrap: wrap;
 
   li {
-    margin-left: 2.5rem;
+    @include media-breakpoint-up(md) {
+      margin-left: 2.5rem;
+    }
 
     &.disabled {
       display: none;

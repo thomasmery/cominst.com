@@ -360,8 +360,13 @@
 
     // vertically align with Section title bottom border
     padding-top: 2.375rem;
-    // more space between sidebar and content
-    padding-right: 2.5rem;
+
+    padding-right: 1rem;
+
+    @include media-breakpoint-up(md) {
+      // more space between sidebar and content
+      padding-right: 2.5rem;
+    }
 
     .image {
       // hide image in content as we have moved it to the bg of the section
@@ -772,7 +777,16 @@ $content-container-carousel-max-widths: (
     }
   }
 
+  @include media-breakpoint-down(sm) {
+    .react-swipe-container {
+      padding-bottom: 60px;
+    }
+  }
+
   .navigation-mobile {
+    position: absolute;
+    bottom: -8px;
+    width: 100%;
     padding: 1rem;
     font-size: 3rem;
 

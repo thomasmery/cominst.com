@@ -39,6 +39,14 @@ class Section extends PureComponent {
   }
 
   _switchBackground (child_data) {
+
+    // we do not want a bg image for tablet portrait and mobile
+    // as the visual aspect does not work well
+    // and as the content stretches the container - the bg image is zoomed in / out and it feels weird
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      return false;
+    }
+
     if( ! child_data || ! child_data.featured_media_metadata.file) {
       return;
     }

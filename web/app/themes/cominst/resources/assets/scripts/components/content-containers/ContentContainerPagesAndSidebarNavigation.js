@@ -49,8 +49,8 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     : 0;
 
     scrollToComponent(
-      // window.matchMedia("(max-width: 576px)").matches ? this._childContentContainerRef : this,
-      this.props.parent,
+      window.matchMedia("(max-width: 767px)").matches ? this._childContentContainerRef : this.props.parent,
+      // this.props.parent,
       {
         offset: - this.props.siteHeaderHeight - _scrollOffset,
         align: 'top',
