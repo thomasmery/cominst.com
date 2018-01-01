@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 import classNames from 'classnames';
 
@@ -128,7 +128,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
       } )
     );
 
-    window.addEventListener('resize', _.debounce(
+    /* window.addEventListener('resize', _.debounce(
           () => {
             this.props.data.children.forEach(
               (child, index) => {
@@ -152,7 +152,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
         },
         250
       )
-    )
+    )*/
   }
 
   _renderSidebarLinks () {

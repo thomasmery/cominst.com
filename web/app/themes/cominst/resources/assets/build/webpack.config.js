@@ -8,6 +8,8 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyGlobsPlugin = require('copy-globs-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
+// var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const config = require('./config');
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
@@ -142,6 +144,9 @@ let webpackConfig = {
     jquery: 'jQuery',
   },
   plugins: [
+
+    // new BundleAnalyzerPlugin(),
+
     new CleanPlugin([config.paths.dist], {
       root: config.paths.root,
       verbose: false,
