@@ -990,7 +990,7 @@ class App extends Component {
     // a route for Home
     routes.push(<Route
       key="0"
-      path={ ['/', `/${this.state.lang.code}/`] }
+      path={ `(/${this.state.lang.code})?/` }
       exact={true}
       render={ (route_props) => {
           if (this.sections.home && this.allowScroll) {
