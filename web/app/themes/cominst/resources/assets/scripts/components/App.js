@@ -176,7 +176,7 @@ class App extends Component {
     ReactGA.initialize(appData.ga_ID);
 
     // phone call tracking
-    var google_replace_number=appData.phone_number;// eslint-disable-line
+    window.google_replace_number = this.state.data.theme_options.phone_number;// eslint-disable-line
     (function(a,e,c,f,g,h,b,d){var k={ak:"866831806",cl:"nycJCLDJx20QvpurnQM"};a[c]=a[c]||function(){(a[c].q=a[c].q||[]).push(arguments)};a[g]||(a[g]=k.ak);b=e.createElement(h);b.async=1;b.src="//www.gstatic.com/wcm/loader.js";d=e.getElementsByTagName(h)[0];d.parentNode.insertBefore(b,d);a[f]=function(b,d,e){a[c](2,b,k,d,null,new Date,e)};a[f]()})(window,document,"_googWcmImpl","_googWcmGet","_googWcmAk","script");
   }
 
@@ -329,6 +329,9 @@ class App extends Component {
 
     let params = [];
     let match = false;
+
+    // ReactGA.pageview(window.location.pathname + window.location.search);
+    console.log(window.location.pathname + window.location.search);
 
     // extract pagination parameters
     const pagination_params_matches = path.match(/(page)\/([0-9]+)/);
