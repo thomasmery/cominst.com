@@ -61,7 +61,8 @@ add_action('wp_enqueue_scripts', function () {
                     'error' => __('There seems to be a problem with this email address.', 'cominst'),
                 ]
             ],
-            'ga_ID' => 'UA-90471175-1'
+            'ga_ID' => 'UA-90471175-1',
+            'phone_number' => '+33 (0) 1 47 42 53 00'
         ]
     );
 }, 100);
