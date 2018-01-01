@@ -14,6 +14,8 @@ import classNames from 'classnames';
 
 import ImagePreloader from 'image-preloader';
 
+import ReactGA from 'react-ga';
+
 /**
  * Internal dependencies
  */
@@ -169,6 +171,9 @@ class App extends Component {
     });
 
     this._updatePosts(this.props.location.pathname);
+
+    /** Google analytics */
+    ReactGA.initialize(appData.ga_ID);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -962,6 +967,7 @@ class App extends Component {
                 // note: scroll could be triggered on componentDidUpdate ... this has to be explored
                 if (this.sections[item.slug] && this.allowScroll) {
                   document.title = `${appData.site_name} - ${item.title}`;
+                  ReactGA.pageview(window.location.pathname + window.location.search);
                   return <ScrollToRouteHelper
                     ease="in-out-quad"
                     duration={500}
@@ -995,6 +1001,7 @@ class App extends Component {
       render={ (route_props) => {
           if (this.sections.home && this.allowScroll) {
             document.title = `${appData.site_name} - ${appData.site_description}`;
+            ReactGA.pageview(window.location.pathname + window.location.search);
             return <ScrollToRouteHelper
               targetComponent={this.sections.home}
               offset={this.state.headerHeight}

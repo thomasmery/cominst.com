@@ -60,7 +60,8 @@ add_action('wp_enqueue_scripts', function () {
                     'success' => __('Thank you for subscribing.', 'cominst'),
                     'error' => __('There seems to be a problem with this email address.', 'cominst'),
                 ]
-            ]
+            ],
+            'ga_ID' => 'UA-90471175-1'
         ]
     );
 }, 100);
