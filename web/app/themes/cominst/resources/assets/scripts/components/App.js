@@ -330,8 +330,7 @@ class App extends Component {
     let params = [];
     let match = false;
 
-    // ReactGA.pageview(window.location.pathname + window.location.search);
-    console.log(window.location.pathname + window.location.search);
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
     // extract pagination parameters
     const pagination_params_matches = path.match(/(page)\/([0-9]+)/);
