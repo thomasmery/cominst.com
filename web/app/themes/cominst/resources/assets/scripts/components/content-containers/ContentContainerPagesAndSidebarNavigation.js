@@ -15,6 +15,9 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
   constructor (props) {
     super(props);
 
+    // by default we allow scrolling to the top of the section
+    this.allowScroll = true;
+
     this.hasRootPageContent = props.data.acf.show_root_content && props.data.content.rendered !== '';
 
     this.state = {
@@ -43,6 +46,11 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
   }
 
   _scrollToComponentTop () {
+
+    // prevent scrolling to the top of the section
+    if (! this.allowScroll ) {
+      return;
+    }
 
     const _scrollOffset = window.matchMedia("(max-width: 576px)").matches
     ? 20
@@ -77,21 +85,27 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
         if( ! this._childContentContainerRef ) {
           return;
         }
+
         const preloader = new ImagePreloader();
         const images = this._childContentContainerRef.querySelectorAll('img');
         const _component = this;
         preloader.preload.apply(this, images).then(() => {
-            _component.setState( () => ( {
-                activeChildContentStyles: {
-                  height: _component._childContentContainerRef.children[0].clientHeight,
-                },
-              } )
+            _component.setState( () => {
+                return ( {
+                  activeChildContentStyles: {
+                    height: _component._childContentContainerRef.children[0].clientHeight,
+                  },
+                } )
+              }
             );
         });
       }
     )
 
     this._scrollToComponentTop();
+
+    // after switching content we always want to allow the scrolling to top of section to work
+    this.allowScroll = true;
 
   }
 
@@ -179,8 +193,20 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
       ? children[0].index
       : (this.hasRootPageContent || ! children_with_index.length ? null : 0);
 
-    this._setActiveChild(child_index);
-    // console.log(slug);//eslint-disable-line
+    // we need to delay activating the content
+    // because we get content container wrong height measurement otherwise and text is cutoff
+    // TODO: find a better way
+    const _component = this;
+    window.setTimeout( () => {
+        // as we land and component is mounted
+        // we should not allow scrolling when switching to initial content
+        // this would result in the page scrolling down to this section when we only want to disapy the initial sub section
+        // note: the scrolling to the top of the section when switching content has been setup for UX reasons
+        this.allowScroll = false;
+        _component._setActiveChild(child_index)
+      },
+      1000
+    );
 
     this.props.dataCallback(
       this.hasRootPageContent
