@@ -7,6 +7,10 @@ use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template\Blade;
 use Roots\Sage\Template\BladeProvider;
 
+if(!defined('ADWORDS_ID')) {
+    define('ADWORDS_ID', 'AW-866831806');
+}
+
 /**
  * Theme assets
  */
@@ -14,6 +18,28 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cominst/main.css', asset_path('styles/main.css'), false, null);
     wp_enqueue_script('cominst/main.js', asset_path('scripts/main.js'), [], null, true);
 }, 100);
+
+/** 
+ * Google AdWords
+ */
+add_action('wp_enqueue_scripts', function () {
+    wp_enqueue_script('cominst/gtag.js', "https://www.googletagmanager.com/gtag/js?id=" . ADWORDS_ID, [], null, false);
+    wp_enqueue_script('cominst/adwords.js', asset_path('scripts/adwords.js'), [], null, true);
+}, 100);
+
+// Add async attribute to Google AdWords script tag
+// this is needed because there is no way to specify additional attributes to the script tags via wp_enqueue_script
+add_filter(
+    'script_loader_tag',
+    function ($tag, $handle) {
+        if ( 'cominst/gtag.js' !== $handle )
+            return $tag;
+        return str_replace( ' src', ' async src', $tag );
+    },
+    10,
+    2
+);
+
 
 /**
 * Make data availabe to JS
@@ -62,6 +88,7 @@ add_action('wp_enqueue_scripts', function () {
                 ]
             ],
             'ga_ID' => 'UA-90471175-1',
+            'adwords_ID' => 'AW-866831806',
         ]
     );
 }, 100);

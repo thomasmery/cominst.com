@@ -7,6 +7,9 @@
     ],
     "customizer": [
       "./scripts/customizer.js"
+    ],
+    "adwords": [
+      "./scripts/adwords.js"
     ]
   },
   "publicPath": "/app/themes/cominst",
