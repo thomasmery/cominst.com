@@ -296,6 +296,9 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
                       />
                     </div>
                   </div>
+                  {/* At the moment this image is hidden via css
+                  Design has changed and it has been decided not to show an image below the content
+                  display code stays here in case we need it and also because it's quicker to hide it via display: none */}
                   <div className="child-image image" dangerouslySetInnerHTML={ { __html: this.state.activeChildImage } } />
                 </div> :
                 'NO CHILDREN PAGES'
