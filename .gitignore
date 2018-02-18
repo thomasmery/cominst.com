@@ -26,3 +26,7 @@ vendor/*
 /cominst_local.sql
 /web/app/debug.log
 *.sql
+/web/app/cache
+/web/app/advanced-cache.php
+/redirects.txt
+/web/app/wp-cache-config.php

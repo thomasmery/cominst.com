@@ -97,7 +97,9 @@
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
     "wpackagist-plugin/acf-to-rest-api": "*",
 
-    "wpackagist-plugin/svg-support": "*"
+    "wpackagist-plugin/svg-support": "*",
+    
+    "wpackagist-plugin/wp-super-cache": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
