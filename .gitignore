@@ -30,3 +30,4 @@ vendor/*
 /web/app/advanced-cache.php
 /redirects.txt
 /web/app/wp-cache-config.php
+web/google*.html
