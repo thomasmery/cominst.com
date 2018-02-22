@@ -839,6 +839,17 @@ class App extends Component {
       }
     );
 
+    // choose appropriate background image size depending on device screen
+    let homeBackgroundImageUrl;
+    if(window.matchMedia("(max-width: 575px)").matches) {
+      homeBackgroundImageUrl = home_page_data.featured_media_metadata.sizes.large.url;
+    } 
+    else {
+      homeBackgroundImageUrl = home_page_data.featured_media_metadata.sizes.xl
+        ? home_page_data.featured_media_metadata.sizes.xl.url
+        : home_page_data.featured_media_metadata.sizes.original.url;
+    }
+
     return  (
       <Section
         key="0"
