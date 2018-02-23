@@ -4,10 +4,21 @@
   @while(have_posts())
     @php(the_post())
     <style>
-
+      .section-main {
+        background-image: none;
+      }
+      @media only screen and (min-width: 768px) {
+        .section-main {
+          background-image: url({!! get_the_post_thumbnail_url(null, 'large'); !!});
+        }
+      }
+      @media only screen and (min-width: 1024px) {
+        .section-main {
+          background-image: url({!! get_the_post_thumbnail_url(null, 'xl'); !!});
+        }
+      }
     </style>
-    <section id="{{ $post_slug }}" class="@php(the_field(('color_theme')))"
-      style="background-image: url(&quot;http://www.cominst.localhost/app/uploads/2017/12/salle-de-réunion-full-b-w-e1513428798661-1920x1298.jpg&quot;);">
+    <section id="{{ $post_slug }}" class="section-main {!! (get_field('color_theme') ? get_field('color_theme') : 'light') !!} @php(the_field(('content_template')))">
       <div class="container ContentContainerPagesAndSidebarNavigation">
         <div class="section-content">
           <div class="content-container content-container-pages-and-sidebar-navigation">

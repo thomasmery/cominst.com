@@ -679,7 +679,7 @@ class App extends Component {
     object.children = item.children.map(
       (child) => this._buildSectionData(child)
     );
-    let contentContainer;
+    let contentContainer; 
     switch (item.type) {
       //page, post ...
       case 'post_type':
@@ -905,7 +905,7 @@ class App extends Component {
                 key={item.id}
                 title={item.title}
                 data={data}
-                className={ classNames(data.color_theme) }
+                className={ classNames(data.color_theme, data.content_template) }
                 containerClassName={
                   classNames(
                     data.content_template !== 'ContentContainerCarousel' ? 'container' : '',

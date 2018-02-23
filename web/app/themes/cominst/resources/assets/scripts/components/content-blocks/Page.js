@@ -13,7 +13,7 @@ const Page = (props) => {
   return (
     <div>
       <div className="header">
-        <h3
+        <h1
           className="title"
           dangerouslySetInnerHTML={ { __html: title } }
         />
