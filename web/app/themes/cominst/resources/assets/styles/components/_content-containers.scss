@@ -1,3 +1,15 @@
+/** Page template special behaviour
+ as we display the full height main nav and no home section
+ we need to push the first container content down
+*/
+body.page:not(.home) > section:first-of-type .content-container:first-of-type {
+  padding-top: 11.25rem;
+
+  .sidebar > div {
+    top: 11.25rem;
+  }
+}
+
 .content-container {
 
   padding: 3.125rem 0;

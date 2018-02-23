@@ -16,7 +16,12 @@ if(!defined('ADWORDS_ID')) {
  */
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cominst/main.css', asset_path('styles/main.css'), false, null);
-    wp_enqueue_script('cominst/main.js', asset_path('scripts/main.js'), [], null, true);
+
+    // SPA is only rendered on the front page
+    if(is_front_page()) {
+        wp_enqueue_script('cominst/main.js', asset_path('scripts/main.js'), [], null, true);
+    }
+
 }, 100);
 
 /** 
@@ -40,10 +45,19 @@ add_filter(
     2
 );
 
-
 /**
-* Make data availabe to JS
+* Make data available to JS
 **/
+add_action('wp_enqueue_scripts', function () {
+    wp_localize_script(
+        'cominst/adwords.js',
+        'adwordsData',
+        [
+            'adwords_ID' => 'AW-866831806',
+        ]
+    );
+}, 100);
+
 add_action('wp_enqueue_scripts', function () {
     wp_localize_script(
         'cominst/main.js',
@@ -272,16 +286,14 @@ add_action(
     }
 );
 
-
-// we want to be able to modify the
-/* add_filter(
-    'wpml_active_languages_access',
-    function ($languages) {
-        foreach($languages as $key => $lang) {
-            if($lang['code'] === 'zh-hans') {
-                $languages[$key]['code'] = 'cn';
-            }
+add_filter( 'wp_calculate_image_sizes',
+    function ( $sizes, $size ) {
+        if($size[0] === 250) {
+            // $sizes = ' (max-width: 1023px) 220px, (max-width: 576px) 100vw, 233px';
+            $sizes = ' (min-width: 576px) 250px, 100vw';
         }
-        return $languages;
-    }
-); */
+        return $sizes;
+    },
+    10,
+    2
+);

@@ -60,6 +60,7 @@ class App extends Component {
         code: appData.lang || 'fr',
       },
       activeSectionId: null,
+      allowSectionsImagesToload: false,
       activePostSlug: null,
       postsListPath: '',
       data: {
@@ -171,6 +172,20 @@ class App extends Component {
     });
 
     this._updatePosts(this.props.location.pathname);
+
+    // notify when it is acceptable to load Sections Images
+    // ATM the trigger is the user scrolling for the first time
+    const triggerSectionsImagesLoad = () => {
+      this.setState({
+        allowSectionsImagesToload: true,
+      });
+      window.removeEventListener('scroll', triggerSectionsImagesLoad);
+    }
+    // detect first scroll
+    setTimeout(function() {
+      window.addEventListener('scroll', triggerSectionsImagesLoad); // eslint-disable-line
+    },
+    2000);
 
     /** Google analytics */
     ReactGA.initialize(appData.ga_ID);
@@ -864,11 +879,7 @@ class App extends Component {
         data={home_page_data}
         ContentContainer={contentContainerHome}
         sectionStyles={{
-          backgroundImage: `url(${
-            home_page_data.featured_media_metadata.sizes.xl
-              ? home_page_data.featured_media_metadata.sizes.xl.url
-              : home_page_data.featured_media_metadata.sizes.original.url
-          })`,
+          backgroundImage: `url(${homeBackgroundImageUrl})`,
           // height: '100vh', //this.state.windowHeight || 'auto',
         }}
         id="home"
@@ -912,6 +923,7 @@ class App extends Component {
                 ref={this._storeSectionRef}
                 onEnter={ this._onEnterSection }
                 onLeave={ this._onLeaveSection }
+                allowBackgroundToLoad={ this.state.allowSectionsImagesToload }
                 /* scrollHintElement={
                   index < this.state.data.primary_navigation.length - 1
                   ? <Link to={this.state.data.primary_navigation[index+1].path}><img src={appData.ui.scroll_hint} /></Link>

@@ -12,6 +12,8 @@ class Section extends PureComponent {
       sectionStyles: props.sectionStyles,
     };
 
+    this.backgroundImageUrl = '';
+
     this._onEnter = props.onEnter ? props.onEnter.bind(null, this) : () => {};
     this._onLeave = props.onLeave ? props.onLeave.bind(null, this) : () => {};
 
@@ -55,12 +57,21 @@ class Section extends PureComponent {
       ? child_data.featured_media_metadata.sizes.xl.url
       : child_data.featured_media_metadata.sizes.original.url;
 
-    this.setState( (state) => ({
-      sectionStyles: {
-        ...state.sectionStyles,
-        backgroundImage: `url(${image_url})`,
-      },
-    }))
+    /* this.setState( () => ({
+      backgroundImageUrl: image_url,
+    })) */
+    this.backgroundImageUrl = image_url;
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if(nextProps.allowBackgroundToLoad && this.backgroundImageUrl) {
+        this.setState( (state) => ({
+          sectionStyles: {
+            ...state.sectionStyles,
+            backgroundImage: `url(${this.backgroundImageUrl})`,
+          },
+        }))
+    }
   }
 
   render () {
@@ -104,6 +115,7 @@ Section.propTypes = {
   onEnter: PropTypes.func,
   onLeave: PropTypes.func,
   scrollHintElement: PropTypes.node,
+  allowBackgroundToLoad: PropTypes.bool,
 }
 
 Section.defaultProps = {
