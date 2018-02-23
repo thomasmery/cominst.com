@@ -19,7 +19,8 @@ const ContentContainerFooter = function( { data }) {
     <div className="content-container content-container-footer">
       <div className="row content">
         <div className="col-md-8 col-left">
-          <div className="map-container" dangerouslySetInnerHTML={ { __html: data.map } } />
+          <a href={ data.map || '#' } target="_blank" className="map-container" />
+          {/* <div className="map-container" dangerouslySetInnerHTML={ { __html: data.map } } /> */}
         </div>
         <div className="col-md-4 col-right">
 
@@ -28,7 +29,9 @@ const ContentContainerFooter = function( { data }) {
             <p dangerouslySetInnerHTML={ { __html: data.contact_details } }/>
           </div>
 
-          <div className="block map-container" dangerouslySetInnerHTML={ { __html: data.map } } />
+          <div className="block">
+            <a href={ data.map || '#' } target="_blank" className="map-container" />
+          </div>
 
           <div className="block social-networks-container">
             <h3>{appData.i18n.follow_us}</h3>

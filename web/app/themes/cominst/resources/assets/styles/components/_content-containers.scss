@@ -892,7 +892,28 @@ $content-container-carousel-max-widths: (
   }
 
   .map-container {
+
+    // necessary because we turned the element into a link tag
+    // and we need it to take the whole space of the box
+    display: block;
+
+    background-image: url('../images/map-cominst.png');
+    background-size: cover;
+    background-position: center center;
+    // quick fix for having the map take the most of the Section container height
+    height: 72vh;
+
+    @media only screen and (min-resolution: 192dpi),
+      only screen and (min-resolution: 2dppx) {
+      background-image: url('../images/map-cominst@2x.png');
+    }
+
+    @include media-breakpoint-down(md) {
+      height: 230px;
+    }
+
     > * {
+      display: none;
       width: 100%;
 
       // quick fix for having the map take the most of the Section container height
