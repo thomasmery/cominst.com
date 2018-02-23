@@ -11,8 +11,13 @@ class App extends Controller
         return get_bloginfo('name');
     }
 
-    public function PostSlug() {
-        return get_post()->post_name;
+    public function postSlug()
+    {
+        $post = get_post();
+        if ($post) {
+            return $post->post_name;
+        }
+        return '';
     }
 
     public static function title()
