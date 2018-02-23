@@ -60,7 +60,6 @@ class App extends Component {
         code: appData.lang || 'fr',
       },
       activeSectionId: null,
-      allowSectionsImagesToload: false,
       activePostSlug: null,
       postsListPath: '',
       data: {
@@ -172,20 +171,6 @@ class App extends Component {
     });
 
     this._updatePosts(this.props.location.pathname);
-
-    // notify when it is acceptable to load Sections Images
-    // ATM the trigger is the user scrolling for the first time
-    const triggerSectionsImagesLoad = () => {
-      this.setState({
-        allowSectionsImagesToload: true,
-      });
-      window.removeEventListener('scroll', triggerSectionsImagesLoad);
-    }
-    // detect first scroll
-    setTimeout(function() {
-      window.addEventListener('scroll', triggerSectionsImagesLoad); // eslint-disable-line
-    },
-    2000);
 
     /** Google analytics */
     ReactGA.initialize(appData.ga_ID);

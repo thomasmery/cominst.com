@@ -63,15 +63,35 @@ class Section extends PureComponent {
     this.backgroundImageUrl = image_url;
   }
 
-  componentWillReceiveProps (nextProps) {
-    if(nextProps.allowBackgroundToLoad && this.backgroundImageUrl) {
-        this.setState( (state) => ({
-          sectionStyles: {
-            ...state.sectionStyles,
-            backgroundImage: `url(${this.backgroundImageUrl})`,
-          },
-        }))
+  componentDidMount () {
+
+    const inViewportObserverOptions = {
+      root: null,
+      rootMargin: '10px 0px -10px 0px',
+      threshold: 0,
     }
+    
+    console.log('did mount', this.state.sectionStyles.backgroundImage, this.backgroundImageUrl); // eslint-disable-line
+
+    const inViewportObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting) {
+          console.log('section in viewport', this.props.id); // eslint-disable-line
+          if(!this.state.sectionStyles.backgroundImage) {
+            this.setState( (state) => ({
+              sectionStyles: {
+                ...state.sectionStyles,
+                backgroundImage: `url(${this.backgroundImageUrl})`,
+              },
+            }));
+          }
+        }
+      });
+    }
+
+    const inViewportObserver = new IntersectionObserver(inViewportObserverCallback, inViewportObserverOptions);
+    inViewportObserver.observe(document.querySelector(`#${this.props.id}`));
+
   }
 
   render () {
