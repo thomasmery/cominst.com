@@ -923,6 +923,7 @@ $content-container-carousel-max-widths: (
 
     @include media-breakpoint-down(md) {
       height: 230px;
+      background-image: url('../images/map-cominst.png');
     }
 
     > * {

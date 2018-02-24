@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-sm-1 col-left text-left">
         <a class="brand-logo" href="{{ home_url('/') }}">
-          <img src="http://www.cominst.localhost/app/themes/cominst/dist/images/logo-cominst.svg">
+          <img src="@asset('images/logo-cominst.svg')">
         </a>
         <h3 class="site-description">{{ get_bloginfo('description', 'display') }}</h3>
       </div>
@@ -26,7 +26,7 @@
           <i class="fa fa-close" aria-hidden="true"></i>
         </div>
         <a class="brand-logo" href="/fr">
-          <img src="http://www.cominst.localhost/app/themes/cominst/dist/images/logo-cominst.svg">
+          <img src="@asset('images/logo-cominst.svg')">
         </a>
         <div class="nav-container">
           <nav>
