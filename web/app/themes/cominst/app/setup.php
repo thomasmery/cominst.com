@@ -18,7 +18,11 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cominst/main.css', asset_path('styles/main.css'), false, null);
 
     // SPA is only rendered on the front page or when the special One Page template is used
-    if (is_front_page() || is_page_template('views/one-page.blade.php')) {
+    if (is_front_page()
+        || is_home()
+        || is_archive()
+        || is_page_template('views/one-page.blade.php')
+    ) {
         wp_enqueue_script('cominst/main.js', asset_path('scripts/main.js'), [], null, true);
     }
 

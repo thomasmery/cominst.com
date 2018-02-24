@@ -6,30 +6,12 @@ use Sober\Controller\Controller;
 
 class FrontPage extends Controller
 {
-
-    /**
-     * returns the root level pages of the primary navaigation
-     * used to be able to use the client app markup easily within wp template
-     * and not have to deal with a full wp menu (or a custom walker ...)
-     */
-    public function mainNavItems()
-    {
-        $menu_items = self::getPrimaryNavigationItems();
-        $menu_items = array_filter($menu_items, function ($item) {
-            return $item->menu_item_parent == 0;
-        });
-        usort($menu_items, function ($item_a, $item_b) {
-            return $item_a->menu_order > $item_b->menu_order ? 1 : -1;
-        });
-        return $menu_items;
-    }
-
     /**
      * returns the items for the subPages menu
     */
     public function subPagesNavItems()
     {
-        $menu_items = self::getPrimaryNavigationItems();
+        $menu_items = \App::getPrimaryNavigationItems();
         $page = \get_queried_object();
         // find page in menu items - using array_slice to get an array where keys start at 0
         $extracted_items = array_slice(wp_filter_object_list($menu_items, [ 'object_id' => $page->ID ]), 0);
@@ -54,7 +36,7 @@ class FrontPage extends Controller
     public function subPagesNavTitle()
     {
         $title = '';
-        $menu_items = self::getPrimaryNavigationItems();
+        $menu_items = \App::getPrimaryNavigationItems();
         $page = \get_queried_object();
         // find page in menu items - using array_slice to get an array where keys start at 0
         $extracted_items = array_slice(wp_filter_object_list($menu_items, [ 'object_id' => $page->ID ]), 0);
@@ -71,18 +53,5 @@ class FrontPage extends Controller
             $title = $parent_item->title;
         }
         return $title;
-    }
-
-    /**
-     * Get the WP Menu Items for the primary navigation location
-     */
-    private static function getPrimaryNavigationItems()
-    {
-        $locations = get_nav_menu_locations();
-        $menu_object = wp_get_nav_menu_object($locations['primary_navigation']);
-        if ($menu_object) {
-            return wp_get_nav_menu_items($menu_object->term_id, array( 'update_post_term_cache' => false ));
-        }
-        return [];
     }
 }
