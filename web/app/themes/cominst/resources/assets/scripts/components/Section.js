@@ -57,10 +57,17 @@ class Section extends PureComponent {
       ? child_data.featured_media_metadata.sizes.xl.url
       : child_data.featured_media_metadata.sizes.original.url;
 
-    /* this.setState( () => ({
-      backgroundImageUrl: image_url,
-    })) */
+    
     this.backgroundImageUrl = image_url;
+
+    if(this.state.sectionStyles.backgroundImage) {
+      this.setState( (state) => ({
+        sectionStyles: {
+          ...state.sectionStyles,
+          backgroundImage: `url(${this.backgroundImageUrl})`,
+        },
+      }));
+    }
   }
 
   componentDidMount () {
@@ -70,13 +77,10 @@ class Section extends PureComponent {
       rootMargin: '10px 0px -10px 0px',
       threshold: 0,
     }
-    
-    console.log('did mount', this.state.sectionStyles.backgroundImage, this.backgroundImageUrl); // eslint-disable-line
 
     const inViewportObserverCallback = (entries) => {
       entries.forEach((entry) => {
         if(entry.isIntersecting) {
-          console.log('section in viewport', this.props.id); // eslint-disable-line
           if(!this.state.sectionStyles.backgroundImage) {
             this.setState( (state) => ({
               sectionStyles: {
