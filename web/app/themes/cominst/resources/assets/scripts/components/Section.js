@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import {} from 'intersection-observer';
 import Waypoint from 'react-waypoint';
 
 class Section extends PureComponent {
