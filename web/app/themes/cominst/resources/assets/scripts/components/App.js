@@ -173,7 +173,7 @@ class App extends Component {
     this._updatePosts(this.props.location.pathname);
 
     /** Google analytics */
-    ReactGA.initialize(appData.ga_ID);
+    ReactGA.initialize(appData.analytics_ID);
 
     // phone call tracking
     window.google_replace_number = this.state.data.theme_options.phone_number;// eslint-disable-line
@@ -330,8 +330,6 @@ class App extends Component {
     let params = [];
     let match = false;
 
-    ReactGA.pageview(window.location.pathname + window.location.search);
-
     // extract pagination parameters
     const pagination_params_matches = path.match(/(page)\/([0-9]+)/);
     if(pagination_params_matches && pagination_params_matches.length === 3) {
@@ -349,7 +347,8 @@ class App extends Component {
           item.object === 'post' &&
           path.replace(/\/?$/, '').match(item.path.replace(/\/?$/, '/all'))
         ) {
-            if(this.state.postsListPath !== path ) {
+          if(this.state.postsListPath !== path ) {
+              // ReactGA.pageview(window.location.pathname + window.location.search);
               this._getPosts( params );
               // set last posts list url visited
               this.setState( (state) => ({
@@ -389,6 +388,7 @@ class App extends Component {
                   // to be able to re-trigger the mechanism that makes a post active - since it is triggered by a route
                   // and won't be re-triggered if the route does not change
                   if(this.state.postsListPath !== path ) {
+                    ReactGA.pageview(window.location.pathname + window.location.search);
                     // get posts for the taxonomy term
                     params.push( { name: this.state.data.taxonomies[taxonomy].rest_base, value: term.id } );
                     this._getPosts( params );
@@ -415,6 +415,8 @@ class App extends Component {
             const regExpSinglePost = new RegExp(term.path.replace(/\/?$/, `/([${characters_range}]+)`));
             const isSingle = path.replace(/\/?$/, '').match(regExpSinglePost);
             if( isSingle )  {
+              
+              ReactGA.pageview(window.location.pathname + window.location.search);
 
               // does the post exists in our store?
 

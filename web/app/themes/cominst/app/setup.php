@@ -7,7 +7,11 @@ use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template\Blade;
 use Roots\Sage\Template\BladeProvider;
 
-if(!defined('ADWORDS_ID')) {
+if (!defined('ANALYTICS_ID')) {
+    define('ANALYTICS_ID', 'UA-90471175-1');
+}
+
+if (!defined('ADWORDS_ID')) {
     define('ADWORDS_ID', 'AW-866831806');
 }
 
@@ -17,7 +21,10 @@ if(!defined('ADWORDS_ID')) {
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cominst/main.css', asset_path('styles/main.css'), false, null);
 
-    // SPA is only rendered on the front page or when the special One Page template is used
+    // SPA is only rendered for
+    // - the front page
+    // - the special One Page template
+    // - news list
     if (is_front_page()
         || is_home()
         || is_archive()
@@ -33,7 +40,7 @@ add_action('wp_enqueue_scripts', function () {
  */
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('cominst/gtag.js', "https://www.googletagmanager.com/gtag/js?id=" . ADWORDS_ID, [], null, false);
-    wp_enqueue_script('cominst/adwords.js', asset_path('scripts/adwords.js'), [], null, true);
+    wp_enqueue_script('cominst/analytics.js', asset_path('scripts/analytics.js'), [], null, true);
 }, 100);
 
 // Add async attribute to Google AdWords script tag
@@ -54,10 +61,11 @@ add_filter(
 **/
 add_action('wp_enqueue_scripts', function () {
     wp_localize_script(
-        'cominst/adwords.js',
-        'adwordsData',
+        'cominst/analytics.js',
+        'analyticsData',
         [
-            'adwords_ID' => 'AW-866831806',
+            'analytics_ID' => ANALYTICS_ID,
+            'adwords_ID' => ADWORDS_ID,
         ]
     );
 }, 100);
@@ -105,8 +113,8 @@ add_action('wp_enqueue_scripts', function () {
                     'error' => __('There seems to be a problem with this email address.', 'cominst'),
                 ]
             ],
-            'ga_ID' => 'UA-90471175-1',
-            'adwords_ID' => 'AW-866831806',
+            'analytics_ID' => ANALYTICS_ID,
+            'adwords_ID' => ADWORDS_ID,
         ]
     );
 }, 100);

@@ -8,8 +8,8 @@
     "customizer": [
       "./scripts/customizer.js"
     ],
-    "adwords": [
-      "./scripts/adwords.js"
+    "analytics": [
+      "./scripts/analytics.js"
     ]
   },
   "publicPath": "/app/themes/cominst",

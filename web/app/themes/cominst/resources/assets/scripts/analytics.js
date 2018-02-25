@@ -4,24 +4,22 @@ function gtag() {
     window.dataLayer.push(arguments);
 }
 gtag('js', new Date());
-gtag('config', window.adwordsData.adwords_ID);
+gtag('config', window.analyticsData.analytics_ID);
+gtag('config', window.analyticsData.adwords_ID);
 
 /* Event snippet for Conversion contact conversion page
 In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. */
 function gtag_report_conversion(url) {
-  /* var callback = function () {
+  var callback = function () {
     if (typeof(url) != 'undefined') {
       window.location = url;
     }
   };
 
   gtag('event', 'conversion', {
-      'send_to': `${window.adwordsData.adwords_ID}/mYKWCOmYw30QvpurnQM`,
+      'send_to': `${window.analyticsData.adwords_ID}/mYKWCOmYw30QvpurnQM`,
       'event_callback': callback,
-  }); */
-
-
-  console.log('gtag_report_conversion');
+  });
 
   return false;
 }
