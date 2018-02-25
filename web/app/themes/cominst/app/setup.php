@@ -32,6 +32,9 @@ add_action('wp_enqueue_scripts', function () {
     ) {
         wp_enqueue_script('cominst/main.js', asset_path('scripts/main.js'), [], null, true);
     }
+    else {
+        wp_enqueue_script('cominst/single.js', asset_path('scripts/single.js'), [], null, true);
+    }
 
 }, 100);
 

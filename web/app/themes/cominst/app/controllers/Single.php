@@ -1,0 +1,40 @@
+<?php
+
+namespace App;
+
+use Sober\Controller\Controller;
+
+class Single extends Controller
+{
+    /**
+     * returns the items for the subPages menu
+    */
+    public function categories()
+    {
+       return get_terms([ 'taxonomy' => 'category']);
+    }
+
+    public function postCategories() {
+        global $post;
+        $terms = get_the_terms($post, 'category');
+        return empty($terms) ? [] : $terms;
+    }
+
+    public function postCategoriesNames() {
+        global $post;
+        $terms = $this->postCategories();
+        $names = array_map(
+            function ($term) {
+                return $term->name;
+            },
+            $terms
+        );
+        return empty($names) ? [] : $names;
+    }
+
+    public function postMedias() {
+        global $post;
+        $terms = get_the_terms($post, 'media');
+        return empty($terms) ? [] : $terms;
+    }
+}
