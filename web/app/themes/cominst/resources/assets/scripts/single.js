@@ -14,4 +14,22 @@ ready(function() {
         window.scrollTo(0,0);
     }
     , 200);
+
+
+    const toggleMobileMenu = function() {
+        const $header = document.querySelector('body > header');
+        const toggleClass = 'mobile-menu-hidden';
+        if($header.classList.contains(toggleClass)) {
+            $header.classList.remove(toggleClass);
+        }
+        else {
+            $header.classList.add(toggleClass);
+        }
+    }
+
+    // mobile menu toggle
+    const $menuToggleButtonOpen = document.querySelector('.mobile-menu-button-open');
+    const $menuToggleButtonClose = document.querySelector('.mobile-menu-button-close');
+    $menuToggleButtonOpen.addEventListener('click', toggleMobileMenu);
+    $menuToggleButtonClose.addEventListener('click', toggleMobileMenu);
 });
