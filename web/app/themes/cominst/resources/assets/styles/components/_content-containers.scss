@@ -2,12 +2,15 @@
  as we display the full height main nav and no home section
  we need to push the first container content down
 */
-body.page:not(.home) > section:first-of-type .content-container:first-of-type,
-body.single-post:not(.home) > section:first-of-type .content-container:first-of-type {
-  padding-top: 11.25rem;
+body.page:not(.home),
+body.single-post,
+body.error404 {
+  > section:first-of-type .content-container:first-of-type {
+    padding-top: 11.25rem;
 
-  .sidebar > div {
-    top: 11.25rem;
+    .sidebar > div {
+      top: 11.25rem;
+    }
   }
 }
 
