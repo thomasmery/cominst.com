@@ -1,9 +1,8 @@
 @extends('layouts.app')
 @section('content') 
   @include('partials.header') 
-
   @if (!have_posts())
-    <section id="the-post" class="ContentContainerArchive">
+    <section id="page-404" class="ContentContainerArchive">
       <div class="container ContentContainerArchive">
         <div class="section-content">
           <div class="content-container">
@@ -16,6 +15,5 @@
       </div>
     </section>
   @endif
-
-  {!! get_the_posts_navigation() !!}
+  @include('partials.footer')
 @endsection
