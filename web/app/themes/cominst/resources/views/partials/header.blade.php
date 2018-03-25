@@ -1,8 +1,8 @@
 <header class="mobile-menu-hidden" style="height: 129px;">
   <div class="container">
-    <h1 class="title">
+    <h2 class="title">
       <a href="{{ home_url('/') }}">{{ get_bloginfo('name', 'display') }}</a>
-    </h1>
+    </h2>
     <div class="row">
       <div class="col-sm-1 col-left text-left">
         <a class="brand-logo" href="{{ home_url('/') }}">
