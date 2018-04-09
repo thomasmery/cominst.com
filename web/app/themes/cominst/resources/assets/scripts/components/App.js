@@ -852,11 +852,19 @@ class App extends Component {
         : home_page_data.featured_media_metadata.sizes.original.url;
     }
 
+    // Custom Fields for Home Page
+    // acf field path is a bit different here (...theme.color_theme because we've used a clone field in the admin 
+    // this should be standardized across all pages/sections
+    // and we should not be aware of ACF at this point anyways ...
+    const {
+      color_theme,
+    } = home_page_data.acf.theme || {};
+
     return  (
       <Section
         key="0"
         title="Home"
-        className={ classNames(home_page_data.acf.theme.color_theme) } // acf field path is a bit different here (...theme.color_theme because we've used a clone field in the admin - this should be standardized across all pages/sections ...)
+        className={ classNames(color_theme) } 
         containerClassName={
           classNames(
             'ContentContainerHome',
