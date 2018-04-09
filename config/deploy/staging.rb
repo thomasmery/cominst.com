@@ -22,7 +22,9 @@ set :composer_install_flags, '--no-dev --no-interaction --quiet --optimize-autol
 # set :composer_install_flags, '--optimize-autoloader'
 
 # this is necessary
-SSHKit.config.command_map[:composer] = "php70 #{shared_path.join('composer.phar')}"
+SSHKit.config.command_map[:composer] = "php71 #{shared_path.join('composer.phar')}"
+
+
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
