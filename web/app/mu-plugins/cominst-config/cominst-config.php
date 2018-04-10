@@ -11,3 +11,6 @@ require ('includes/acf.php');
 
 // Commands
 require ('includes/commands.php');
+
+// SEO
+require ('includes/seo.php');
