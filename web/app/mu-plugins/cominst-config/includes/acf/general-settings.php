@@ -1,11 +1,31 @@
 <?php
 
+
+/**
+ * Register ACF options page
+ */
+add_action(
+    'acf/init',
+    function() {
+        if (function_exists('acf_add_options_page')) {
+            acf_add_options_page(array(
+              'page_title' => __('Réglages généraux', 'cominst'),
+              'menu_title' => __('Réglages généraux', 'cominst'),
+              'menu_slug' => 'theme-general-settings',
+              'post_id' => 'theme-general-settings',
+              'capability' => 'manage_options',
+              'redirect' => false
+            ));
+        }
+    }
+);
+
 if( function_exists('acf_add_local_field_group') ):
     
     // global settings
     acf_add_local_field_group(array(
         'key' => 'group_5acb741f92394',
-        'title' => 'Réglages globaux',
+        'title' => 'Réglages généraux',
         'fields' => array(
             array(
                 'key' => 'field_5acb741fb48a1',
@@ -13,6 +33,44 @@ if( function_exists('acf_add_local_field_group') ):
                 'name' => 'phone_number',
                 'type' => 'text',
                 'instructions' => 'Sert principalement au script Google Tracking',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'default_value' => '',
+                'placeholder' => '',
+                'prepend' => '',
+                'append' => '',
+                'maxlength' => '',
+            ),
+            array(
+                'key' => 'field_5acc60da6ffb6',
+                'label' => 'Adresse',
+                'name' => 'address',
+                'type' => 'textarea',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'default_value' => '',
+                'placeholder' => '',
+                'prepend' => '',
+                'append' => '',
+                'maxlength' => '',
+            ),
+            array(
+                'key' => 'field_5acc614c4f142',
+                'label' => 'Contact email principal',
+                'name' => 'contact_email',
+                'type' => 'text',
+                'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => 0,
                 'wrapper' => array(

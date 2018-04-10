@@ -10,7 +10,7 @@ function cominst_add_acf_fields() {
         require_once('acf/home-page.php');
         require_once('acf/page.php');
         require_once('acf/content-containers.php');
-        require_once('acf/global-settings.php');
+        require_once('acf/general-settings.php');
     endif;
 }
 add_action( 'plugins_loaded', 'cominst_add_acf_fields' );
