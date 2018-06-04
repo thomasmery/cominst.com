@@ -129,12 +129,12 @@ class Post extends Component {
       data,
     } = this.props;
 
-    const categories_names =
+    /* const categories_names =
       data.categories_names.map(
         (name, index) => (
           <span className="category" key={index} dangerouslySetInnerHTML={ {__html: name } } />
         )
-      );
+      ); */
 
     const medias_names = data.medias_names.length ?
       data.medias_names.map(
@@ -158,8 +158,8 @@ class Post extends Component {
     else {
       return (
         <div className="meta-data">
-          { categories_names }
-          <span> <span dangerouslySetInnerHTML={ {__html: data.formatted_published_date } } /> </span>
+          { /* categories_names */ }
+          <span className="meta-data-date"> <span dangerouslySetInnerHTML={ {__html: data.formatted_published_date } } /> </span>
         </div>
       );
     }

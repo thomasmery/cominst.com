@@ -11,7 +11,7 @@ class Single extends Controller
     */
     public function categories()
     {
-       return get_terms([ 'taxonomy' => 'category']);
+       return get_terms([ 'taxonomy' => 'category', 'orderby' => 'term_order']);
     }
 
     public function postCategories() {

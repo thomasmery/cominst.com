@@ -72,6 +72,7 @@ class App extends Component {
             ...appData.post_types.post,
             posts: appData.posts.data,
             paging: appData.posts.paging,
+            category_id: appData.posts.category_id,
           },
         },
         taxonomies: this._prepareTaxonomyData(appData.taxonomies),
@@ -84,6 +85,12 @@ class App extends Component {
 
     // we need to be able to access post_types taxonomies easily
     this.state.data.post_types_taxonomies =  this._buildPostTypesTaxonomies();
+
+    // we want to account for a possible default categories for posts
+    this.state.data.post_types.post.categories = appData.posts.category_id ? 
+      [this._getCategoryTermById(appData.posts.category_id)] :
+      [];
+
 
     this._onEnterSection = this._onEnterSection.bind(this);
     this._onLeaveSection = this._onLeaveSection.bind(this);
@@ -236,7 +243,7 @@ class App extends Component {
     const categories = [];
     if(params.filter( (param) => param.name === 'categories' ).length) {
       const category_id = params.filter( (param) => param.name === 'categories' )[0].value;
-      const category = this.state.data.taxonomies.category.terms.filter( (term) => term.id === category_id)[0];
+      const category = this._getCategoryTermById(category_id);
       categories.push(category)
     }
 
@@ -415,7 +422,7 @@ class App extends Component {
             const regExpSinglePost = new RegExp(term.path.replace(/\/?$/, `/([${characters_range}]+)`));
             const isSingle = path.replace(/\/?$/, '').match(regExpSinglePost);
             if( isSingle )  {
-              
+
               ReactGA.pageview(window.location.pathname + window.location.search);
 
               // does the post exists in our store?
@@ -475,7 +482,14 @@ class App extends Component {
     )
   }
 
-  /** Data manipulation */
+  /** Data retrieval and manipulation */
+
+  /**
+   * _getCategoryTermById
+   */
+  _getCategoryTermById (category_id) {
+    return this.state.data.taxonomies.category.terms.filter( (term) => term.id === category_id)[0];
+  }
 
   /**
    * takes a js object of the site tree structure
@@ -666,7 +680,7 @@ class App extends Component {
     object.children = item.children.map(
       (child) => this._buildSectionData(child)
     );
-    let contentContainer; 
+    let contentContainer;
     switch (item.type) {
       //page, post ...
       case 'post_type':
@@ -853,7 +867,7 @@ class App extends Component {
     }
 
     // Custom Fields for Home Page
-    // acf field path is a bit different here (...theme.color_theme because we've used a clone field in the admin 
+    // acf field path is a bit different here (...theme.color_theme because we've used a clone field in the admin
     // this should be standardized across all pages/sections
     // and we should not be aware of ACF at this point anyways ...
     const {
@@ -864,7 +878,7 @@ class App extends Component {
       <Section
         key="0"
         title="Home"
-        className={ classNames(color_theme) } 
+        className={ classNames(color_theme) }
         containerClassName={
           classNames(
             'ContentContainerHome',

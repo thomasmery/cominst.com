@@ -102,7 +102,7 @@ class ContentContainerArchive extends Component {
                 </div>
               </div>
               <ul className="nav">
-                <li
+                {/* <li
                   className={
                     classNames(
                       { active: ! data.post_type.categories || data.post_type.categories.length === 0 },
@@ -119,7 +119,7 @@ class ContentContainerArchive extends Component {
                     onClick={ this._scrollToComponentTop }
                     dangerouslySetInnerHTML= { { __html: data.subtitle } }
                   />
-                </li>
+                </li> */}
                 {
                   Object.keys(data.taxonomies).map(
                     (taxonomy) => (

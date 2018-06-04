@@ -74,13 +74,23 @@ add_action('wp_enqueue_scripts', function () {
 }, 100);
 
 add_action('wp_enqueue_scripts', function () {
+
+    // get the category id for posts as chosen in the admin (general settings page)
+    // using WPML filter to get the correct term id in a translated language
+    $default_category_id = apply_filters(
+        'wpml_object_id',
+        get_field('default_category_id', 'theme-general-settings'),
+        'category',
+        true
+    );
+
     wp_localize_script(
         'cominst/main.js',
         'appData',
         [
             'site_name' => get_bloginfo('name'),
             'site_description' => get_bloginfo('description'),
-            'posts' => Api::get_posts(get_option( 'posts_per_page' )),
+            'posts' => Api::get_posts(get_option( 'posts_per_page' ), $default_category_id ),
             'posts_per_page' => get_option( 'posts_per_page' ),
             'all_posts_ids_and_slugs' => Api::get_all_posts_ids_and_slugs(),
             'categories' => Api::get_categories(),

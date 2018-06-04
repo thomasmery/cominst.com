@@ -100,6 +100,20 @@ function get_path($object) {
 
 
 /**
+ * Allow the use of the 'term_order' sorting parameter
+ * in REST API calls by adding the parameter to the white list
+ * note: this parameter is brought in by the taxonomy-terms-order plugin
+ */
+add_filter(
+    'rest_category_collection_params',
+    function($params) {
+        $params['orderby']['enum'][] = 'term_order';
+        return $params;
+    }
+);
+
+
+/**
  * a simple Class to access WP data
  * either via the REST API
  * or in some cases
@@ -115,12 +129,14 @@ class Api {
     /**
     * posts
     */
-    public static function get_posts( $per_page = 10 ) {
+    public static function get_posts( $per_page = 10, $category_id = 0 ) {
         $request = new \WP_REST_Request( 'GET', '/wp/v2/posts' );
         $request->set_param( 'per_page', $per_page );
+        $request->set_param( 'categories', $category_id ? [$category_id] : []);
         $response = rest_do_request( $request );
         return [
             'data' => $response->data,
+            'category_id' => $category_id,
             'paging' => [
                 'currentPage' => 1,
                 'total' => $response->headers['X-WP-Total'],
@@ -162,6 +178,7 @@ class Api {
     public static function get_categories( $per_page = 99 ) {
         $request = new \WP_REST_Request( 'GET', '/wp/v2/categories' );
         $request->set_param( 'per_page', $per_page );
+        $request->set_param( 'orderby', 'term_order' );
         $response = rest_do_request( $request );
         return $response->data;
     }
