@@ -34,20 +34,23 @@
               <div class="posts">
                   <div class="child-content-container post">
                     <div class="header">
-                      <div class="meta-data">
+                      <div class="{!! $post_meta_data_container_classes !!}">
+                        @if ( empty($post_medias) )
                           @foreach ($post_categories as $category)
                             <span class="category">
                               {{ $category->name }}
                             </span>
                           @endforeach
+                        @else
+                          @foreach ($post_medias as $media)
+                            <span class="meta-data-media">
+                              <span>{{ $media->name }} </span>
+                            </span>
+                          @endforeach
+                        @endif
                         <span>
-                          <span>@php(the_date())</span>
+                          <span class="meta-data-date">@php(the_date())</span>
                         </span>
-                        @foreach ($post_medias as $media)
-                          <span class="meta-data-media">
-                            <span>{{ $media->name }} </span>
-                          </span>
-                        @endforeach
                       </div>
                       <h1 class="title">@php(the_title())</h1>
                     </div>

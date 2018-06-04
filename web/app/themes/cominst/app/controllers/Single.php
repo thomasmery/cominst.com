@@ -37,4 +37,12 @@ class Single extends Controller
         $terms = get_the_terms($post, 'media');
         return empty($terms) ? [] : $terms;
     }
+
+    public function postMetaDataContainerClasses() {
+        $classes = ['meta-data'];
+        if($this->postMedias()) {
+            $classes[] = 'meta-data-ci-medias';
+        }
+        return implode(' ', $classes);
+    }
 }

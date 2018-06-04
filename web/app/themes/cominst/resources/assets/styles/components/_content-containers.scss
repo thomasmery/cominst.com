@@ -858,8 +858,20 @@ $content-container-carousel-max-widths: (
           margin-right: 0.4rem;
         }
 
-        .meta-data-media {
-          font-style: italic;
+        // C&I dans les médias
+        &.meta-data-ci-medias {
+          font-size: 0.875rem;
+
+          .meta-data-media {
+            font-style: normal;
+            font-weight: bold;
+            color: $color-blue-dark-01;
+            margin-right: 0.4rem;
+          }
+
+          .meta-data-date {
+            font-size: 0.8125rem;
+          }
         }
       }
 

@@ -124,6 +124,47 @@ class Post extends Component {
     this._toggleContent();
   }
 
+  _renderMetaData () {
+    const {
+      data,
+    } = this.props;
+
+    const categories_names =
+      data.categories_names.map(
+        (name, index) => (
+          <span className="category" key={index} dangerouslySetInnerHTML={ {__html: name } } />
+        )
+      );
+
+    const medias_names = data.medias_names.length ?
+      data.medias_names.map(
+        (name, index) => {
+          const separator = index > 0 ? ', ' : '';
+          return (
+            <span className="meta-data-media" key={index}> <span dangerouslySetInnerHTML={ {__html: name } } />{ separator }</span>
+          );
+        }
+      )
+      : '';
+
+    if(medias_names) {
+      return (
+        <div className="meta-data meta-data-ci-medias">
+          { medias_names }
+          <span className="meta-data-date"> <span dangerouslySetInnerHTML={ {__html: data.formatted_published_date } } /> </span>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div className="meta-data">
+          { categories_names }
+          <span> <span dangerouslySetInnerHTML={ {__html: data.formatted_published_date } } /> </span>
+        </div>
+      );
+    }
+  }
+
   render () {
     const {
       data,
@@ -135,24 +176,9 @@ class Post extends Component {
     return (
       <div key={ data.id } className="child-content-container post">
         <div className="header">
-          <div className="meta-data">
-            {
-              data.categories_names.map(
-                (name, index) => (
-                  <span className="category" key={index} dangerouslySetInnerHTML={ {__html: name } } />
-                )
-              )
-            }
-            <span> <span dangerouslySetInnerHTML={ {__html: data.formatted_published_date } } /> </span>
-            {
-               data.medias_names.length ?
-                data.medias_names.map(
-                  (name, index) => (
-                    <span className="meta-data-media" key={index}> - <span dangerouslySetInnerHTML={ {__html: name } } /> </span>
-                  )
-                ) : ''
-            }
-          </div>
+
+          { this._renderMetaData() }
+
           <h3 className="title" dangerouslySetInnerHTML={ {__html: data.title.rendered } } />
         </div>
         <div className="content" style={this.state.contentStyles} ref={ (element) => this._contentContainerRef = element }>
