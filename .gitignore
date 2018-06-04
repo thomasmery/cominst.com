@@ -10,6 +10,10 @@ web/app/uploads/*
 
 !web/app/mu-plugins/cominst-config
 
+# we keep wp super cache in the repository for now because of 
+# a modification made that is related to: https://github.com/aaltomeri/cominst.com/issues/6s
+!web/app/plugins/wp-super-cache
+
 # WordPress
 web/wp
 web/.htaccess

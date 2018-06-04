@@ -247,3 +247,5 @@ class Api {
     }
 
 }
+
+remove_action( 'template_redirect', 'wp_shortlink_header', 11);
