@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "02a77c31fa09d8aadf76d9d117e45332",
+    "content-hash": "27986ce14b24c26b4bfe8a661ae56f01",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -123,6 +123,20 @@
                 "zikula"
             ],
             "time": "2016-08-13T20:53:52+00:00"
+        },
+        {
+            "name": "deliciousbrains-plugin/wp-migrate-db-pro",
+            "version": "1.8.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-migrate-db-pro&version=1.8.1&composer_key=5C50DED1F1A4FA151F5A42E4FC48A3F0",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin"
         },
         {
             "name": "johnpbloch/wordpress",
