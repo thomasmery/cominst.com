@@ -139,7 +139,7 @@ class Post extends Component {
     const medias_names = data.medias_names.length ?
       data.medias_names.map(
         (name, index) => {
-          const separator = index > 0 ? ', ' : '';
+          const separator = data.medias_names.length > 0 && index !== data.medias_names.length - 1 ? ', ' : '';
           return (
             <span className="meta-data-media" key={index}> <span dangerouslySetInnerHTML={ {__html: name } } />{ separator }</span>
           );
