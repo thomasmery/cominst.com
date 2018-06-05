@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "27986ce14b24c26b4bfe8a661ae56f01",
+    "content-hash": "5bfb66e4e26c67b8a87ea08c72ae9478",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -697,10 +697,10 @@
         },
         {
             "name": "wpml/wpml-core",
-            "version": "3.9.3",
+            "version": "3.9.4",
             "dist": {
                 "type": "zip",
-                "url": "https://wpml.org/?download=6088&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1521986651&version=3.9.3",
+                "url": "https://wpml.org/?download=6088&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1510830115&version=3.9.4",
                 "reference": null,
                 "shasum": null
             },

@@ -47,11 +47,11 @@
       "type": "package",
       "package": {
         "name": "wpml/wpml-core",
-        "version": "3.8.4",
+        "version": "3.9.4",
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
-          "url": "https://wpml.org/?download=6088&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1510830115&version=3.8.4"
+          "url": "https://wpml.org/?download=6088&user_id=6198&subscription_key=030f5a9bd9e25eabdeccf36087e69a77&t=1510830115&version=3.9.4"
         }
       }
     },
