@@ -35,7 +35,13 @@
                   <div class="child-content-container post">
                     <div class="header">
                       <div class="{!! $post_meta_data_container_classes !!}">
-                        @if ( ! empty($post_medias) )
+                        @if ( empty($post_medias) )
+                          @foreach ($post_categories as $category)
+                            <span class="category">
+                              {{ $category->name }}
+                            </span>
+                          @endforeach
+                        @else
                           @foreach ($post_medias as $media)
                             <span class="meta-data-media">
                               <span>{{ $media->name }} </span>

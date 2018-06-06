@@ -849,7 +849,7 @@ $content-container-carousel-max-widths: (
         margin-bottom: 1rem;
 
         font-family: $font-sans-serif;
-        font-size: 0.6875rem;
+        font-size: 0.875rem;
         text-transform: uppercase;
 
         .category {
@@ -864,8 +864,6 @@ $content-container-carousel-max-widths: (
 
         // C&I dans les médias
         &.meta-data-ci-medias {
-          font-size: 0.875rem;
-
           .meta-data-media {
             font-style: normal;
             font-weight: bold;
