@@ -1,3 +1,6 @@
+
+/* global appData */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -236,10 +239,26 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
       data,
     } = this.props;
 
+    // eventually add rel attributes to the links
+    // by looking into their corresponding Menu Item in appData primary_navigation menu items list
+    const _parentMenuItemArray = appData.primary_navigation.filter((item) => data.id === item.object_id);
+    let _children = data.children;
+    if(_parentMenuItemArray.length) {
+      const _parentMenuItem = _parentMenuItemArray[0];
+      _children = data.children.map((child) => {
+        const _childMenuItem = 
+          _parentMenuItem.children
+            .filter((item) => child.id === item.object_id)
+            .reduce((previous, current) => Object.assign({}, previous, current), {});
+        child.link_rel = _childMenuItem.xfn || null;
+        return child;
+      });
+    }
+
     return (
               <ul className="nav">
               {
-                data.children.map(
+                _children.map(
                   (child, index) => (
                     <li
                       key={ child.id }
@@ -249,6 +268,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
                   to={`${this.props.parent.props.path}/${child.slug}`}
                   onClick={ this._childTitleClickHandler.bind(null, index) }
                   dangerouslySetInnerHTML={ {__html: child.title.rendered } }
+                  rel={child.link_rel}
                 />
                     </li>
                   )

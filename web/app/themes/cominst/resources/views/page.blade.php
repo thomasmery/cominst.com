@@ -30,7 +30,7 @@
                   <ul class="nav">
                     @foreach ($sub_pages_nav_items as $page )
                       <li class="item">
-                        <a href="{{ $page->url }}">{{ $page->title }}</a>
+                        <a href="{{ $page->url }}" {{ $page->xfn == 'nofollow' ? 'rel="nofollow"' : '' }}>{{ $page->title }}</a>
                     </li>
                     @endforeach
                   </ul>
