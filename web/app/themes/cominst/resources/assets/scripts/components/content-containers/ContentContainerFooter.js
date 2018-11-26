@@ -19,7 +19,7 @@ const ContentContainerFooter = function( { data }) {
     <div className="content-container content-container-footer">
       <div className="row content">
         <div className="col-md-8 col-left">
-          <a href={ data.map || '#' } target="_blank" className="map-container" />
+          <a href={ data.map || '#' } target="_blank" rel="noopener noreferrer" className="map-container" />
           {/* <div className="map-container" dangerouslySetInnerHTML={ { __html: data.map } } /> */}
         </div>
         <div className="col-md-4 col-right">
@@ -30,7 +30,7 @@ const ContentContainerFooter = function( { data }) {
           </div>
 
           <div className="block">
-            <a href={ data.map || '#' } target="_blank" className="map-container" />
+            <a href={ data.map || '#' } target="_blank" rel="noopener noreferrer" className="map-container" />
           </div>
 
           <div className="block social-networks-container">
@@ -40,7 +40,7 @@ const ContentContainerFooter = function( { data }) {
               data.social_networks.map(
                 (network) => (
                   <li className="item" key={network.name}>
-                    <a href={network.url} target="_blank">
+                    <a href={network.url} target="_blank"rel="noopener noreferrer">
                       <i className={`icon fa fa-${network.name.toLowerCase()}-square`} aria-hidden="true"></i>
                     </a>
                   </li>

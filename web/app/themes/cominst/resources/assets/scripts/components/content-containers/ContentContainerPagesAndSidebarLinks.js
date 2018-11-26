@@ -170,6 +170,7 @@ class ContentContainerPagesAndSidebarLinks extends Component {
               <a
                 href={ link.type === 'page' ? link.page_url : link.file_url }
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {  link.label }
               </a>
