@@ -95,7 +95,7 @@ class ContentContainerCarousel extends Component {
               <svg width="16px" height="29px" viewBox="0 0 16 29" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
                   <g id="chevron-left" transform="translate(7.500000, 15.000000) rotate(-270.000000) translate(-7.500000, -15.000000) translate(-5.500000, 8.000000)" stroke="#666666" strokeWidth="2">
-                      <path d="M19.1956787,19.2965088 C19.1956787,19.2965088 14.8960368,14.9563395 6.29675293,6.27600098 L19.1956787,-6.19543457" id="Line" transform="translate(12.746216, 6.550537) rotate(-90.000000) translate(-12.746216, -6.550537) "></path>
+                      <path d="M19.1956787,19.2965088 C19.1956787,19.2965088 14.8960368,14.9563395 6.29675293,6.27600098 L19.1956787,-6.19543457" transform="translate(12.746216, 6.550537) rotate(-90.000000) translate(-12.746216, -6.550537) "></path>
                   </g>
                 </g>
               </svg>
@@ -199,7 +199,7 @@ class ContentContainerCarousel extends Component {
             <svg width="16px" height="29px" viewBox="0 0 16 29" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
                   <g id="chevron-right" transform="translate(8.500000, 14.500000) rotate(-90.000000) translate(-8.500000, -14.500000) translate(-5.000000, 7.500000)" stroke="#666666" strokeWidth="2">
-                      <path d="M19.6870117,19.3181152 C19.6870117,19.3181152 15.3873698,15.1402995 6.78808594,6.78466797 L19.6870117,-6.21704102" id="Line" transform="translate(13.237549, 6.550537) rotate(-90.000000) translate(-13.237549, -6.550537) "></path>
+                      <path d="M19.6870117,19.3181152 C19.6870117,19.3181152 15.3873698,15.1402995 6.78808594,6.78466797 L19.6870117,-6.21704102" transform="translate(13.237549, 6.550537) rotate(-90.000000) translate(-13.237549, -6.550537) "></path>
                   </g>
               </g>
             </svg>
