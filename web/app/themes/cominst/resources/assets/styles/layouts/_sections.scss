@@ -26,7 +26,8 @@ section {
   background-repeat: no-repeat;
   background-position: top;
 
-  &.ContentContainerPagesAndSidebarNavigation {
+  &.ContentContainerPagesAndSidebarNavigation,
+  &.section-main {
     &::before {
       content: "";
       position: absolute;
