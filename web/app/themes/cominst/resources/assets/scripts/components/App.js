@@ -67,6 +67,7 @@ class App extends Component {
         site_description: appData.site_description,
         languages: Object.keys(appData.languages).map((lang) => appData.languages[lang]),
         primary_navigation: this._prepareNavigationData(appData.primary_navigation),
+        secondary_navigation: appData.secondary_navigation,
         post_types: {
           'post': {
             ...appData.post_types.post,
@@ -87,7 +88,7 @@ class App extends Component {
     this.state.data.post_types_taxonomies =  this._buildPostTypesTaxonomies();
 
     // we want to account for a possible default categories for posts
-    this.state.data.post_types.post.categories = appData.posts.category_id ? 
+    this.state.data.post_types.post.categories = appData.posts.category_id ?
       [this._getCategoryTermById(appData.posts.category_id)] :
       [];
 
@@ -711,6 +712,10 @@ class App extends Component {
               site_description: this.state.data.site_description,
               ...this.state.data.theme_options,
               contact_details: object.content.rendered,
+              secondary_navigation: {
+                title: this.state.data.secondary_navigation.title,
+                items: this.state.data.secondary_navigation.items,
+              },
             }
             object.content_template = 'ContentContainerFooter';
             break;
@@ -859,7 +864,7 @@ class App extends Component {
     let homeBackgroundImageUrl;
     if(window.matchMedia("(max-width: 575px)").matches) {
       homeBackgroundImageUrl = home_page_data.featured_media_metadata.sizes.large.url;
-    } 
+    }
     else {
       homeBackgroundImageUrl = home_page_data.featured_media_metadata.sizes.xl
         ? home_page_data.featured_media_metadata.sizes.xl.url

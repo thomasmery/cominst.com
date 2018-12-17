@@ -38,7 +38,7 @@ add_action('wp_enqueue_scripts', function () {
 
 }, 100);
 
-/** 
+/**
  * Google AdWords
  */
 add_action('wp_enqueue_scripts', function () {
@@ -99,6 +99,7 @@ add_action('wp_enqueue_scripts', function () {
             'pages' => Api::get_top_pages(),
             // 'references_by_sectors' => Api::get_references_by_sectors(),
             'primary_navigation' => Api::get_primary_navigation(),
+            'secondary_navigation' => Api::get_secondary_navigation(),
             'theme_options' => Api::get_theme_options(),
             'lang' => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'fr',
             'languages' => function_exists('icl_get_languages') ? icl_get_languages('skip_missing=0&orderby=custom') : 'fr',
@@ -190,7 +191,8 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage')
+        'primary_navigation' => __('Primary Navigation', 'sage'),
+        'secondary_navigation' => __('Secondary Navigation', 'sage')
     ]);
 
     /**

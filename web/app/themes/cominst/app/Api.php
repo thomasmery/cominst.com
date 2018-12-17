@@ -224,12 +224,44 @@ class Api {
     }
 
     /**
-    * menu
+    * menus
     */
+
+    /**
+     * Main navigation
+     */
     public static function get_primary_navigation() {
-        $request = new \WP_REST_Request( 'GET', '/wp-api-menus/v2/menu-locations/primary_navigation' );
+        $request = new \WP_REST_Request( 'GET', '/wp-api-menus/v2/menu-locations/primary_navigation');
         $response = rest_do_request( $request );
         return $response->data;
+    }
+
+    /**
+     * Secondary navigation
+     *
+     * we treat this one differently as we need a title to be displayed before the items
+     */
+    public static function get_secondary_navigation() {
+        $location = 'secondary_navigation';
+        $locations  = get_nav_menu_locations();
+        if ( ! isset( $locations[$location] ) ) {
+            return null;
+        }
+        $menu_id = $locations[$location];
+        $wp_menu = wp_get_nav_menu_object($menu_id);
+        $title = $wp_menu->name;
+
+        // use the endpoint to benefit from formatting done by the wp-api-menu plugin
+        $request = new \WP_REST_Request( 'GET', '/wp-api-menus/v2/menu-locations/secondary_navigation');
+        $response = rest_do_request( $request );
+        $items = $response->data;
+
+        $navigation = [
+            'title' => $title,
+            'items' => $items,
+        ];
+
+        return $navigation;
     }
 
     /**

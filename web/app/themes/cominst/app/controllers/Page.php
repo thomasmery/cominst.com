@@ -67,6 +67,20 @@ class FrontPage extends Controller
     }
 
     /**
+     * returns the secondary nav location navigation title
+     */
+    public function secondaryNavigationTitle() {
+        return \App::getSecondaryNavigation()['title'];
+    }
+
+    /**
+     * returns the secondary nav location navigation items
+     */
+    public function secondaryNavigationItems() {
+        return \App::getSecondaryNavigation()['items'];
+    }
+
+    /**
     * returns the secondary image html tag if this field has been set
     */
     public function secondaryImageHtml() {

@@ -58,7 +58,7 @@ class App extends Controller
     }
 
     /**
-     * Get the WP Menu Items for the primary navigation location
+     * Get the WP Menu Items for the navigation in primary location
      */
     public static function getPrimaryNavigationItems()
     {
@@ -68,5 +68,21 @@ class App extends Controller
             return wp_get_nav_menu_items($menu_object->term_id, array( 'update_post_term_cache' => false ));
         }
         return [];
+    }
+
+    /**
+     * Get the WP Menu Title & Items for the navigation in secondary location
+     */
+    public static function getSecondaryNavigation()
+    {
+        $locations = get_nav_menu_locations();
+        $menu_object = wp_get_nav_menu_object($locations['secondary_navigation']);
+        if ($menu_object) {
+            $items = wp_get_nav_menu_items($menu_object->term_id, array( 'update_post_term_cache' => false ));
+        }
+        return [
+            'title' => $menu_object->name,
+            'items' => $items,
+        ];
     }
 }

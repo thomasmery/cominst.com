@@ -63,7 +63,25 @@ const ContentContainerFooter = function( { data }) {
                   error: appData.i18n.newsletterSubscribeForm.error,
                 }}
               />
-            </div>
+          </div>
+
+          <div className="block legal-infos-container">
+            <h3>{data.secondary_navigation.title}</h3>
+            <ul className="legal-infos-links">
+            {
+              data.secondary_navigation.items.map(
+                (item) => (
+                  <li className="item" key={item.title}>
+                    <a href={item.url}>
+                      {item.title.toLowerCase()}
+                    </a>
+                  </li>
+                )
+              )
+            }
+            </ul>
+          </div>
+
         </div>
       </div>
       <div className="row signature">

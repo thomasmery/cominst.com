@@ -50,6 +50,18 @@
                     </form>
                 </div>
             </div> -->
+            <div class="block legal-infos-container">
+              <h3>{{ $secondary_navigation_title }}</h3>
+              <ul class="legal-infos-links">
+                 @foreach ($secondary_navigation_items as $item)
+                  <li class="item">
+                    <a href="{{ $item->url }}">
+                      {{ $item->title }}
+                    </a>
+                  </li>
+                 @endforeach
+              </ul>
+            </div>
           </div>
         </div>
         <div class="row signature">
