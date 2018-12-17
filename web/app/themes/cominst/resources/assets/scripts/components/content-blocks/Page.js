@@ -8,10 +8,19 @@ const Page = (props) => {
     content,
     contentParts,
     contentExpanded,
+    secondaryImageObject,
     contentToggleHandler,
   } = props;
+
+  const secondaryImageUrl = secondaryImageObject ?
+    secondaryImageObject.sizes.medium :
+    '';
+
   return (
     <div>
+      {
+        secondaryImageUrl && <img src={secondaryImageUrl} alt={title} className="alignright secondary-image" />
+      }
       <div className="header">
         <h1
           className="title"
@@ -50,6 +59,7 @@ Page.propTypes = {
   subtitle: PropTypes.string,
   content: PropTypes.string,
   contentParts: PropTypes.array,
+  secondaryImageObject: PropTypes.object,
   contentExpanded: PropTypes.bool,
   contentToggleHandler: PropTypes.func,
 }

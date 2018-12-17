@@ -50,22 +50,25 @@ class Section extends PureComponent {
       return false;
     }
 
-    if( ! child_data || ! child_data.featured_media_metadata.file) {
-      return;
+    /**
+     * a background image is only displayed if a featured image has been set
+     * if not and one is in place, it is removed
+     */
+
+    let image_url = null;
+    if (child_data.featured_media_metadata && child_data.featured_media_metadata.sizes) {
+      image_url = child_data.featured_media_metadata.sizes.xl
+        ? child_data.featured_media_metadata.sizes.xl.url
+        : child_data.featured_media_metadata.sizes.original.url;
     }
 
-    const image_url = child_data.featured_media_metadata.sizes.xl
-      ? child_data.featured_media_metadata.sizes.xl.url
-      : child_data.featured_media_metadata.sizes.original.url;
-
-    
     this.backgroundImageUrl = image_url;
-
+    const backgroundImage = image_url ? `url(${this.backgroundImageUrl})` : 'none';
     if(this.state.sectionStyles.backgroundImage) {
       this.setState( (state) => ({
         sectionStyles: {
           ...state.sectionStyles,
-          backgroundImage: `url(${this.backgroundImageUrl})`,
+          backgroundImage,
         },
       }));
     }

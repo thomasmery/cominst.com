@@ -135,6 +135,10 @@ section {
     h5,
     h6 {
       color: $color-blue-light-01;
+
+      & a {
+        color: inherit;
+      }
     }
 
     h2 {

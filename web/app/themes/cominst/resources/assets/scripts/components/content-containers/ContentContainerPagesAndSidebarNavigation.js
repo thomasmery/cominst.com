@@ -23,13 +23,17 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
     this.hasRootPageContent = props.data.acf.show_root_content && props.data.content.rendered !== '';
 
+
+    const { data } = props;
+
     this.state = {
       activeChildIndex: this.hasRootPageContent ? null : 0,
-      activeChildTitle: this.hasRootPageContent || ! props.data.children.length ? this.props.data.subtitle : props.data.children[0].title.rendered,
-      activeChildSubtitle: this.hasRootPageContent || ! props.data.children.length ? '' : props.data.children[0].subtitle,
-      activeChildContent: this.hasRootPageContent || ! props.data.children.length ? props.data.content.rendered : props.data.children[0].introduction,
-      activeChildImage: this.hasRootPageContent || ! props.data.children.length ? props.data.content.featured_media_html : props.data.children[0].featured_media_html,
-      activeChildContentParts: this.hasRootPageContent || ! props.data.children.length ? props.data.content_parts : props.data.children[0].content_parts,
+      activeChildTitle: this.hasRootPageContent || ! data.children.length ? data.subtitle : data.children[0].title.rendered,
+      activeChildSubtitle: this.hasRootPageContent || ! data.children.length ? '' : data.children[0].subtitle,
+      activeChildContent: this.hasRootPageContent || ! data.children.length ? data.content.rendered : data.children[0].introduction,
+      activeChildImage: this.hasRootPageContent || ! data.children.length ? data.content.featured_media_html : data.children[0].featured_media_html,
+      activeChildSecondaryImageObject: this.hasRootPageContent || ! data.children.length ? null : data.children[0].acf.secondary_image,
+      activeChildContentParts: this.hasRootPageContent || ! data.children.length ? data.content_parts : data.children[0].content_parts,
       childContentExpanded: false,
       activeChildContentStyles: {
         height: 'auto',
@@ -72,13 +76,19 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
 
   _setActiveChild (index) {
 
+    const { data } = this.props;
+    const activeChild = data.children[index];
+
     this.setState( () => ( {
         activeChildIndex: index === null ? null : index,
-        activeChildTitle: index === null ? this.props.data.subtitle : this.props.data.children[index].title.rendered,
-        activeChildSubtitle: index === null ? '' : this.props.data.children[index].subtitle,
-        activeChildContent: index === null ? this.props.data.content.rendered : this.props.data.children[index].introduction,
-        activeChildImage: index === null ? this.props.data.content.featured_media_html : this.props.data.children[index].featured_media_html,
-        activeChildContentParts: index === null ? this.props.data.content_parts : this.props.data.children[index].content_parts,
+        activeChildTitle: index === null ? data.subtitle : activeChild.title.rendered,
+        activeChildSubtitle: index === null ? '' : activeChild.subtitle,
+        activeChildContent: index === null ? data.content.rendered : activeChild.introduction,
+        activeChildImage: index === null ? data.content.featured_media_html : activeChild.featured_media_html,
+        activeChildSecondaryImageObject: index === null ?
+          null :
+          (activeChild.acf ? activeChild.acf.secondary_image : null),
+        activeChildContentParts: index === null ? data.content_parts : activeChild.content_parts,
         childContentExpanded: false,
       } ),
       () => {
@@ -246,7 +256,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
     if(_parentMenuItemArray.length) {
       const _parentMenuItem = _parentMenuItemArray[0];
       _children = data.children.map((child) => {
-        const _childMenuItem = 
+        const _childMenuItem =
           _parentMenuItem.children
             .filter((item) => child.id === item.object_id)
             .reduce((previous, current) => Object.assign({}, previous, current), {});
@@ -312,6 +322,7 @@ class ContentContainerPagesAndSidebarNavigation extends Component {
                         content={ this.state.activeChildContent }
                         contentParts={ this.state.activeChildContentParts}
                         contentExpanded={ this.state.childContentExpanded }
+                        secondaryImageObject={ this.state.activeChildSecondaryImageObject }
                         contentToggleHandler={ this._onContentToggleHandler }
                       />
                     </div>

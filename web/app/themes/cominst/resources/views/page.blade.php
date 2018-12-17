@@ -26,11 +26,19 @@
               <div class="col-md-12"></div>
               <div class="col-md-4 sidebar">
                 <div>
-                  <h2 style="cursor: pointer;">{{ $sub_pages_nav_title }}</h2>
+                  <h2 style="cursor: pointer;">{!! $sub_pages_nav_title !!}</h2>
                   <ul class="nav">
-                    @foreach ($sub_pages_nav_items as $page )
+                    @foreach ($sub_pages_nav_items as $page)
                       <li class="item">
-                        <a href="{{ $page->url }}" {{ $page->xfn == 'nofollow' ? 'rel="nofollow"' : '' }}>{{ $page->title }}</a>
+                        <a
+                          href="{{ $page->url }}"
+                          {{ $page->xfn == 'nofollow' ? 'rel="nofollow"' : '' }}
+                          @if ($page->active)
+                            class="active"
+                          @endif
+                        >
+                          {{ $page->title }}
+                        </a>
                     </li>
                     @endforeach
                   </ul>
@@ -41,6 +49,9 @@
                   <div class="child-content-container">
                     <div>
                       <div>
+                        @if ($secondary_image_html)
+                          {!! $secondary_image_html !!}
+                        @endif
                         <div class="header">
                           <h1 class="title">@php(the_title())</h1>
                           <h4 class="subtitle">@php(the_field(('subtitle')))</h4>

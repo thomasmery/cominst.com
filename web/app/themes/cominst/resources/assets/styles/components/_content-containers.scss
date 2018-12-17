@@ -377,6 +377,14 @@
       }
     }
 
+    .secondary-image {
+      max-width: 210px;
+
+      &.alignright {
+        margin-left: 1rem;
+      }
+    }
+
     .child-content-container {
       h1,
       h3 {
