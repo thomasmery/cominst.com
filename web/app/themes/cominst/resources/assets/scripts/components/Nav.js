@@ -28,7 +28,7 @@ class Nav extends Component {
       <Link
         key={ id }
         to={ path }
-        className={ classNames( { active: slug === this.props.activeSectionId } ) }
+        className={ classNames( { active: slug === this.props.activeSectionId  }, slug ) }
         onClick={ this.props.onItemClickHandler }
       >
           { title }
