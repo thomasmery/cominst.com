@@ -920,8 +920,9 @@ $content-container-carousel-max-widths: (
     background-image: url('../images/map-cominst.png');
     background-size: cover;
     background-position: center center;
-    // quick fix for having the map take the most of the Section container height
-    height: 72vh;
+
+    height: 100%;
+    min-height: none;
 
     @media only screen and (min-resolution: 192dpi),
       only screen and (min-resolution: 2dppx) {
@@ -929,20 +930,12 @@ $content-container-carousel-max-widths: (
     }
 
     @include media-breakpoint-down(md) {
-      height: 230px;
       background-image: url('../images/map-cominst.png');
     }
 
     > * {
       display: none;
       width: 100%;
-
-      // quick fix for having the map take the most of the Section container height
-      height: 72vh;
-
-      @include media-breakpoint-down(md) {
-        height: 230px;
-      }
     }
   }
 
@@ -1040,6 +1033,10 @@ $content-container-carousel-max-widths: (
         }
       }
     }
+  }
+
+  .legal-infos-container {
+    margin-bottom: 0;
   }
 
   .content {
