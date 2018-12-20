@@ -73,7 +73,7 @@ const ContentContainerFooter = function( { data }) {
                 (item) => (
                   <li className="item" key={item.title}>
                     <a href={item.url}>
-                      {item.title.toLowerCase()}
+                      {item.title}
                     </a>
                   </li>
                 )
