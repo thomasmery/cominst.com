@@ -713,8 +713,8 @@ class App extends Component {
               ...this.state.data.theme_options,
               contact_details: object.content.rendered,
               secondary_navigation: {
-                title: this.state.data.secondary_navigation.title,
-                items: this.state.data.secondary_navigation.items,
+                title: this.state.data.secondary_navigation ? this.state.data.secondary_navigation.title : '',
+                items: this.state.data.secondary_navigation ? this.state.data.secondary_navigation.items : [],
               },
             }
             object.content_template = 'ContentContainerFooter';

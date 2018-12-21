@@ -77,9 +77,14 @@ class App extends Controller
     {
         $locations = get_nav_menu_locations();
         $menu_object = wp_get_nav_menu_object($locations['secondary_navigation']);
+
         if ($menu_object) {
             $items = wp_get_nav_menu_items($menu_object->term_id, array( 'update_post_term_cache' => false ));
         }
+        else {
+            return null;
+        }
+
         return [
             'title' => $menu_object->name,
             'items' => $items,
