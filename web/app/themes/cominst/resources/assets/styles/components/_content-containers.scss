@@ -286,7 +286,11 @@
     }
   }
 
-  h2 {
+  h2,
+  h1 > span.subtitle {
+
+    display: block;
+
     font-size: 1rem;
     line-height: 1.5rem;
     font-weight: 600;
@@ -386,7 +390,6 @@
     }
 
     .child-content-container {
-      h1,
       h3 {
         font-size: 1.875rem;
         line-height: 1.3;

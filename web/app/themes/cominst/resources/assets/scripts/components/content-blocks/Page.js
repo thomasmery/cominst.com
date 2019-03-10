@@ -22,7 +22,7 @@ const Page = (props) => {
         secondaryImageUrl && <img src={secondaryImageUrl} alt={title} className="alignright secondary-image" />
       }
       <div className="header">
-        <h1
+        <h3
           className="title"
           dangerouslySetInnerHTML={ { __html: title } }
         />
