@@ -90,4 +90,18 @@ class App extends Controller
             'items' => $items,
         ];
     }
+
+    /**
+     * returns the secondary nav location navigation title
+     */
+    public function secondaryNavigationTitle() {
+        return \App::getSecondaryNavigation()['title'];
+    }
+
+    /**
+     * returns the secondary nav location navigation items
+     */
+    public function secondaryNavigationItems() {
+        return \App::getSecondaryNavigation()['items'];
+    }
 }
