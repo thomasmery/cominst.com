@@ -174,7 +174,7 @@ class Post extends Component {
     } = this.props;
     const activeContent = this.state.active ? content : excerpt.replace(/<a.*?>.*?<\/a>/g, '');
     return (
-      <div key={ data.id } className="child-content-container post">
+      <article key={ data.id } className="child-content-container post">
         <div className="header">
 
           { this._renderMetaData() }
@@ -214,7 +214,7 @@ class Post extends Component {
               </a>
           }
         </div>
-      </div>
+      </article>
     )
   }
 }

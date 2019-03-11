@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('content') 
-  @include('partials.header') 
+@section('content')
+  @include('partials.header')
   @while(have_posts()) @php(the_post())
     <section id="the-post" class="ContentContainerArchive">
       <div class="container ContentContainerArchive">
@@ -19,7 +19,7 @@
                     </li> --}}
                     @foreach ($categories as $category )
                       <li class="item">
-                        <a 
+                        <a
                           href="{!! get_term_link($category->term_id, 'category') !!}"
                           class="{!! in_array($category->name, $post_categories_names) ? 'active' : '' !!}"
                         >
@@ -32,7 +32,7 @@
               </div>
               <div class="col-sm-8 content">
               <div class="posts">
-                  <div class="child-content-container post">
+                  <article class="child-content-container post">
                     <div class="header">
                       <div class="{!! $post_meta_data_container_classes !!}">
                         @if ( empty($post_medias) )
@@ -59,7 +59,7 @@
                         @php(the_content())
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </div>
               </div>
             </div>
