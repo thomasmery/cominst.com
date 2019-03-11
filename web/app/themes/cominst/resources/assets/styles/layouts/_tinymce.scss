@@ -11,4 +11,12 @@ body#tinymce {
       }
     }
   }
+
+  blockquote {
+    font-style: italic;
+
+    cite {
+      margin-left: 10px;
+    }
+  }
 }

@@ -3,8 +3,8 @@
  * Plugin Name: Better Blockquotes
  * Plugin URI:  http://github.com/devinsays/better-blockquotes
  * Description: Replaces the standard blockquote button in the WordPress editor with one that additional options.
- * Version:     1.0.0
- * Author:      Devin Price
+ * Version:     1.1.0
+ * Author:      Devin Price - modified by Thomas Mery
  * Author URI:  http://github.com/devinsays/better-blockquotes
  * Text Domain: better-blockquotes
  * License:     GPL-2.0+
