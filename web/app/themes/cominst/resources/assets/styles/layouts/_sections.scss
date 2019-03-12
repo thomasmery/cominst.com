@@ -111,11 +111,13 @@ section {
 
     .nav .item > a {
       color: $color-blue-dark-05;
-      background-image: linear-gradient(to right, $color-white-01, $color-white-01);
+      // background-image: linear-gradient(to right, $color-white-01, $color-white-01);
+      background-color: transparent;
       border-color: $color-gray-light-02;
 
       &.active,
       &:hover {
+        background-color: $color-white-01;
         color: $color-blue-dark-05;
       }
     }
@@ -157,8 +159,14 @@ section {
 
     .nav .item > a {
       color: $color-blue-light-03;
-      background-image: linear-gradient(to right, $color-blue-dark-02, $color-blue-dark-02);
+      // background-image: linear-gradient(to right, $color-blue-dark-02, $color-blue-dark-02);
+      background-color: transparent;
       border-color: $color-blue-dark-02;
+
+      &.active,
+      &:hover {
+        background-color: $color-blue-dark-02;
+      }
     }
   }
 }
