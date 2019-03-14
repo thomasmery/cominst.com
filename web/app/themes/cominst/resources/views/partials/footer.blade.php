@@ -18,9 +18,7 @@
                   <br>
                   <a href="mailto:secretariat@cominst.com" target="_blank" rel="noopener">secretariat@cominst.com</a>
                 </p>
-                <p>
-                  <a class="link-icon link-email" href="mailto:secretariat@cominst.com" target="_blank" rel="noopener">{!! __('Contact us', 'cominst') !!}</a>
-                </p>
+                <div id="contact-form-container"></div>
               </p>
             </div>
             <div class="block map-container">https://goo.gl/maps/GDFsAFmQEFu</div>

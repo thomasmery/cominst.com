@@ -1,4 +1,9 @@
 /* eslint-disable */
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import ContactForm from './components/ContactForm';
+
 // we want to be able to execute code only when DOM is loaded
 function ready(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
@@ -10,11 +15,16 @@ function ready(fn) {
 
 // DOM loaded callback
 ready(function() {
-    setTimeout(function() { 
+    setTimeout(function() {
         window.scrollTo(0,0);
     }
     , 200);
 
+
+    ReactDOM.render(
+      <ContactForm />,
+      document.getElementById('contact-form-container')
+    );
 
     const toggleMobileMenu = function() {
         const $header = document.querySelector('body > header');
