@@ -121,6 +121,7 @@ add_action('wp_enqueue_scripts', function () {
                 'follow_us' => __('Follow Us', 'cominst'),
                 'newsletter' => __('Newsletter', 'cominst'),
                 'contactUs' => __('Contact Us', 'cominst'),
+                'send' => __('Send', 'cominst'),
                 'newsletterSubscribeForm' => [
                     'inputPlaceholder' => __('Your email', 'cominst'),
                     'btnLabel' => __('Send', 'cominst'),
@@ -131,6 +132,8 @@ add_action('wp_enqueue_scripts', function () {
             ],
             'analytics_ID' => ANALYTICS_ID,
             'adwords_ID' => ADWORDS_ID,
+            'contactFormNonce' => wp_create_nonce( 'contactForm' ),
+            'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
         ]
     );
 
@@ -141,6 +144,7 @@ add_action('wp_enqueue_scripts', function () {
         [
             'i18n' => [
                 'contactUs' => __('Contact Us', 'cominst'),
+                'send' => __('Send', 'cominst'),
             ],
         ]
     );

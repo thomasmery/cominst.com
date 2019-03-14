@@ -298,3 +298,42 @@ class Api {
 }
 
 remove_action( 'template_redirect', 'wp_shortlink_header', 11);
+
+/** Contact Form - response function  */
+function cominst_contact_form() {
+    if ( ! check_ajax_referer( 'contactForm', 'nonce' ) ) {
+        wp_send_json_error( 'Invalid security token sent.' );
+    }
+    $data = $_POST['formData'];
+
+    $to = 'thomas.mery@gmail.com'; // get_option('admin_email');
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'From: Formulaire de contact - cominst.com <' . get_option('admin_email') . '>',
+        'Reply-To: ' . $data['name'] . ' <' . $data['email'] . '>',
+    ];
+    $subject = "cominst.com | Message de " . $data['name'];
+
+    ob_start();
+
+    echo '
+        <h2>Message:</h2>' .
+        wpautop($data['message']) . '
+    ';
+
+    $message = ob_get_contents();
+
+    ob_end_clean();
+
+    $mail = wp_mail($to, $subject, $message, $headers);
+
+    if($mail){
+        echo 'success';
+    }
+    else {
+        echo __('Error sending email', 'cominst');
+    }
+    wp_die();
+}
+add_action('wp_ajax_nopriv_cominst_contact_form', 'App\\cominst_contact_form');
+add_action('wp_ajax_cominst_contact_form', 'App\\cominst_contact_form');
