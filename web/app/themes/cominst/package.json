@@ -145,6 +145,7 @@
     "yargs": "~8.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.0.0-beta",
     "browserslist": "^4.3.4",
     "classnames": "^2.2.5",
@@ -154,6 +155,7 @@
     "jsonp": "^0.2.1",
     "popper.js": "^1.11.0",
     "prop-types": "^15.5.10",
+    "qs": "^6.6.0",
     "react": "^16",
     "react-dom": "^16",
     "react-ga": "^2.4.0",
@@ -165,6 +167,7 @@
     "react-swipe": "^5.1.0",
     "react-waypoint": "^9",
     "scroll-to": "^0.0.2",
-    "wpapi": "1.1.2"
+    "wpapi": "1.1.2",
+    "yup": "^0.26.10"
   }
 }
