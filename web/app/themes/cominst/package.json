@@ -153,16 +153,16 @@
     "jsonp": "^0.2.1",
     "popper.js": "^1.11.0",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16",
+    "react-dom": "^16",
     "react-ga": "^2.4.0",
     "react-js-pagination": "^3.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.2.2",
     "react-scroll-to-component": "^1.0.1",
     "react-swipe": "^5.1.0",
-    "react-waypoint": "^7.1.0",
+    "react-waypoint": "^9",
     "scroll-to": "^0.0.2",
-    "wpapi": "^1.1.2"
+    "wpapi": "1.1.2"
   }
 }
