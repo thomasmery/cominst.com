@@ -84,6 +84,35 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
+    $i18n_translations = [
+        'contact_details' => __('Contact details', 'cominst'),
+        'social_networks' => __('Social Networks', 'cominst'),
+        'follow_us' => __('Follow Us', 'cominst'),
+        'newsletter' => __('Newsletter', 'cominst'),
+        'newsletterSubscribeForm' => [
+            'inputPlaceholder' => __('Your email', 'cominst'),
+            'btnLabel' => __('Send', 'cominst'),
+            'sending' => __('Sending...', 'cominst'),
+            'success' => __('Thank you for subscribing.', 'cominst'),
+            'error' => __('There seems to be a problem with this email address.', 'cominst'),
+        ],
+        'contactUs' => __('Contact Us', 'cominst'),
+        'name' => __('Name', 'cominst'),
+        'messageSubject' => __('Message Subject', 'cominst'),
+        'EnterYourName' => __('Enter Your Name', 'cominst'),
+        'EnterYourEmail' => __('Enter Your Email', 'cominst'),
+        'EnterTheMessageSubject' => __('Enter The Message Subject', 'cominst'),
+        'EnterYourMessage' => __('Enter Your Message', 'cominst'),
+        'send' => __('Send', 'cominst'),
+        'sending' => __('Sending message...', 'cominst'),
+        'close' => __('Close', 'cominst'),
+        'correctErrors' => __('Please correct the errors in the form', 'cominst'),
+        'fieldIsRequired' => __('This fied is required', 'cominst'),
+        'emailIsNotValid' => __('Please enter a valid email', 'cominst'),
+        'messageSent' => __('Thank you for getting in touch. We\'ll be in contact shortly.', 'cominst'),
+        'errorSendingEmail' => __('An error has occured while sending the email. Please try again.', 'cominst'),
+    ];
+
     /** Application data for the SPA */
     wp_localize_script(
         'cominst/main.js',
@@ -115,21 +144,7 @@ add_action('wp_enqueue_scripts', function () {
             ],
             'home_page_id' => get_option( 'page_on_front' ),
             'blog_page_id' => get_option( 'page_for_posts' ),
-            'i18n' => [
-                'contact_details' => __('Contact details', 'cominst'),
-                'social_networks' => __('Social Networks', 'cominst'),
-                'follow_us' => __('Follow Us', 'cominst'),
-                'newsletter' => __('Newsletter', 'cominst'),
-                'contactUs' => __('Contact Us', 'cominst'),
-                'send' => __('Send', 'cominst'),
-                'newsletterSubscribeForm' => [
-                    'inputPlaceholder' => __('Your email', 'cominst'),
-                    'btnLabel' => __('Send', 'cominst'),
-                    'sending' => __('Sending...', 'cominst'),
-                    'success' => __('Thank you for subscribing.', 'cominst'),
-                    'error' => __('There seems to be a problem with this email address.', 'cominst'),
-                ]
-            ],
+            'i18n' => $i18n_translations,
             'analytics_ID' => ANALYTICS_ID,
             'adwords_ID' => ADWORDS_ID,
             'contactFormNonce' => wp_create_nonce( 'contactForm' ),
@@ -142,10 +157,9 @@ add_action('wp_enqueue_scripts', function () {
         'cominst/single.js',
         'appData',
         [
-            'i18n' => [
-                'contactUs' => __('Contact Us', 'cominst'),
-                'send' => __('Send', 'cominst'),
-            ],
+            'i18n' => $i18n_translations,
+            'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+            'contactFormNonce' => wp_create_nonce( 'contactForm' ),
         ]
     );
 }, 100);
