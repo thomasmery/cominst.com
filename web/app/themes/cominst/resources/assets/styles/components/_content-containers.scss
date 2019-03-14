@@ -417,6 +417,23 @@
         background-color: rgba($color-blue-dark-02, 0.85);
         // box-shadow: 3px 3px 3px 0 rgba($color-black-01, 0.65);
       }
+
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+
+        figure {
+          flex: 1;
+          margin: 1rem;
+          text-align: center;
+        }
+
+        figcaption {
+          font-family: $font-sans-serif;
+          line-height: 1.2;
+          margin-top: 6px;
+        }
+      }
     }
 
     .actions {
