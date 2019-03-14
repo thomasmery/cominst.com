@@ -1,5 +1,4 @@
 .content-container {
-
   padding: 3.125rem 0;
   // padding: 0 0 3.125rem;
 
@@ -100,6 +99,8 @@
         // background-image: linear-gradient(to right, $color-blue-dark-01, $color-blue-dark-01);
         background-repeat: no-repeat;
         background-size: 100% 100%;
+
+        /* prettier-ignore */
         transition:
           background-color 0.2s ease-in,
           padding 0.3s ease-out,
@@ -116,6 +117,8 @@
           background-size: 100% 100%;
           padding-left: 1rem;
           padding-right: 0.3rem;
+
+          /* prettier-ignore */
           transition:
             background-color 0.1s ease-in,
             padding 0.3s ease-out,
@@ -289,7 +292,6 @@
 
   h2,
   h1 > span.subtitle {
-
     display: block;
 
     font-size: 1rem;
@@ -362,7 +364,6 @@
 /** Pages & sidebar navigation */
 .content-container-pages-and-sidebar-navigation {
   .pages {
-
     // vertically align with Section title bottom border
     padding-top: 2.375rem;
 
@@ -409,12 +410,12 @@
 
       section & {
         background-color: rgba($color-white-01, 0.85);
-        box-shadow: 3px 3px 3px 0 rgba($color-gray-dark-01, 0.3);
+        // box-shadow: 3px 3px 3px 0 rgba($color-gray-dark-01, 0.3);
       }
 
       section.dark & {
         background-color: rgba($color-blue-dark-02, 0.85);
-        box-shadow: 3px 3px 3px 0 rgba($color-black-01, 0.65);
+        // box-shadow: 3px 3px 3px 0 rgba($color-black-01, 0.65);
       }
     }
 
@@ -628,7 +629,6 @@ $content-container-carousel-max-widths: (
   }
 
   .child-content-container {
-
     // reset rules from generic .child-content-container
     overflow: visible;
     transition: height 0 linear;
@@ -916,12 +916,11 @@ $content-container-carousel-max-widths: (
   }
 
   .map-container {
-
     // necessary because we turned the element into a link tag
     // and we need it to take the whole space of the box
     display: block;
 
-    background-image: url('../images/map-cominst.png');
+    background-image: url("../images/map-cominst.png");
     background-size: cover;
     background-position: center center;
 
@@ -930,11 +929,11 @@ $content-container-carousel-max-widths: (
 
     @media only screen and (min-resolution: 192dpi),
       only screen and (min-resolution: 2dppx) {
-      background-image: url('../images/map-cominst@2x.png');
+      background-image: url("../images/map-cominst@2x.png");
     }
 
     @include media-breakpoint-down(md) {
-      background-image: url('../images/map-cominst.png');
+      background-image: url("../images/map-cominst.png");
     }
 
     > * {
@@ -966,9 +965,7 @@ $content-container-carousel-max-widths: (
     text-transform: uppercase;
     font-weight: 600;
 
-    transition:
-      color 0.3s ease-out,
-      background-color 0.3s ease-out;
+    transition: color 0.3s ease-out, background-color 0.3s ease-out;
 
     &:hover {
       background-color: $color-blue-dark-04;
