@@ -84,6 +84,7 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
+    /** Application data for the SPA */
     wp_localize_script(
         'cominst/main.js',
         'appData',
@@ -119,6 +120,7 @@ add_action('wp_enqueue_scripts', function () {
                 'social_networks' => __('Social Networks', 'cominst'),
                 'follow_us' => __('Follow Us', 'cominst'),
                 'newsletter' => __('Newsletter', 'cominst'),
+                'contactUs' => __('Contact Us', 'cominst'),
                 'newsletterSubscribeForm' => [
                     'inputPlaceholder' => __('Your email', 'cominst'),
                     'btnLabel' => __('Send', 'cominst'),
@@ -129,6 +131,17 @@ add_action('wp_enqueue_scripts', function () {
             ],
             'analytics_ID' => ANALYTICS_ID,
             'adwords_ID' => ADWORDS_ID,
+        ]
+    );
+
+    /** Application data for the individual pages - we need much less infos as we only use a little js there */
+    wp_localize_script(
+        'cominst/single.js',
+        'appData',
+        [
+            'i18n' => [
+                'contactUs' => __('Contact Us', 'cominst'),
+            ],
         ]
     );
 }, 100);
