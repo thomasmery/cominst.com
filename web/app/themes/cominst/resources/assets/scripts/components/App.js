@@ -724,6 +724,8 @@ class App extends Component {
               },
             };
             object.content_template = "ContentContainerFooter";
+            object.shouldCloseContactFormModal =
+              this.state.activeSectionId !== "contact";
             break;
         }
         object.isFetching = this.state.data.isFetching[object.slug] || false;

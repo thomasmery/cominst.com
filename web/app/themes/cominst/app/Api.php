@@ -301,9 +301,10 @@ remove_action( 'template_redirect', 'wp_shortlink_header', 11);
 
 /** Contact Form - response function  */
 function cominst_contact_form() {
-    if ( ! check_ajax_referer( 'contactForm', 'nonce' ) ) {
-        wp_send_json_error( 'Invalid security token sent.' );
-    }
+
+    // will return a 403 error if nonce can't be verified
+    check_ajax_referer( 'contactForm', 'nonce' );
+
     $data = $_POST['formData'];
 
     $to = 'thomas.mery@gmail.com'; // get_option('admin_email');
@@ -317,7 +318,7 @@ function cominst_contact_form() {
     ob_start();
 
     echo '
-        <h2>Message:</h2>' .
+        <h3>' . $data['subject'] . '</h3>' .
         wpautop($data['message']) . '
     ';
 

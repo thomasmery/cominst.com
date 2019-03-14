@@ -33,7 +33,7 @@ const ContentContainerFooter = function({ data }) {
           <div className="block contact-details-container">
             <h3>{appData.i18n.contact_details}</h3>
             <p dangerouslySetInnerHTML={{ __html: data.contact_details }} />
-            <ContactForm />
+            <ContactForm shouldCloseModal={data.shouldCloseContactFormModal} />
           </div>
 
           <div className="block">

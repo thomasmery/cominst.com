@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Amiko:400,600,700|Merriweather:400,400i,700');
+@import url("https://fonts.googleapis.com/css?family=Amiko:400,600,700|Merriweather:400,400i,700");
 
 @mixin hide-from-user {
   height: 1px;
@@ -68,9 +68,10 @@ ul {
 
 .link-icon {
   font-family: $font-sans-serif;
+  cursor: default;
 
   &::before {
-    font-family: 'FontAwesome';
+    font-family: "FontAwesome";
     position: relative;
     margin-right: 5px;
     font-size: 110%;
@@ -100,4 +101,3 @@ ul {
     content: "\f08c";
   }
 }
-
