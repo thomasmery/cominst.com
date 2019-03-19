@@ -259,6 +259,19 @@ add_action('after_setup_theme', function () {
 }, 20);
 
 /**
+ * Add custom sizes to WP Admin dropdowns
+ */
+add_filter('image_size_names_choose', function ($sizes) {
+    error_log($sizes);
+    $custom_sizes = array(
+        'sm' => 'Small - custom - 250w',
+        'xl' => 'XL - custom - 1920w'
+    );
+    error_log($custom_sizes);
+    return array_merge( $sizes, $custom_sizes );
+});
+
+/**
  * Register sidebars
  */
 add_action('widgets_init', function () {
