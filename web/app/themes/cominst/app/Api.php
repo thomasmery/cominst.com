@@ -307,7 +307,7 @@ function cominst_contact_form() {
 
     $data = $_POST['formData'];
 
-    $to = 'thomas.mery@gmail.com'; // get_option('admin_email');
+    $to = get_option('admin_email');
     $headers = [
         'Content-Type: text/html; charset=UTF-8',
         'From: Formulaire de contact - cominst.com <' . get_option('admin_email') . '>',
