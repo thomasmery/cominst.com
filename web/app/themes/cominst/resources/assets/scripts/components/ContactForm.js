@@ -89,7 +89,7 @@ const ContactForm = ({ shouldCloseModal }) => {
               fillRule="evenodd"
               strokeLinecap="square"
             >
-              <g stroke="#018EC0" strokeWidth="2">
+              <g stroke="#caf0fc" strokeWidth="2">
                 <path d="M0,13 L27,13" />
                 <path d="M14,27 L14,0" />
               </g>
