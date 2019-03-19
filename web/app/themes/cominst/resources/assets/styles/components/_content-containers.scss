@@ -294,7 +294,7 @@
   h1 > span.subtitle {
     display: block;
 
-    font-size: 1rem;
+    font-size: 1.25rem;
     line-height: 1.5rem;
     font-weight: 600;
     text-transform: initial;
@@ -308,6 +308,11 @@
     border: none;
   }
 
+  h1 > span.subtitle {
+    margin-top: 1rem;
+  }
+
+  h2,
   h3 {
     font-size: 0.825rem;
     line-height: 1.25rem;
@@ -327,8 +332,8 @@
     }
 
     h2 {
-      font-size: 1.25rem;
-      line-height: 1.6875rem;
+      font-size: 1.125rem;
+      line-height: 1.625rem;
     }
 
     h3 {
