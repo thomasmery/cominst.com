@@ -27,6 +27,8 @@
   .alignleft {
     float: left;
     margin-right: ($spacer / 2);
+    position: relative;
+    top: 5px;
   }
 
   .alignright {

@@ -18,7 +18,7 @@
         }
       }
     </style>
-    <section id="{{ $post_slug }}" class="section-main {!! (get_field('color_theme') ? get_field('color_theme') : 'light') !!} @php(the_field(('content_template')))">
+    <section id="{{ $post_slug }}" class="section-main {!! (get_field('color_theme') ? get_field('color_theme') : '') !!} @php(the_field(('content_template')))">
       <div class="container ContentContainerPagesAndSidebarNavigation">
         <div class="section-content">
           <div class="content-container content-container-pages-and-sidebar-navigation">

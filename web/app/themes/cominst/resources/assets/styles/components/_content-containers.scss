@@ -16,7 +16,8 @@
     font-size: 1.5rem;
     line-height: 1.875rem;
     font-weight: 600;
-    color: $color-blue-dark-01;
+    // color: $color-blue-dark-01;
+    color: $color-gray-dark-02;
   }
 
   h4 {
@@ -397,6 +398,13 @@
     }
 
     .child-content-container {
+      h1.title {
+        // quick fix to match h3 from SPA when displaying single page - php template{
+        font-size: 1.875rem;
+        line-height: 1.3;
+        color: $color-gray-dark-02;
+      }
+
       h3 {
         font-size: 1.875rem;
         line-height: 1.3;
