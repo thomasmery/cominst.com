@@ -8,8 +8,19 @@ class Section extends PureComponent {
   constructor(props) {
     super(props);
 
+    let image_url = null;
+    if (
+      props.data.featured_media_metadata &&
+      props.data.featured_media_metadata.sizes
+    ) {
+      image_url = props.data.featured_media_metadata.sizes.xl
+        ? props.data.featured_media_metadata.sizes.xl.url
+        : props.data.featured_media_metadata.sizes.original.url;
+    }
+
     this.state = {
       sectionStyles: props.sectionStyles,
+      className: image_url ? "has-background-image" : "",
     };
 
     this.backgroundImageUrl = "";
@@ -68,6 +79,7 @@ class Section extends PureComponent {
           ...state.sectionStyles,
           backgroundImage,
         },
+        className: image_url ? "has-background-image" : "",
       }));
     }
   }
@@ -102,6 +114,9 @@ class Section extends PureComponent {
   }
 
   render() {
+    const classNames = [this.props.className, this.state.className];
+    const className = classNames.join(" ");
+
     return (
       <Waypoint
         onEnter={this._onEnter}
@@ -111,7 +126,7 @@ class Section extends PureComponent {
       >
         <section
           id={this.props.id}
-          className={this.props.className}
+          className={className}
           style={this.state.sectionStyles}
         >
           <div className={this.props.containerClassName}>

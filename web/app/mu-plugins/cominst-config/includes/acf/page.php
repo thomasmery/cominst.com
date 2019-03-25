@@ -60,6 +60,18 @@ if( function_exists('acf_add_local_field_group') ):
         'title' => 'Style de la page',
         'fields' => array(
             array(
+                'key' => 'field_5c98b6b8e7571',
+                'label' => 'Masquer les titres et sous titres',
+                'instructions' => 'Quand ce contenu est affiché en Page d\'accueil il est possible de ne pas afficher les titres et sous-titres si ceux ci sont redondants avec les entrées de menu et le texte',
+                'name' => 'no_header',
+                'type' => 'true_false',
+                'message' => '',
+                'default_value' => 0,
+                'ui' => 1,
+                'ui_on_text' => 'Oui',
+                'ui_off_text' => 'Non',
+            ),
+            array(
                 'key' => 'field_5c11347518480',
                 'label' => 'Thème Couleur',
                 'name' => 'color_theme',

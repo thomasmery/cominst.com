@@ -103,9 +103,10 @@ section {
     background-color: $white;
 
     h1,
+    h1.title,
     h2,
     h3 {
-      color: $color-blue-dark-05;
+      color: $color-blue-dark-05 !important;
       border-color: $color-blue-dark-02;
     }
 
@@ -132,12 +133,13 @@ section {
     }
 
     h1,
+    h1.title,
     h2,
     h3,
     h4,
     h5,
     h6 {
-      color: $color-blue-light-01;
+      color: $color-blue-light-01 !important;
 
       & a {
         color: inherit;

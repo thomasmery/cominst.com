@@ -255,6 +255,7 @@ add_action('after_setup_theme', function () {
 
     /** Images Sizes */
     add_image_size('sm', 250, 0);
+    add_image_size('team-member-sm', 180, 0);
     add_image_size('xl', 1920, 0);
 }, 20);
 
@@ -264,8 +265,9 @@ add_action('after_setup_theme', function () {
 add_filter('image_size_names_choose', function ($sizes) {
     error_log($sizes);
     $custom_sizes = array(
-        'sm' => 'Small - custom - 250w',
-        'xl' => 'XL - custom - 1920w'
+        'sm' => 'Small - custom',
+        'team-member-sm' => 'Photo Equipe - Small',
+        'xl' => 'XL - custom'
     );
     error_log($custom_sizes);
     return array_merge( $sizes, $custom_sizes );

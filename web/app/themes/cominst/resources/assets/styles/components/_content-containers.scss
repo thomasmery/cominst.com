@@ -419,6 +419,13 @@
       // @todo find a way to apply the padding to the parent directly? (just to make things cleaner)
       > div {
         padding: 2.5rem;
+        padding-top: 0;
+        margin-top: -6px;
+
+        section.has-background-image & {
+          margin-top: 0;
+          padding-top: 2.5rem;
+        }
       }
 
       section & {

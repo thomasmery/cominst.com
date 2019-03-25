@@ -7,6 +7,18 @@ if( function_exists('acf_add_local_field_group') ):
         'title' => 'Champs supplémentaires pour éléments de contenu',
         'fields' => array(
             array(
+                'key' => 'field_5c98de457038b',
+                'label' => 'Masquer les titres et sous titres',
+                'instructions' => 'Quand ce contenu est affiché en Page d\'accueil il est possible de ne pas afficher les titres et sous-titres si ceux ci sont redondants avec les entrées de menu et le texte',
+                'name' => 'no_header',
+                'type' => 'true_false',
+                'message' => '',
+                'default_value' => 0,
+                'ui' => 1,
+                'ui_on_text' => 'Oui',
+                'ui_off_text' => 'Non',
+            ),
+            array(
                 'key' => 'field_5a3921bb9db3f',
                 'label' => 'Gabarit de contenu',
                 'name' => 'content_template',

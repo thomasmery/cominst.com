@@ -18,8 +18,11 @@
         }
       }
     </style>
-    <section id="{{ $post_slug }}" class="section-main {!! (get_field('color_theme') ? get_field('color_theme') : '') !!} @php(the_field(('content_template')))">
-      <div class="container ContentContainerPagesAndSidebarNavigation">
+    <section
+      id="{{ $post_slug }}"
+      class="section-main {!! (get_field('color_theme') ? get_field('color_theme') : '') !!} @php(the_field(('content_template'))){!! (get_the_post_thumbnail_url() ? ' has-background-image' : '') !!}"
+    >
+      <div class="container ContentContainerPagesAndSidebarNavigation test">
         <div class="section-content">
           <div class="content-container content-container-pages-and-sidebar-navigation">
             <div class="row">
@@ -52,10 +55,12 @@
                         @if ($secondary_image_html)
                           {!! $secondary_image_html !!}
                         @endif
-                        <div class="header">
-                          <h1 class="title">@php(the_title())</h1>
-                          <h4 class="subtitle">@php(the_field(('subtitle')))</h4>
-                        </div>
+                          <div class="header">
+                            <h1 class="title">@php(the_title())</h1>
+                            @if (!get_field('no_header'))
+                              <h4 class="subtitle">@php(the_field(('subtitle')))</h4>
+                            @endif
+                          </div>
                         <div class="content">
                           @php(the_content())
                         </div>
