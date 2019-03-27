@@ -37,6 +37,15 @@
   }
 }
 
+// place content under images on small screens when added in WP RTE
+@include media-breakpoint-down(sm) {
+  .content .alignleft,
+  .content .alignright {
+    display: block;
+    width: 100%;
+  }
+}
+
 /** Captions */
 .wp-caption {
   @extend .figure;
