@@ -317,10 +317,7 @@ function cominst_contact_form() {
 
     ob_start();
 
-    echo '
-        <h3>' . $data['subject'] . '</h3>' .
-        wpautop($data['message']) . '
-    ';
+    echo wpautop($data['message']);
 
     $message = ob_get_contents();
 

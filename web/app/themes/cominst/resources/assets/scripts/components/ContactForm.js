@@ -31,7 +31,6 @@ const ContactForm = ({ shouldCloseModal }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
     message: "",
     nonce: window.appData.contactFormNonce,
   });
@@ -123,7 +122,6 @@ const ContactForm = ({ shouldCloseModal }) => {
                         Object.assign({}, formData, {
                           name: "",
                           email: "",
-                          subject: "",
                           message: "",
                         })
                       );
@@ -178,27 +176,6 @@ const ContactForm = ({ shouldCloseModal }) => {
                 }}
                 className="form-control input-email"
                 placeholder={window.appData.i18n.EnterYourEmail}
-              />
-              <p className="error-message">{getError("email")}</p>
-            </div>
-            <div className="form-group">
-              <label htmlFor="subject">
-                {window.appData.i18n.messageSubject}
-              </label>
-              <input
-                name="subject"
-                value={formData.subject}
-                onChange={e => {
-                  setMessage("");
-                  setErrors([]);
-                  setFormData(
-                    Object.assign({}, formData, {
-                      subject: e.currentTarget.value,
-                    })
-                  );
-                }}
-                className="form-control input-subject"
-                placeholder={window.appData.i18n.EnterTheMessageSubject}
               />
               <p className="error-message">{getError("email")}</p>
             </div>
