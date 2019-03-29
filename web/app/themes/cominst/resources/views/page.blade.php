@@ -22,7 +22,7 @@
       id="{{ $post_slug }}"
       class="section-main {!! (get_field('color_theme') ? get_field('color_theme') : '') !!} @php(the_field(('content_template'))){!! (get_the_post_thumbnail_url() ? ' has-background-image' : '') !!}"
     >
-      <div class="container ContentContainerPagesAndSidebarNavigation test">
+      <div class="container ContentContainerPagesAndSidebarNavigation">
         <div class="section-content">
           <div class="content-container content-container-pages-and-sidebar-navigation">
             <div class="row">
