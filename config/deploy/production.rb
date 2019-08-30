@@ -1,14 +1,25 @@
 set :stage, :production
 
+set :application, 'v2'
+
 # Simple Role Syntax
 # ==================
 #role :app, %w{deploy@example.com}
 #role :web, %w{deploy@example.com}
 #role :db,  %w{deploy@example.com}
 
+set :branch, :master
+
+set :_home, '/kunden/homepages/46/d470823721/htdocs'
+set :tmp_dir, "#{fetch(:_home)}/tmp"
+set :deploy_to, "#{fetch(:_home)}/#{fetch(:application)}"
+
 # Extended Server Syntax
 # ======================
-server 'example.com', user: 'deploy', roles: %w{web app db}
+server 'home470823721.1and1-data.host', user: 'u73414872', roles: %w{web app db}
+
+# this is necessary
+SSHKit.config.command_map[:composer] = "/usr/bin/php7.1-cli #{shared_path.join('composer.phar')}"
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
