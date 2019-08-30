@@ -263,13 +263,11 @@ add_action('after_setup_theme', function () {
  * Add custom sizes to WP Admin dropdowns
  */
 add_filter('image_size_names_choose', function ($sizes) {
-    error_log($sizes);
     $custom_sizes = array(
         'sm' => 'Small - custom',
         'team-member-sm' => 'Photo Equipe - Small',
         'xl' => 'XL - custom'
     );
-    error_log($custom_sizes);
     return array_merge( $sizes, $custom_sizes );
 });
 
