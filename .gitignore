@@ -14,6 +14,10 @@ web/app/uploads/*
 # a modification made that is related to: https://github.com/aaltomeri/cominst.com/issues/6s
 !web/app/plugins/wp-super-cache
 
+# we keep wp migrate db pro because we have not renewed the license
+# and composer update will choke on this
+!web/app/plugins/wp-migrate-db-pro
+
 # custom plugin for editing block quotes
 !web/app/plugins/better-blockquotes
 
@@ -39,3 +43,5 @@ vendor/*
 /redirects.txt
 /web/app/wp-cache-config.php
 web/google*.html
+/web/app/wflogs
+/web/app/updraft
