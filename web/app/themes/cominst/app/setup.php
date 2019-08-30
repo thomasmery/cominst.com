@@ -349,3 +349,5 @@ add_filter( 'wp_calculate_image_sizes',
     10,
     2
 );
+
+add_filter('use_block_editor_for_post', '__return_false', 10);
