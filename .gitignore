@@ -10,10 +10,6 @@ web/app/uploads/*
 
 !web/app/mu-plugins/cominst-config
 
-# we keep wp super cache in the repository for now because of 
-# a modification made that is related to: https://github.com/aaltomeri/cominst.com/issues/6s
-!web/app/plugins/wp-super-cache
-
 # we keep wp migrate db pro because we have not renewed the license
 # and composer update will choke on this
 !web/app/plugins/wp-migrate-db-pro

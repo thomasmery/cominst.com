@@ -104,7 +104,8 @@
     "wpackagist-plugin/svg-support": "*",
     "wpackagist-plugin/redirection": "*",
     "wpackagist-plugin/updraftplus": "^1.16",
-    "wpackagist-plugin/wordfence": "^7.4"
+    "wpackagist-plugin/wordfence": "^7.4",
+    "wpackagist-plugin/wp-super-cache": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
