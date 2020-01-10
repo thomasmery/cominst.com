@@ -49,8 +49,8 @@ namespace :assets do
   # Compile assets for production
   task :compile do
     run_locally do
-      local_theme_path_escaped = Shellwords.shellescape(fetch(:local_theme_path))
-      within local_theme_path_escaped do
+      # local_theme_path_escaped = Shellwords.shellescape(fetch(:local_theme_path))
+      within fetch(:local_theme_path) do
         execute "npm", "run", "build:production"
       end
     end

@@ -41,3 +41,5 @@ vendor/*
 web/google*.html
 /web/app/wflogs
 /web/app/updraft
+
+log/
