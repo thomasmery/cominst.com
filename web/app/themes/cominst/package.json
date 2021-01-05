@@ -145,7 +145,7 @@
     "yargs": "~8.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.0.0-beta",
     "browserslist": "^4.3.4",
     "classnames": "^2.2.5",
